@@ -9,9 +9,11 @@ import { HttpClientModule } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { ProductosComponent } from './productos/productos.component';
+import { AddProductosComponent } from './add-productos/add-productos.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, ProductosComponent, AddProductosComponent],
   imports: [
     BrowserModule,
     FormsModule,
