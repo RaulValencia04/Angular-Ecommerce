@@ -27,6 +27,10 @@ export class AddProductosComponent {
   constructor(public userService: UsersService, private router: Router) {}
 
   guardarProducto() {
+
+    
+
+
     const user = { nombre: this.nombre , 
       precio: this.precio, 
       precioSubasta: this.precio_subasta,
@@ -41,5 +45,22 @@ export class AddProductosComponent {
 
 
     console.log(user);
+
+    this.userService.agregarProductos(user).subscribe(
+      (data: any) => {
+        // Assuming data.token exists in the response
+        if (data.token) {
+          this.userService.setToken(data.token);
+          this.router.navigateByUrl("/");
+        } else {
+          console.log("Token not found in response.");
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+
   }
 }
