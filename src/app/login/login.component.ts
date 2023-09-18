@@ -15,21 +15,20 @@ export class LoginComponent {
   constructor(private userService: UsersService, private router: Router) {}
 
   login() {
-    const user = {nombre_usuario:this.nombre, correo: this.email, password: this.password }; // Usar 'correo' en lugar de 'email' para coincidir con el nombre de columna en la tabla 'usuarios'
-    console.log(user);
+    const user = { correo: this.email, password: this.password };
+    console.log("Este anda");
+  
     this.userService.login(user).subscribe(
-
-
-
       (data: any) => {
-        // Supongamos que el servicio devuelve un objeto con un token
-        if (data && data.token) {
-          // Almacena el token en el servicio o en localStorage
-          this.userService.setToken(data.token);
-          console.log(data.token)
+        console.log("Respuesta recibida:", data);
+  
+        // Aquí puedes realizar otras acciones en función de la respuesta del servicio
+        if (data) {
+          // Realiza acciones basadas en los datos de respuesta, pero no esperes un token
+          // Por ejemplo, redirige al usuario a una página de inicio o muestra un mensaje de éxito.
           this.router.navigateByUrl("/home");
         } else {
-          console.log("Token no encontrado en la respuesta.");
+          console.log("No se encontraron datos relevantes en la respuesta.");
         }
       },
       (error) => {
@@ -37,4 +36,5 @@ export class LoginComponent {
       }
     );
   }
+  
 }

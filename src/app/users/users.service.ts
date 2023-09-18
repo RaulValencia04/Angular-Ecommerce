@@ -17,7 +17,7 @@ export class UsersService {
       .set('correo', user.correo)
       .set('password', user.password);
 
-    return this.http.get('http://localhost:5022/api/Usuario/logins', { params });
+    return this.http.post('http://localhost:5022/api/Usuario/login', user);
   }
   register(user: any): Observable<any> {
     return this.http.post("http://localhost:5022/api/Usuario/add", user);
