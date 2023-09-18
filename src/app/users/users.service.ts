@@ -31,6 +31,10 @@ export class UsersService {
   getUser() {
     return this.http.get("https://reqres.in/api/users/2");
   }
+
+  agregarProductos(user: any): Observable<any> {
+    return this.http.post('http://localhost:5022/api/Producto/add', user);
+  }
   // getUserLogged() {
   //   const token = this.getToken();
   //   // Aquí iría el endpoint para devolver el usuario para un token
