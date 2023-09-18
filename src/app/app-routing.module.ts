@@ -4,7 +4,11 @@ import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { HomeComponent } from './home/home.component';
 import { ProductosComponent } from "./productos/productos.component";
+
 import { DashboardComponent } from "./dashboard/dashboard.component";
+
+import { AddProductosComponent } from "./add-productos/add-productos.component";
+
 
  const appRoutes: Routes = [
   // { path: "", component: AppComponent },
@@ -13,6 +17,7 @@ import { DashboardComponent } from "./dashboard/dashboard.component";
   { path: "home", component: HomeComponent },
   { path: "productos", component: ProductosComponent},
   { path: "", component: DashboardComponent},
+  { path: "add-productos", component: AddProductosComponent},
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

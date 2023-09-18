@@ -1,2 +1,54 @@
 
+<form (submit)="guardarProducto()">
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" [(ngModel)]="nombre" required>
+    </div>
 
+    <div>
+      <label for="precio">Precio:</label>
+      <input type="number" id="precio" name="precio" [(ngModel)]="precio" required>
+    </div>
+
+    <div>
+      <label for="precioSubasta">Precio en Subasta:</label>
+      <input type="number" id="precioSubasta" name="precioSubasta" [(ngModel)]="precio_subasta">
+    </div>
+
+    <div>
+      <label for="imagenUrl">URL de la Imagen:</label>
+      <input type="file" id="imagenUrl" name="imagenUrl" [(ngModel)]="imagen_url" required>
+    </div>
+
+    <div>
+      <label for="descripcion">Descripción:</label>
+      <textarea id="descripcion" name="descripcion" [(ngModel)]="descripcion" required></textarea>
+    </div>
+
+    <div>
+      <label for="idCategoria">ID de Categoría:</label>
+      <input type="number" id="idCategoria" name="idCategoria" [(ngModel)]="id_categoria" required>
+    </div>
+
+    <div>
+      <label for="estado">Estado:</label>
+      <input type="number" id="estado" name="estado" [(ngModel)]="estado" required>
+    </div>
+
+    <div>
+      <label for="fechaInicio">Fecha de Inicio:</label>
+      <input type="datetime-local" id="fechaInicio" name="fechaInicio" [(ngModel)]="fecha_inicio" required>
+    </div>
+
+    <div>
+      <label for="fechaFinal">Fecha Final:</label>
+      <input type="datetime-local" id="fechaFinal" name="fechaFinal" [(ngModel)]="fecha_final" required>
+    </div>
+
+    <div>
+      <label for="tipoProducto">Tipo de Producto:</label>
+      <input type="text" id="tipoProducto" name="tipoProducto" [(ngModel)]="tipo_producto" required>
+    </div>
+
+    <button type="submit">Guardar Producto</button>
+  </form>
