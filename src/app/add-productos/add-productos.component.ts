@@ -23,44 +23,57 @@ export class AddProductosComponent {
     tipo_producto: string = "";
 
 
+    selectedFile: File | null = null;
 
-  constructor(public userService: UsersService, private router: Router) {}
+    constructor(public userService: UsersService, private router: Router) {}
+  
+    onFileSelected(event: any) {
+      // Obtén el archivo seleccionado
+      this.selectedFile = event.target.files[0];
+    }
+  
+   guardarProducto() {
+  if (this.selectedFile) {
+    const reader = new FileReader();
 
-  guardarProducto() {
+    // Función de carga del lector de archivos
+    reader.onload = (e) => {
+      // Guardar el archivo localmente en una carpeta del proyecto
+      const fileContent = reader.result as string;
+      const imageName = this.selectedFile!.name;  // ! asegura a TypeScript que selectedFile no será null
 
-    
+      // Supongamos que 'carpeta_imagenes' es la carpeta en la que quieres guardar las imágenes
+      const imagePath = `carpeta_imagenes/${imageName}`;
 
+      // Aquí deberías enviar el archivo al servidor y obtener la URL de la imagen
+      // Simulación de obtener la URL de la imagen después de la carga
+      const imageUrl = imagePath;
 
-    const user = { nombre: this.nombre , 
-      precio: this.precio, 
-      precioSubasta: this.precio_subasta,
-      imagen_url: this.imagen_url,
-      descripcion: this.descripcion,
-      id_categoria: this.id_categoria,
-      estado: this.estado,
-      fecha_inicio: this.fecha_inicio,
-      fecha_final: this.fecha_inicio,
-      tipo_producto: this.tipo_producto
+      // Almacena la URL de la imagen en imagen_url
+      this.imagen_url = imageUrl;
+
+      // Resto del código para guardar el producto en la base de datos
+      const user = {
+        nombre: this.nombre,
+        precio: this.precio,
+        precioSubasta: this.precio_subasta,
+        imagen_url: this.imagen_url,
+        descripcion: this.descripcion,
+        id_categoria: this.id_categoria,
+        estado: this.estado,
+        fecha_inicio: this.fecha_inicio,
+        fecha_final: this.fecha_final,
+        tipo_producto: this.tipo_producto
+      };
+
+      console.log(user);
     };
 
-
-    console.log(user);
-
-    this.userService.agregarProductos(user).subscribe(
-      (data: any) => {
-        // Assuming data.token exists in the response
-        if (data.token) {
-          this.userService.setToken(data.token);
-          this.router.navigateByUrl("/");
-        } else {
-          console.log("Token not found in response.");
-        }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-
-
+    // Leer el contenido del archivo como una URL de datos
+    reader.readAsDataURL(this.selectedFile);
+  } else {
+    console.error('No se ha seleccionado un archivo.');
   }
+}
+
 }
