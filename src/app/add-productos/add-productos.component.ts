@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { UsersService } from "../users/users.service";
 import { Router } from "@angular/router";
-import { CookieService } from "ngx-cookie-service";
+import { HttpClient } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-add-productos',
@@ -17,7 +19,7 @@ export class AddProductosComponent {
     imagen_url: string = "";
     descripcion: string = "";
     id_categoria: number = 0;
-    estado: string = "";
+    estado: number = 0.0;
     fecha_inicio: Date = new Date();
     fecha_final: Date = new Date();
     tipo_producto: string = "";
@@ -25,7 +27,7 @@ export class AddProductosComponent {
 
     selectedFile: File | null = null;
 
-    constructor(public userService: UsersService, private router: Router) {}
+    constructor(public userService: UsersService, private router: Router, private http: HttpClient) {}
   
     onFileSelected(event: any) {
       // Obtén el archivo seleccionado
@@ -33,17 +35,22 @@ export class AddProductosComponent {
     }
   
    guardarProducto() {
-  if (this.selectedFile) {
-    const reader = new FileReader();
 
-    // Función de carga del lector de archivos
-    reader.onload = (e) => {
-      // Guardar el archivo localmente en una carpeta del proyecto
-      const fileContent = reader.result as string;
-      const imageName = this.selectedFile!.name;  // ! asegura a TypeScript que selectedFile no será null
+    if (!this.selectedFile) {
+      alert('Selecciona una imagen primero.');
+      return;
+    }
+    // Gyuardar imagen en el servidor 
+    const formData = new FormData();
+    formData.append('imagen', this.selectedFile);
 
-      // Supongamos que 'carpeta_imagenes' es la carpeta en la que quieres guardar las imágenes
-      const imagePath = `carpeta_imagenes/${imageName}`;
+    this.http.post<any>('http://localhost:3000/subir-imagen', formData).subscribe(
+      (respuesta) => {
+        // Aquí puedes manejar la respuesta del servidor que debería contener la URL de la imagen cargada.
+        console.log('URL de la imagen cargada:', respuesta.imageUrl);
+
+        // Supongamos que 'carpeta_imagenes' es la carpeta en la que quieres guardar las imágenes
+      const imagePath = `carpeta_imagenes/${respuesta.imageUrl}`;
 
       // Aquí deberías enviar el archivo al servidor y obtener la URL de la imagen
       // Simulación de obtener la URL de la imagen después de la carga
@@ -51,6 +58,13 @@ export class AddProductosComponent {
 
       // Almacena la URL de la imagen en imagen_url
       this.imagen_url = imageUrl;
+      },
+      (error) => {
+        console.error('Error al subir la imagen:', error);
+      }
+    );
+
+    //-----------------------------
 
       // Resto del código para guardar el producto en la base de datos
       const user = {
@@ -69,11 +83,6 @@ export class AddProductosComponent {
       console.log(user);
     };
 
-    // Leer el contenido del archivo como una URL de datos
-    reader.readAsDataURL(this.selectedFile);
-  } else {
-    console.error('No se ha seleccionado un archivo.');
-  }
 }
 
-}
+
