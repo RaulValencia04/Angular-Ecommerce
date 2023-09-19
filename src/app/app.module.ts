@@ -12,9 +12,10 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { ProductosComponent } from './productos/productos.component';
 import { AddProductosComponent } from './add-productos/add-productos.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ProductGridComponent } from './product-grid/product-grid.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, ProductosComponent, AddProductosComponent, DashboardComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, ProductosComponent, AddProductosComponent, DashboardComponent, ProductGridComponent],
   imports: [
     BrowserModule,
     FormsModule,

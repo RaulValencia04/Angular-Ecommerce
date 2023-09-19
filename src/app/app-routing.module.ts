@@ -4,10 +4,9 @@ import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { HomeComponent } from './home/home.component';
 import { ProductosComponent } from "./productos/productos.component";
-
 import { DashboardComponent } from "./dashboard/dashboard.component";
-
 import { AddProductosComponent } from "./add-productos/add-productos.component";
+import { ProductGridComponent } from "./product-grid/product-grid.component";
 
 
  const appRoutes: Routes = [
@@ -18,6 +17,8 @@ import { AddProductosComponent } from "./add-productos/add-productos.component";
   { path: "productos", component: ProductosComponent},
   { path: "", component: DashboardComponent},
   { path: "add-productos", component: AddProductosComponent},
+  { path: "listaProductos", component: ProductGridComponent},
+
 ];
 
 export const routing = RouterModule.forRoot(appRoutes);

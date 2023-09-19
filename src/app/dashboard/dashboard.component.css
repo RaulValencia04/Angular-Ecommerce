@@ -1,0 +1,194 @@
+nav {
+  background-color: #E0F7FA;
+}
+
+footer {
+  background-color: #E0F7FA;
+}
+
+body {
+  font-family: 'Montserrat';
+  font-size: 18px;
+}
+.btn-outline {
+  padding: 10px 20px;
+  text-decoration: none;
+  color:#1565C0;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
+.btn-outline:hover {
+  background-color: #FFAB91;
+  color: black;
+}
+
+.btn-registro {
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #1565C0;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
+.btn-registro:hover {
+  background-color: #1565C0;
+  color: white;
+}
+
+/* Establece un tamaño para la imagen */
+.imagen-con-fondo {
+  width: 300px;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Establece el color de fondo por defecto */
+.imagen-con-fondo img {
+  width: 100%;
+  height: auto;
+}
+
+/* Crea el fondo animado al pasar el mouse */
+.imagen-con-fondo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background-color: #FFAB91; /* Cambia el color de fondo aquí */
+  z-index: 1; /* Asegura que el fondo esté encima de la imagen */
+  transition: left 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Agrega una transición suave para el fondo y la opacidad */
+  opacity: 0; /* Inicialmente oculta el fondo */
+}
+
+/* Muestra el texto encima del fondo */
+.imagen-con-fondo .texto {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2; /* Asegura que el texto esté encima del fondo */
+  opacity: 0; /* Inicialmente oculta el texto */
+  transition: opacity 0.3s ease-in-out; /* Agrega una transición suave para la opacidad del texto */
+}
+
+/* Agrega la animación al pasar el mouse */
+.imagen-con-fondo:hover::before {
+  left: 0;
+  opacity: 1; /* Muestra el fondo */
+}
+
+/* Muestra el texto al pasar el mouse */
+.imagen-con-fondo:hover .texto {
+  opacity: 1; /* Muestra el texto */
+}
+
+/* footter */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.pie-pagina{
+  width: 100%;
+  margin-top: 10px;
+  background-color: #000000;
+}
+.pie-pagina .grupo-1{
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap:50px;
+  padding: 45px 0px;
+}
+.pie-pagina .grupo-1 .box figure{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pie-pagina .grupo-1 .box figure img{
+  width: 250px;
+}
+.pie-pagina .grupo-1 .box h2{
+  color: #fff;
+  margin-bottom: 25px;
+  font-size: 20px;
+}
+.pie-pagina .grupo-1 .box p{
+  color: #efefef;
+  margin-bottom: 10px;
+}
+.pie-pagina .grupo-1 .red-social a{
+  display: inline-block;
+  text-decoration: none;
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
+  color: #fff;
+  margin-right: 10px;
+  background-color: #061d29;
+  text-align: center;
+  transition: all 300ms ease;
+}
+.pie-pagina .grupo-1 .red-social a:hover{
+  color: aqua;
+}
+.pie-pagina .grupo-2{
+  background-color: #061d29;
+  padding: 12px 10px;
+  text-align: center;
+  color: #fff;
+}
+.pie-pagina .grupo-2 small{
+  font-size: 15px;
+}
+@media screen and (max-width:800px){
+  .pie-pagina .grupo-1{
+      width: 90%;
+      grid-template-columns: repeat(1, 1fr);
+      grid-gap:30px;
+      padding: 35px 0px;
+  }
+}
+.lfooter{
+  background-image: linear-gradient(to right, #F2921D, #A61F69);
+-webkit-text-fill-color: transparent;
+font-weight: bold;
+font-size: 4.2rem;
+}
+
+.card {
+  /* Estilo para la tarjeta */
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 0 auto; /* Centra las tarjetas en su contenedor */
+
+  /* Ajusta el tamaño de la tarjeta */
+  width: 100%; /* Ancho de la tarjeta al 100% del contenedor */
+  max-width: 300px; /* Establece un ancho máximo para las tarjetas */
+  height: auto; /* El alto se ajustará automáticamente según el contenido */
+}
+
+.card-img-top {
+  max-width: 100%; /* Hace que la imagen sea responsive y no se desborde del contenedor */
+  height: auto; /* Mantiene la relación de aspecto original de la imagen */
+}
+
+.card-title {
+  font-size: 1.25rem; /* Tamaño de fuente del título de la tarjeta */
+}
+
+.card-text {
+  font-size: 1rem; /* Tamaño de fuente del texto de la tarjeta */
+}
+
