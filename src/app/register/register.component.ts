@@ -1,13 +1,14 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { UsersService } from "../users/users.service";
-import { Router } from "@angular/router";
+import { Router } from "@angular/router"; // Importa el Router
+import { CookieService } from "ngx-cookie-service";
 
 @Component({
   selector: "app-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.css"],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit  {
   firstName: string = "";
   lastName: string = "";
   email: string = "";
@@ -16,7 +17,17 @@ export class RegisterComponent {
   password: string = "";
   confirmPassword: string = "";
 
-  constructor(public userService: UsersService, private router: Router) {}
+  constructor(public userService: UsersService, private router: Router, private cookieService: CookieService ) {}
+
+  ngOnInit() {
+    // Verifica si la cookie "user" existe
+    const userCookieExists = this.cookieService.check("user");
+
+    if (userCookieExists) {
+      // Si la cookie no existe, redirige a la página de inicio de sesión
+      this.router.navigateByUrl("/");
+    }
+  }
 
   register() {
     const user = {

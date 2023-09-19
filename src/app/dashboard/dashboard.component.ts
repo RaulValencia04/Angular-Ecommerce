@@ -1,18 +1,26 @@
-import { Component , OnInit } from "@angular/core";
-import { UsersService } from "../users/users.service"
+import { Component, OnInit } from "@angular/core";
+import { UsersService } from "../users/users.service";
+import { CookieService } from "ngx-cookie-service"; // Importa el servicio de cookies
+import { Router } from "@angular/router";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
-
+export class DashboardComponent  implements OnInit{
   productos: any[] = [];
+  username: string = "";
+  hasUser: boolean = false; // Variable para verificar si existe un usuario en las cookies
 
-  constructor(private userService: UsersService) {}
+  constructor(
+    private userService: UsersService,
+    private cookieService: CookieService, // Inyecta el servicio de cookies
+    private router: Router // Inyecta el servicio de enrutamiento
+  ) {}
 
   ngOnInit(): void {
     this.loadProductos();
+    this.checkUser(); // Verifica si existe un usuario al cargar el componente
   }
 
   loadProductos(): void {
@@ -21,6 +29,36 @@ export class DashboardComponent {
     this.userService.buscarProducto(limite).subscribe((response: any) => {
       this.productos = response;
     });
+  }
+  checkUser(): void {
+    const userCookie = this.cookieService.get("user"); // Obtiene el valor de la cookie "user"
+    if (userCookie) {
+      this.username = userCookie; // Establece el nombre de usuario si existe
+      this.hasUser = true; // Indica que existe un usuario en las cookies
+    }
+  }
+  isLoggedIn(): boolean {
+    return this.cookieService.check("user"); // Devuelve true si la cookie "user" existe
+  }
+
+  // Función para obtener el nombre de usuario desde la cookie
+  getUsername(): string {
+    const userData = this.cookieService.get("user");
+    if (userData) {
+      const userObject = JSON.parse(userData);
+      return userObject.nombre_usuario || "";
+    }
+    return "";
+  }
+  logout() {
+    // Borra la cookie
+    this.cookieService.delete("user"); // Reemplaza "user" con el nombre de tu cookie
+
+
+  }
+
+  redirectToCart(): void {
+    this.router.navigate(['/carrito']); // Cambia '/carrito' a la ruta de tu página de carrito
   }
 
 }
