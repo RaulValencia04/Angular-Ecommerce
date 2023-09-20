@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 
 
 
+
 @Component({
   selector: 'app-add-productos',
   templateUrl: './add-productos.component.html',
@@ -19,7 +20,7 @@ export class AddProductosComponent {
     imagen_url: string = "";
     descripcion: string = "";
     id_categoria: number = 0;
-    estado: number = 0.0;
+    estado: number = 0;
     fecha_inicio: Date = new Date();
     fecha_final: Date = new Date();
     tipo_producto: string = "";
@@ -49,29 +50,17 @@ export class AddProductosComponent {
         // Aquí puedes manejar la respuesta del servidor que debería contener la URL de la imagen cargada.
         console.log('URL de la imagen cargada:', respuesta.imageUrl);
 
-        // Supongamos que 'carpeta_imagenes' es la carpeta en la que quieres guardar las imágenes
-      const imagePath = `carpeta_imagenes/${respuesta.imageUrl}`;
-
-      // Aquí deberías enviar el archivo al servidor y obtener la URL de la imagen
-      // Simulación de obtener la URL de la imagen después de la carga
-      const imageUrl = imagePath;
-
       // Almacena la URL de la imagen en imagen_url
-      this.imagen_url = imageUrl;
-      },
-      (error) => {
-        console.error('Error al subir la imagen:', error);
-      }
-    );
+      this.imagen_url = respuesta.imageUrl;
 
-    //-----------------------------
+      console.log(this.imagen_url)
 
-      // Resto del código para guardar el producto en la base de datos
+         // Resto del código para guardar el producto en la base de datos
       const user = {
         nombre: this.nombre,
         precio: this.precio,
         precioSubasta: this.precio_subasta,
-        imagen_url: this.imagen_url,
+        imagen_url: respuesta.imageUrl,
         descripcion: this.descripcion,
         id_categoria: this.id_categoria,
         estado: this.estado,
@@ -81,8 +70,33 @@ export class AddProductosComponent {
       };
 
       console.log(user);
-    };
 
+
+      this.userService.agregarProductos(user).subscribe(
+        (data: any) => {
+          // Assuming data.token exists in the response
+          if (data.token) {
+            this.userService.setToken(data.token);
+            this.router.navigateByUrl("/");
+          } else {
+            console.log("si llega aqui inserto datos");
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+
+      },
+      (error) => {
+        console.error('Error al subir la imagen:', error);
+      }
+    );
+
+    //-----------------------------
+
+     
+    };
 }
 
 
