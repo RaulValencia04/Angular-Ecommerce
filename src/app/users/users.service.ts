@@ -58,4 +58,8 @@ export class UsersService {
   //   // Aquí iría el endpoint para devolver el usuario para un token
   // }
 
+
+  obtenerListCategorias() {
+    return this.http.get("http://localhost:5022/api/Categoria/Categoria/GetAll");
+  }
 }
