@@ -2,7 +2,7 @@
 import { CookieService } from "ngx-cookie-service";
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: "root",
@@ -53,10 +53,30 @@ export class UsersService {
 
     return this.http.get(url);
   }
-  // getUserLogged() {
-  //   const token = this.getToken();
-  //   // Aquí iría el endpoint para devolver el usuario para un token
-  // }
+  ObtenerCarrito(query: any):Observable<any> {
+
+   const url = `http://localhost:5022/api/Carrito/Getbyname?q=${query}`;
+    return this.http.get(url);
+  }
+  EliminarCarrito(query: number){
+
+    console.log("id carrito "+query)
+
+    const url = `http://localhost:5022/api/Carrito/deleteCarrito/${query}`;
+
+    return this.http.delete(url).pipe(
+
+    );
+
+  }
+  AgregarCarrito(data: any){
+    const url = `http://localhost:5022/api/Carrito/add`;
+    // Devuelve el observable en lugar de suscribirte aquí
+    return this.http.post(url,data);
+  }
+
+
+
 
 
   obtenerListCategorias() {

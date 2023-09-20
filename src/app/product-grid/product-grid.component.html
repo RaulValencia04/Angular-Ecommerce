@@ -18,7 +18,7 @@
   <!-- Mostrar el valor de la búsqueda antes de la lista de productos -->
   <h2>Resultados para: {{ inputValue }}</h2>
 
-  <!-- Category List -->
+  <!-- Product List -->
   <div class="row">
     <div *ngFor="let pr of productos" class="col-md-4">
       <div class="card">
@@ -27,6 +27,14 @@
           <h5 class="card-title">{{ pr.nombre }}</h5>
           <p class="card-text">Precio: ${{ pr.precio }}</p>
           <p class="card-text">Descripción: {{ pr.descripcion }}</p>
+
+          <!-- Botón "Agregar al carrito" -->
+          <div class="input-group mb-3">
+            <input type="number" class="form-control" [(ngModel)]="pr.cantidad" min="1" max="10">
+            <div class="input-group-append">
+              <button class="btn btn-success" (click)="agregarAlCarrito(pr)" [attr.data-producto-id]="pr.id_producto">Agregar al carrito</button>
+            </div>
+          </div>
           <!-- Add more product details here as needed. -->
         </div>
       </div>
