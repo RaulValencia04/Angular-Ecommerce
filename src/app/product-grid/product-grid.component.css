@@ -1,0 +1,24 @@
+.card {
+  /* Estilo para la tarjeta */
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 0 auto; /* Centra las tarjetas en su contenedor */
+
+  /* Ajusta el tamaño de la tarjeta */
+  width: 100%; /* Ancho de la tarjeta al 100% del contenedor */
+  max-width: 300px; /* Establece un ancho máximo para las tarjetas */
+  height: auto; /* El alto se ajustará automáticamente según el contenido */
+}
+
+.card-img-top {
+  max-width: 100%; /* Hace que la imagen sea responsive y no se desborde del contenedor */
+  height: auto; /* Mantiene la relación de aspecto original de la imagen */
+}
+
+.card-title {
+  font-size: 1.25rem; /* Tamaño de fuente del título de la tarjeta */
+}
+
+.card-text {
+  font-size: 1rem; /* Tamaño de fuente del texto de la tarjeta */
+}

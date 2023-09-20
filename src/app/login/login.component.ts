@@ -29,7 +29,7 @@ export class LoginComponent {
           // Realiza acciones basadas en los datos de respuesta, pero no esperes un token
           // Por ejemplo, redirige al usuario a una página de inicio o muestra un mensaje de éxito.
           this.cookieService.set("user", JSON.stringify(data));
-          this.router.navigateByUrl("/home");
+          this.router.navigateByUrl("/");
         } else {
           console.log("No se encontraron datos relevantes en la respuesta.");
         }

@@ -22,6 +22,7 @@ export class UsersService {
   register(user: any): Observable<any> {
     return this.http.post("http://localhost:5022/api/Usuario/add", user);
   }
+
   setToken(token: String) {
     this.cookies.set("token", token);
   }
@@ -34,6 +35,23 @@ export class UsersService {
 
   agregarProductos(user: any): Observable<any> {
     return this.http.post('http://localhost:5022/api/Producto/add', user);
+  }
+
+  buscarProducto(query: any): Observable<any> {
+    console.log("busqueda: "+query)
+    var url = ''
+
+    if (typeof query === 'number') {
+
+       url = `http://localhost:5022/api/Producto/GetAll?limit=${query}`;
+
+    } else if (typeof query === 'string') {
+
+       url = `http://localhost:5022/api/Producto/GetAll?q=${query}`;
+
+    }
+
+    return this.http.get(url);
   }
   // getUserLogged() {
   //   const token = this.getToken();
