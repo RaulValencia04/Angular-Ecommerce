@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UsersService } from "../users/users.service";
+import { CookieService } from "ngx-cookie-service"; // Importa el servicio de cookies
 
 @Component({
   selector: 'app-product-grid',
@@ -11,38 +12,62 @@ export class ProductGridComponent implements OnInit {
   productos: any[] = [];
   inputValue = '';
 
-  constructor(public userService: UsersService) {}
+  constructor(public userService: UsersService, private cookieService: CookieService) {} // Inyecta el servicio de cookies
 
   ngOnInit(): void {
     this.loadInitialData();
   }
 
   loadInitialData(): void {
-    // No se llama a buscarProducto en la carga inicial para evitar resultados vacíos.
     this.buscarProducto('');
   }
 
   addCategory(newCategory: string): void {
     if (!this.categories.includes(newCategory)) {
-      this.categories.unshift(newCategory); // Agrega al principio del arreglo
-      // this.inputValue = ''; // Limpia el input
-      // Realiza la búsqueda al agregar una categoría
+      this.categories.unshift(newCategory);
       this.buscarProducto(newCategory);
     }
   }
 
   buscarProducto(query: string): void {
-    // Obtener el valor del input antes de la petición
-    query = query.trim(); // Elimina espacios en blanco
-
-    // Ahora puedes mostrar el valor en la consola si lo necesitas
+    query = query.trim();
     console.log("Búsqueda realizada: " + query);
 
     this.userService.buscarProducto(query).subscribe((response: any) => {
-      console.log(response); // Agrega esta línea para depurar la respuesta
-
-      // Asignar los resultados a la variable productos
+      console.log(response);
       this.productos = response;
     });
   }
+
+  agregarAlCarrito(producto: any) {
+    // Obtener el id_producto desde el botón
+    const id_producto = producto.id_producto;
+
+    // Obtener el id_usuario desde la cookie "user"
+    const userData = this.cookieService.get("user");
+    const userObject = JSON.parse(userData);
+    const id_usuario = userObject.id_usuario;
+
+    // Definir la cantidad (puedes ajustarla según tus necesidades)
+    const cantidad = producto.cantidad || 1; // Por defecto, 1 si no se especifica cantidad
+
+    const data = {
+      id_usuario: id_usuario,
+      id_producto: id_producto,
+      Cantidad: cantidad
+    };
+
+    this.userService.AgregarCarrito(data).subscribe(
+      (response: any) => {
+        // La solicitud se ha completado con éxito
+        console.log(`Producto "${producto.nombre}" agregado al carrito.`);
+      },
+      (error) => {
+        // Ha ocurrido un error durante la solicitud
+        console.error('Error al agregar el producto al carrito:', error);
+      }
+    );
+  }
+
+
 }

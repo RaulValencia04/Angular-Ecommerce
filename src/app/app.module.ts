@@ -13,9 +13,10 @@ import { ProductosComponent } from './productos/productos.component';
 import { AddProductosComponent } from './add-productos/add-productos.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProductGridComponent } from './product-grid/product-grid.component';
+import { CarritoComponent } from './carrito/carrito.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, ProductosComponent, AddProductosComponent, DashboardComponent, ProductGridComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, ProductosComponent, AddProductosComponent, DashboardComponent, ProductGridComponent, CarritoComponent],
   imports: [
     BrowserModule,
     FormsModule,
