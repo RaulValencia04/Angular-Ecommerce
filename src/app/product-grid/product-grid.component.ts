@@ -61,11 +61,11 @@ export class ProductGridComponent implements OnInit {
     // Obtener el id_usuario desde la cookie "user"
     const userData = this.cookieService.get("user");
 
-    if (!userData || userData.trim() === '') {
-      // Muestra el modal de inicio de sesión
-      this.showModal = true;
-      return; // No permite agregar al carrito si el usuario no ha iniciado sesión
-    }
+    // if (!userData || userData.trim() === '') {
+    //   // Muestra el modal de inicio de sesión
+    //   this.showModal = true;
+    //   return; // No permite agregar al carrito si el usuario no ha iniciado sesión
+    // }
 
     const userObject = JSON.parse(userData);
     const id_usuario = userObject.id_usuario;
