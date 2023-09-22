@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { UsersService } from "../users/users.service";
 import { Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
-
+import { CookieService } from "ngx-cookie-service";
 
 @Component({
   selector: 'app-add-productos',
@@ -14,6 +14,7 @@ import { HttpClient } from '@angular/common/http';
 export class AddProductosComponent implements OnInit{
 
   categorias: any[] = [];
+  
   // fecha_inicios: string = ""; 
   //codigo para la fecha
 
@@ -21,7 +22,7 @@ export class AddProductosComponent implements OnInit{
 
     // const fechaHoraActual = new Date();
     // this.fecha_inicios = fechaHoraActual.toISOString().slice(0, 16);
-
+    
 
 
     // Código que se ejecutará cuando el componente se inicie
@@ -40,6 +41,18 @@ export class AddProductosComponent implements OnInit{
           );
   }
 
+  getIdUsuarioFromCookie(): number {
+    const userData = this.cookieService.get("user");
+    if (userData) {
+      const userObject = JSON.parse(userData);
+      // console.log(userObject.id_usuario+ ''+ typeof userObject.id_usuario)
+      return userObject.id_usuario || "";
+
+    }
+
+    return 1; // Ejemplo: reemplaza esto con la lógica real
+  }
+
 
 
 
@@ -53,12 +66,13 @@ export class AddProductosComponent implements OnInit{
     fecha_inicio: Date = new Date();
     fecha_final: Date = new Date();
     tipo_producto: string = "";
+    id_usuario: number = 0;
 
     
 
     selectedFile: File | null = null;
 
-    constructor(public userService: UsersService, private router: Router, private http: HttpClient) {}
+    constructor(public userService: UsersService, private router: Router, private http: HttpClient ,private cookieService: CookieService) {}
 
 
 
@@ -72,6 +86,8 @@ export class AddProductosComponent implements OnInit{
 
   
    guardarProducto() {
+
+    const idUsuarioFromCookie = this.getIdUsuarioFromCookie();
 
     if (!this.selectedFile) {
       alert('Selecciona una imagen primero.');
@@ -102,7 +118,8 @@ export class AddProductosComponent implements OnInit{
         estado: this.estado,
         fecha_inicio: this.fecha_inicio,
         fecha_final: this.fecha_final,
-        tipo_producto: this.tipo_producto
+        tipo_producto: this.tipo_producto,
+        id_usuario: idUsuarioFromCookie
       };
 
       console.log(user);
