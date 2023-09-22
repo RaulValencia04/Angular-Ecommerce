@@ -12,23 +12,31 @@
       <tr>
         <th scope="col">Producto</th>
         <th scope="col">Cantidad</th>
+        <th scope="col">Precio por Unidad</th>
         <th scope="col">Fecha de Agregado</th>
-        <th scope="col">Acciones</th> <!-- Nueva columna para el botón de eliminar -->
+        <th scope="col">Precio Total</th>
+        <th scope="col">Acciones</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let producto of productos">
         <td>{{ producto.nombreProducto }}</td>
         <td>{{ producto.cantidad }}</td>
+        <td>{{ producto.total  | currency:'USD':'symbol':'1.2-2' }}</td>
         <td>{{ producto.fechaAgregado | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+        <td>{{ producto.total * producto.cantidad| currency:'USD':'symbol':'1.2-2' }}</td>
         <td>
           <button class="btn btn-danger" (click)="eliminarProducto(producto.idCarrito)">Eliminar</button>
         </td>
       </tr>
     </tbody>
   </table>
+  <div class="text-right mt-3">
+    <strong>Total a Pagar: {{ total | currency:'USD':'symbol':'1.2-2' }}</strong>
+  </div>
   <div class="text-center mt-3">
     <button class="btn btn-success" (click)="realizarCompra()">Comprar Ahora</button>
   </div>
 </div>
+
 

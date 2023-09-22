@@ -108,9 +108,27 @@ export class UsersService {
     return this.http.post(url,data);
   }
 
+  CrearPedido(data: any){
+
+    const url = `http://localhost:5022/api/pedido/add`;
+    // Devuelve el observable en lugar de suscribirte aquí
+    return this.http.post(url,data);
+
+  }
+
+  elimiarCarritoVenta(query: number){
+
+    console.log("id carrito "+query)
+
+    const url = `http://localhost:5022/api/Carrito/deleteCarritoByUsuario/${query}`;
+    // /api/Carrito/deleteCarritoByUsuario/{q}
+
+    return this.http.delete(url).pipe(
+
+    );
 
 
-
+  }
 
 
   obtenerListCategorias() {
