@@ -43,16 +43,49 @@ export class UsersService {
 
     if (typeof query === 'number') {
 
-       url = `http://localhost:5022/api/Producto/GetAll?limit=${query}`;
+       url = `http://localhost:5022/api/Producto/GetAllventa?limit=${query}`;
 
     } else if (typeof query === 'string') {
 
-       url = `http://localhost:5022/api/Producto/GetAll?q=${query}`;
+       url = `http://localhost:5022/api/Producto/GetAllventa?q=${query}`;
 
     }
 
     return this.http.get(url);
   }
+
+  buscarSubasta(query: any): Observable<any> {
+    console.log("busqueda: "+query)
+    var url = ''
+
+    if (typeof query === 'number') {
+
+       url = `http://localhost:5022/api/Producto/GetAllSB?limit=${query}`;
+
+    } else if (typeof query === 'string') {
+
+       url = `http://localhost:5022/api/Producto/GetAllSB?q=${query}`;
+
+    }
+
+    return this.http.get(url);
+  }
+
+  BuscarPorId(query: any): Observable<any> {
+    console.log("busqueda: "+query)
+    var url = ''
+
+    if (typeof query === 'number') {
+      console.log("busqueda: "+query)
+
+       url = `http://localhost:5022/api/Producto/GetporId?limit=${query}`;
+
+    } 
+
+    return this.http.get(url);
+  }
+
+
   ObtenerCarrito(query: any):Observable<any> {
 
    const url = `http://localhost:5022/api/Carrito/Getbyname?q=${query}`;

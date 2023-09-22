@@ -9,6 +9,8 @@ import { AddProductosComponent } from "./add-productos/add-productos.component";
 import { ProductGridComponent } from "./product-grid/product-grid.component";
 import { CarritoComponent } from "./carrito/carrito.component";
 import { HistorialComponent } from "./historial/historial.component";
+import { OfertarComponent } from "./ofertar/ofertar.component";
+
 
 
  const appRoutes: Routes = [
@@ -22,6 +24,7 @@ import { HistorialComponent } from "./historial/historial.component";
   { path: "listaProductos", component: ProductGridComponent},
   { path: "carrito", component: CarritoComponent},
   { path: "historial", component: HistorialComponent},
+  { path: 'ofertar/:id', component: OfertarComponent},
 
 ];
 

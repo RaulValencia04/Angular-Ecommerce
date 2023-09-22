@@ -20,7 +20,29 @@
 
   <!-- Product List -->
   <div class="row">
-    <div *ngFor="let pr of productos" class="col-md-4">
+    <!-- subastas -->
+    <div *ngFor="let pr of subasta" class="col-md-4 mb-4">
+      <div class="card">
+        <img [src]="pr.imagen_url" alt="{{ pr.nombre }}" class="card-img-top" />
+        <div class="card-body">
+          <h5 class="card-title">{{ pr.nombre }}</h5>
+          <p class="card-text">Precio: ${{ pr.precio }}</p>
+          <p class="card-text">Descripción: {{ pr.descripcion }}</p>
+
+          <!-- Botón "Agregar al carrito" -->
+          <div class="input-group mb-3">
+            <div class="input-group-append">
+              <a [routerLink]="['/ofertar',  pr.id_producto]" class="btn btn-primary">Ofertar</a>
+
+            </div>
+          </div>
+          <!-- Add more product details here as needed. -->
+        </div>
+      </div>
+    </div>
+
+   <!-- ventasss -->
+    <div *ngFor="let pr of productos" class="col-md-4 mb-4">
       <div class="card">
         <img [src]="pr.imagen_url" alt="{{ pr.nombre }}" class="card-img-top" />
         <div class="card-body">

@@ -10,6 +10,7 @@ import { CookieService } from "ngx-cookie-service"; // Importa el servicio de co
 export class ProductGridComponent implements OnInit {
   categories: string[] = [];
   productos: any[] = [];
+  subasta: any[] = [];
   inputValue = '';
   showModal = false;
 
@@ -46,6 +47,11 @@ export class ProductGridComponent implements OnInit {
     this.userService.buscarProducto(query).subscribe((response: any) => {
       console.log(response);
       this.productos = response;
+    });
+
+    this.userService.buscarSubasta(query).subscribe((response: any) => {
+      console.log(response);
+      this.subasta = response;
     });
   }
 
