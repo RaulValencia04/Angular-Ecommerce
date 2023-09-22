@@ -1,9 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 import { UsersService } from "../users/users.service";
 import { Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
-
-
 
 
 @Component({
@@ -13,7 +11,38 @@ import { HttpClient } from '@angular/common/http';
 })
 
 
-export class AddProductosComponent {
+export class AddProductosComponent implements OnInit{
+
+  categorias: any[] = [];
+  // fecha_inicios: string = ""; 
+  //codigo para la fecha
+
+  ngOnInit() {
+
+    // const fechaHoraActual = new Date();
+    // this.fecha_inicios = fechaHoraActual.toISOString().slice(0, 16);
+
+
+
+    // Código que se ejecutará cuando el componente se inicie
+    this.userService.obtenerListCategorias().subscribe(
+            (data: any) => {
+              // Assuming data.token exists in the response
+              if (data) {
+                this.categorias = data;
+              } else {
+                console.log("si llega aqui inserto datos");
+              }
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
+  }
+
+
+
+
     nombre: string = "";
     precio: number = 0.0;
     precio_subasta: number = 0.0;
@@ -25,15 +54,22 @@ export class AddProductosComponent {
     fecha_final: Date = new Date();
     tipo_producto: string = "";
 
+    
 
     selectedFile: File | null = null;
 
     constructor(public userService: UsersService, private router: Router, private http: HttpClient) {}
+
+
+
+
   
     onFileSelected(event: any) {
       // Obtén el archivo seleccionado
       this.selectedFile = event.target.files[0];
     }
+
+
   
    guardarProducto() {
 
@@ -72,20 +108,20 @@ export class AddProductosComponent {
       console.log(user);
 
 
-      this.userService.agregarProductos(user).subscribe(
-        (data: any) => {
-          // Assuming data.token exists in the response
-          if (data.token) {
-            this.userService.setToken(data.token);
-            this.router.navigateByUrl("/");
-          } else {
-            console.log("si llega aqui inserto datos");
-          }
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
+          this.userService.agregarProductos(user).subscribe(
+            (data: any) => {
+              // Assuming data.token exists in the response
+              if (data.token) {
+                this.userService.setToken(data.token);
+                this.router.navigateByUrl("/");
+              } else {
+                console.log("si llega aqui inserto datos");
+              }
+            },
+            (error) => {
+              console.log(error);
+            }
+          );
 
       },
       (error) => {

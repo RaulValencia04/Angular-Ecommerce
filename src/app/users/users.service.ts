@@ -79,4 +79,9 @@ export class UsersService {
 
 
 
+
+  obtenerListCategorias() {
+    return this.http.get("http://localhost:5022/api/Categoria/Categoria/GetAll");
+  }
+
 }

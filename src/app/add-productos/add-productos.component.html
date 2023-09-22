@@ -1,54 +1,83 @@
-<form (submit)="guardarProducto()">
-  <div>
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" name="nombre" [(ngModel)]="nombre" required>
-  </div>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body>
+    <form (submit)="guardarProducto()" class="container">
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" [(ngModel)]="nombre" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="precio">Precio:</label>
+        <input type="number" id="precio" name="precio" [(ngModel)]="precio" required class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="precioSubasta">Precio en Subasta:</label>
+        <input type="number" id="precioSubasta" name="precioSubasta" [(ngModel)]="precio_subasta" required class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="imagenUrl">URL de la Imagen:</label>
+        <input type="file" id="imagenUrl" name="imagenUrl" (change)="onFileSelected($event)" accept="image/*" required class="form-control-file">
+      </div>
+    
+      <div class="form-group">
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" [(ngModel)]="descripcion" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" class="form-control"></textarea>
+      </div>
+    
 
-  <div>
-    <label for="precio">Precio:</label>
-    <input type="number" id="precio" name="precio" [(ngModel)]="precio" required>
-  </div>
+      <div class="form-group">
+        <label for="categoria">Selecciona una categoría:</label>
+        <select id="categoria" name="categoria" [(ngModel)]="id_categoria" class="form-control">
+          <option *ngFor="let cat of categorias" [value]="cat.id_categoria">{{ cat.descripcion }}</option>
+        </select>
+      </div>
 
-  <div>
-    <label for="precioSubasta">Precio en Subasta:</label>
-    <input type="number" id="precioSubasta" name="precioSubasta" [(ngModel)]="precio_subasta">
-  </div>
+    
+      <div class="form-group">
+        <label for="estado">Estado:</label>
+        <select id="estado" name="estado" [(ngModel)]="estado" required class="form-control">
+          <option value="0">Activo</option>
+          <option value="1">Inactivo</option>
+        </select>
+      </div>
+    
+      <div class="form-group">
+        <label for="fechaInicio">Fecha de Inicio:</label>
+        <input type="datetime-local" id="fechaInicio" name="fechaInicio" [(ngModel)]="fecha_inicio" required class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="fechaFinal">Fecha Final:</label>
+        <input type="datetime-local" id="fechaFinal" name="fechaFinal" [(ngModel)]="fecha_final" required class="form-control">
+      </div>
+    
+      <div class="form-group">
+        <label for="tipoProducto">Tipo de Producto:</label>
+        <select id="tipoProducto" name="tipoProducto" [(ngModel)]="tipo_producto" required class="form-control">
+          <option value="Venta">Venta</option>
+          <option value="Subasta">Subasta</option>
+        </select>
+      </div>
+      
+    
+      <button type="submit" class="btn btn-primary">Guardar Producto</button>
+    </form>
+    
 
-  <div>
-    <label for="imagenUrl">URL de la Imagen:</label>
-    <input type="file" id="imagenUrl" name="imagenUrl" (change)="onFileSelected($event)" accept="image/*" required>
 
-  </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
 
-  <div>
-    <label for="descripcion">Descripción:</label>
-    <textarea id="descripcion" name="descripcion" [(ngModel)]="descripcion" required></textarea>
-  </div>
 
-  <div>
-    <label for="idCategoria">ID de Categoría:</label>
-    <input type="number" id="idCategoria" name="idCategoria" [(ngModel)]="id_categoria" required>
-  </div>
 
-  <div>
-    <label for="estado">Estado:</label>
-    <input type="number" id="estado" name="estado" [(ngModel)]="estado" required>
-  </div>
 
-  <div>
-    <label for="fechaInicio">Fecha de Inicio:</label>
-    <input type="datetime-local" id="fechaInicio" name="fechaInicio" [(ngModel)]="fecha_inicio" required>
-  </div>
-
-  <div>
-    <label for="fechaFinal">Fecha Final:</label>
-    <input type="datetime-local" id="fechaFinal" name="fechaFinal" [(ngModel)]="fecha_final" required>
-  </div>
-
-  <div>
-    <label for="tipoProducto">Tipo de Producto:</label>
-    <input type="text" id="tipoProducto" name="tipoProducto" [(ngModel)]="tipo_producto" required>
-  </div>
-
-  <button type="submit">Guardar Producto</button>
-</form>
