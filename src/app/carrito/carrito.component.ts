@@ -53,7 +53,9 @@ export class CarritoComponent implements OnInit {
 }
 
 
+realizarCompra(){
 
+}
 
 
   loadCarritoProductos(idUsuario: number): void {

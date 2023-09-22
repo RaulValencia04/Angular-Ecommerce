@@ -11,11 +11,21 @@ export class ProductGridComponent implements OnInit {
   categories: string[] = [];
   productos: any[] = [];
   inputValue = '';
+  showModal = false;
 
   constructor(public userService: UsersService, private cookieService: CookieService) {} // Inyecta el servicio de cookies
 
   ngOnInit(): void {
     this.loadInitialData();
+
+    const userData = this.cookieService.get("user");
+    if (!userData || userData.trim() === '') {
+      // El usuario no ha iniciado sesión, muestra el modal
+      this.showModal = true;
+    }
+
+
+
   }
 
   loadInitialData(): void {
@@ -41,10 +51,22 @@ export class ProductGridComponent implements OnInit {
 
   agregarAlCarrito(producto: any) {
     // Obtener el id_producto desde el botón
+
+
+
+
+
     const id_producto = producto.id_producto;
 
     // Obtener el id_usuario desde la cookie "user"
     const userData = this.cookieService.get("user");
+
+    if (!userData || userData.trim() === '') {
+      // Muestra el modal de inicio de sesión
+      this.showModal = true;
+      return; // No permite agregar al carrito si el usuario no ha iniciado sesión
+    }
+
     const userObject = JSON.parse(userData);
     const id_usuario = userObject.id_usuario;
 
