@@ -84,4 +84,15 @@ export class UsersService {
     return this.http.get("http://localhost:5022/api/Categoria/Categoria/GetAll");
   }
 
+
+  obtenersubastasAbiertas() {
+    return this.http.get("http://localhost:5022/api/Producto/GetSBabiertas");
+  }
+
+  obtenersubastasCerradas() {
+    return this.http.get("http://localhost:5022/api/Producto/GetSBcerradas");
+  }
+
+  
+
 }
