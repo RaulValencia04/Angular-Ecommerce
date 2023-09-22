@@ -15,32 +15,32 @@
 
 <body>
   <!-- <app-root></app-root> -->
-  <nav class="navbar navbar-expand-lg fixed-top">
+  <!-- <nav class="navbar navbar-expand-lg fixed-top"> -->
     <!-- Resto de tu código para la barra de navegación -->
-    <div class="collapse navbar-collapse" id="navbarScroll">
+    <!-- <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
-        </ul>
+        </ul> -->
         <!-- Estructura condicional para mostrar elementos según el estado de autenticación -->
-        <ng-container *ngIf="isLoggedIn(); else notLoggedIn">
+        <!-- <ng-container *ngIf="isLoggedIn(); else notLoggedIn"> -->
             <!-- Mostrar nombre de usuario y botón de carrito si está logueado -->
-            <div class="d-flex align-items-center">
+            <!-- <div class="d-flex align-items-center">
                 <p class="m-0 me-2">Bienvenido, {{ getUsername() }}</p>
                 <a class="btn btn-primary" href="/carrito">Carrito</a>
                 <a class="btn btn-primary" (click)="logout()">Cerrar sesion</a>
             </div>
-        </ng-container>
+        </ng-container> -->
         <!-- Si no está logueado -->
-        <ng-template #notLoggedIn>
+        <!-- <ng-template #notLoggedIn>
             <form class="d-flex" role="search">
                 <a class="btn btn-outline" href="/login"><i class="bi bi-person-check"></i> Iniciar Sesión</a>
                 <a class="btn btn-outline" href="/register"><i class="bi bi-person-add"></i> Registro</a>
             </form>
         </ng-template>
     </div>
-</nav>
+</nav> -->
 
       <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
