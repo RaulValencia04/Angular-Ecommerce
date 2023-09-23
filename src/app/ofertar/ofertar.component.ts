@@ -12,9 +12,17 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class OfertarComponent implements OnInit{
   productos: any[] = [];
+  productos2: any[] = [];
+
+  constructor(public userService: UsersService, private router: Router, private http: HttpClient , private cookieService: CookieService,private route: ActivatedRoute) {}
+
 
 
   ngOnInit() {
+
+    setInterval(() => {
+      this.calcularTiempoRestante(this.productos);
+    }, 1000);
 
 
     let query = "";
@@ -100,8 +108,15 @@ export class OfertarComponent implements OnInit{
 
     return 1; // Ejemplo: reemplaza esto con la lógica real
   }
+  loadProductos(): void {
+    // Llama a la función del servicio para cargar los producto
+    const limite =3
+    this.userService.buscarProducto(limite).subscribe((response: any) => {
+      this.productos2 = response;
+      console.log(this.productos2)
+    });
+  }
 
 
-    constructor(public userService: UsersService, private router: Router, private http: HttpClient , private cookieService: CookieService,private route: ActivatedRoute) {}
 
 }

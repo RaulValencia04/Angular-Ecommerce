@@ -13,8 +13,15 @@ export class ProductGridComponent implements OnInit {
   subasta: any[] = [];
   inputValue = '';
   showModal = false;
+  isVenta = true;
+
 
   constructor(public userService: UsersService, private cookieService: CookieService) {} // Inyecta el servicio de cookies
+
+  toggleModo(): void {
+    this.isVenta = !this.isVenta;
+    this.buscarProducto(''); // Realizar una nueva búsqueda al cambiar el modo
+  }
 
   ngOnInit(): void {
     this.loadInitialData();
@@ -44,15 +51,21 @@ export class ProductGridComponent implements OnInit {
     query = query.trim();
     console.log("Búsqueda realizada: " + query);
 
-    this.userService.buscarProducto(query).subscribe((response: any) => {
-      console.log(response);
-      this.productos = response;
-    });
-
-    this.userService.buscarSubasta(query).subscribe((response: any) => {
-      console.log(response);
-      this.subasta = response;
-    });
+    if (this.isVenta) {
+      this.userService.buscarProducto(query).subscribe((response: any) => {
+        console.log(response);
+        this.productos = response;
+      });
+    } else {
+      this.userService.buscarSubasta(query).subscribe((response: any) => {
+        console.log(response);
+        this.subasta = response;
+      });
+    }
+  }
+  toggleVentaSubasta(): void {
+    this.isVenta = !this.isVenta; // Cambiar entre Venta y Subasta
+    this.buscarProducto(''); // Realizar una nueva búsqueda al cambiar de vista
   }
 
   agregarAlCarrito(producto: any) {
@@ -95,6 +108,7 @@ export class ProductGridComponent implements OnInit {
         console.error('Error al agregar el producto al carrito:', error);
       }
     );
+
   }
 
 

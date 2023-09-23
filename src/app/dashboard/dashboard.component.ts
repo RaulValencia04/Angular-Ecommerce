@@ -1,7 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, NgModule, OnInit } from "@angular/core";
 import { UsersService } from "../users/users.service";
 import { CookieService } from "ngx-cookie-service"; // Importa el servicio de cookies
 import { Router } from "@angular/router";
+import { RouterModule } from '@angular/router';
+
+
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -9,6 +13,7 @@ import { Router } from "@angular/router";
 })
 export class DashboardComponent  implements OnInit{
   productos: any[] = [];
+  productos2: any[] = [];
   username: string = "";
   hasUser: boolean = false; // Variable para verificar si existe un usuario en las cookies
 
@@ -17,6 +22,14 @@ export class DashboardComponent  implements OnInit{
     private cookieService: CookieService, // Inyecta el servicio de cookies
     private router: Router // Inyecta el servicio de enrutamiento
   ) {}
+
+
+
+  generateOfertarURL(id_producto: number) {
+
+     this.router.navigateByUrl(`/ofertar/${id_producto}`);
+
+  }
 
   ngOnInit(): void {
     this.loadProductos();
@@ -28,6 +41,9 @@ export class DashboardComponent  implements OnInit{
     const limite =3
     this.userService.buscarProducto(limite).subscribe((response: any) => {
       this.productos = response;
+    });
+    this.userService.buscarSubasta(limite).subscribe((response: any) => {
+      this.productos2 = response;
     });
   }
   checkUser(): void {

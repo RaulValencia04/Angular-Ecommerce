@@ -10,6 +10,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 export class UsersService {
 
   cookies: any;
+
   constructor(private http: HttpClient) {}
 
   login(user: any): Observable<any> {
@@ -43,11 +44,11 @@ export class UsersService {
 
     if (typeof query === 'number') {
 
-       url = `http://localhost:5022/api/Producto/GetAllventa?limit=${query}`;
+      url = `http://localhost:5022/api/Producto/GetAll?limit=${query}&tipo=Venta`;
 
     } else if (typeof query === 'string') {
 
-       url = `http://localhost:5022/api/Producto/GetAllventa?q=${query}`;
+       url = `http://localhost:5022/api/Producto/GetAll?q=${query}&tipo=Venta`;
 
     }
 
@@ -60,11 +61,11 @@ export class UsersService {
 
     if (typeof query === 'number') {
 
-       url = `http://localhost:5022/api/Producto/GetAllSB?limit=${query}`;
+       url = `http://localhost:5022/api/Producto/GetporId?limit=${query}&tipo=Subasta`;
 
     } else if (typeof query === 'string') {
 
-       url = `http://localhost:5022/api/Producto/GetAllSB?q=${query}`;
+       url = `http://localhost:5022/api/Producto/GetAllSB?q=${query}&tipo=Subasta`;
 
     }
 

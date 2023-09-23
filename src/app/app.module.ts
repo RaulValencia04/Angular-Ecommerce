@@ -16,6 +16,7 @@ import { ProductGridComponent } from './product-grid/product-grid.component';
 import { CarritoComponent } from './carrito/carrito.component';
 import { HistorialComponent } from './historial/historial.component';
 import { OfertarComponent } from './ofertar/ofertar.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, ProductosComponent, AddProductosComponent, DashboardComponent, ProductGridComponent, CarritoComponent, HistorialComponent, OfertarComponent],
@@ -23,9 +24,11 @@ import { OfertarComponent } from './ofertar/ofertar.component';
     BrowserModule,
     FormsModule,
     routing,
-    HttpClientModule // Importa el AppRoutingModule que contiene tus rutas
+    HttpClientModule ,
+    // Importa el AppRoutingModule que contiene tus rutas
   ],
   providers: [CookieService],
   bootstrap: [AppComponent],
+
 })
 export class AppModule {}
