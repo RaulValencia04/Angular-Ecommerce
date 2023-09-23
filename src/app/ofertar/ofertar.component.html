@@ -20,13 +20,39 @@
                 <!-- Contenido de la tarjeta a la derecha -->
                 <div class="card-body">
                   <h5 class="card-title">   {{ pr.nombre }}</h5>
-                  <p class="card-text">Más información sobre la tarjeta aquí. Puedes agregar más detalles y descripción.</p>
+                  <div class="alert alert-danger" style="display: grid; place-items: center
+                  ;" role="alert">
+                    <p>Tiempo restante: {{ calcularTiempoRestante(pr) }}</p>
+                  </div>
+
                   <!-- Puedes agregar más contenido aquí, como botones, enlaces, etc. -->
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-6">
+                        <h2>Puja mas alta:</h2>
+                        <h4>US $ {{ pr.precio_subasta }}</h4>
+                      </div>
+                      <div class="col-6">
+                        <div class="input-group mb-3">
+                          <input type="number" class="form-control "   [(ngModel)]="pr.newprecios" min="1" max="10">
+                          <div class="input-group-append">
+                            <button class="btn btn-success" (click)="OFERTAR(pr)" [attr.data-producto-id]="pr.id_producto">
+                              Pujar >  (US $ {{ pr.precio_subasta }})
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <p class="card-text">  {{pr.descripcion}}</p>
+
+
+                    </div>
+
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-          
+
 
     </div>
 </body>

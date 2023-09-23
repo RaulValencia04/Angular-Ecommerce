@@ -80,7 +80,7 @@ export class UsersService {
 
        url = `http://localhost:5022/api/Producto/GetporId?limit=${query}`;
 
-    } 
+    }
 
     return this.http.get(url);
   }
@@ -130,6 +130,17 @@ export class UsersService {
 
   }
 
+  realizarPuja(idProducto: number, precioPuja: number, idUsuario: number): Observable<any> {
+    // Crea un objeto con los datos de la puja y el ID de usuario
+    const pujaData = {
+      PrecioPuja: precioPuja,
+      IdUsuario: idUsuario
+    };
+    console.log(pujaData);
+    // Realiza la solicitud PUT para enviar la puja y el ID de usuario
+    return this.http.put(`http://localhost:5022/api/Producto/ActualizarSubasta/${idProducto}`, pujaData);
+  }
+
 
   obtenerListCategorias() {
     return this.http.get("http://localhost:5022/api/Categoria/Categoria/GetAll");
@@ -144,6 +155,6 @@ export class UsersService {
     return this.http.get("http://localhost:5022/api/Producto/GetSBcerradas");
   }
 
-  
+
 
 }
