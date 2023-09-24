@@ -1,14 +1,12 @@
-
-import { CookieService } from "ngx-cookie-service";
+import { CookieService } from 'ngx-cookie-service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, catchError, of, throwError } from 'rxjs';
 
 @Injectable({
-  providedIn: "root",
+  providedIn: 'root',
 })
 export class UsersService {
-
   cookies: any;
 
   constructor(private http: HttpClient) {}
@@ -21,90 +19,68 @@ export class UsersService {
     return this.http.post('http://localhost:5022/api/Usuario/login', user);
   }
   register(user: any): Observable<any> {
-    return this.http.post("http://localhost:5022/api/Usuario/add", user);
+    return this.http.post('http://localhost:5022/api/Usuario/add', user);
   }
   setToken(token: String) {
-    this.cookies.set("token", token);
+    this.cookies.set('token', token);
   }
   getToken() {
-    return this.cookies.get("token");
+    return this.cookies.get('token');
   }
   getUser() {
-    return this.http.get("https://reqres.in/api/users/2");
+    return this.http.get('https://reqres.in/api/users/2');
   }
   agregarProductos(user: any): Observable<any> {
-    console.log(user)
+    console.log(user);
     return this.http.post('http://localhost:5022/api/Producto/add', user);
   }
-
-
-
   buscarProducto(query: any): Observable<any> {
-    console.log("busqueda: "+query)
-    var url = ''
+    console.log('busqueda: ' + query);
+    var url = '';
 
     if (typeof query === 'number') {
-
       url = `http://localhost:5022/api/Producto/GetAll?limit=${query}&tipo=Venta`;
-
     } else if (typeof query === 'string') {
-
-       url = `http://localhost:5022/api/Producto/GetAll?q=${query}&tipo=Venta`;
-
+      url = `http://localhost:5022/api/Producto/GetAll?q=${query}&tipo=Venta`;
     }
 
     return this.http.get(url);
   }
-
   buscarSubasta(query: any): Observable<any> {
-    console.log("busqueda: "+query)
-    var url = ''
+    console.log('busqueda: ' + query);
+    var url = '';
 
     if (typeof query === 'number') {
-
-       url = `http://localhost:5022/api/Producto/GetAll?limit=${query}&tipo=Subasta`;
-
+      url = `http://localhost:5022/api/Producto/GetAll?limit=${query}&tipo=Subasta`;
     } else if (typeof query === 'string') {
-
-       url = `http://localhost:5022/api/Producto/GetAll?q=${query}&tipo=Subasta`;
-
+      url = `http://localhost:5022/api/Producto/GetAll?q=${query}&tipo=Subasta`;
     }
 
     return this.http.get(url);
   }
-
   BuscarPorId(query: any): Observable<any> {
-    console.log("busqueda: "+query)
-    var url = ''
+    console.log('busqueda: ' + query);
+    var url = '';
 
     if (typeof query === 'number') {
-      console.log("busqueda: "+query)
+      console.log('busqueda: ' + query);
 
-       url = `http://localhost:5022/api/Producto/GetporId?limit=${query}`;
-
+      url = `http://localhost:5022/api/Producto/GetporId?limit=${query}`;
     }
 
     return this.http.get(url);
   }
-
-
-  ObtenerCarrito(query: any):Observable<any> {
-
-   const url = `http://localhost:5022/api/Carrito/Getbyname?q=${query}`;
+  ObtenerCarrito(query: any): Observable<any> {
+    const url = `http://localhost:5022/api/Carrito/Getbyname?q=${query}`;
     return this.http.get(url);
   }
-  EliminarCarrito(query: number){
-
-    console.log("id carrito "+query)
+  EliminarCarrito(query: number) {
+    console.log('id carrito ' + query);
 
     const url = `http://localhost:5022/api/Carrito/deleteCarrito/${query}`;
 
-    return this.http.delete(url).pipe(
-
-    );
-
+    return this.http.delete(url).pipe();
   }
-
   AgregarDetalle(data: any[]): Observable<any> {
     // Verifica que data sea una matriz y que contenga al menos un elemento
     if (Array.isArray(data) && data.length > 0) {
@@ -137,60 +113,66 @@ export class UsersService {
       return of(null); // Devuelve un observable nulo en caso de error
     }
   }
-
-  AgregarCarrito(data: any){
+  AgregarCarrito(data: any) {
     const url = `http://localhost:5022/api/Carrito/add`;
     // Devuelve el observable en lugar de suscribirte aquí
-    return this.http.post(url,data);
+    return this.http.post(url, data);
   }
-
-  CrearPedido(data: any){
-
+  CrearPedido(data: any) {
     const url = `http://localhost:5022/api/pedido/add`;
     // Devuelve el observable en lugar de suscribirte aquí
-    return this.http.post(url,data);
-
+    return this.http.post(url, data);
   }
-
-  elimiarCarritoVenta(query: number){
-
-    console.log("id carrito "+query)
+  elimiarCarritoVenta(query: number) {
+    console.log('id carrito ' + query);
 
     const url = `http://localhost:5022/api/Carrito/deleteCarritoByUsuario/${query}`;
     // /api/Carrito/deleteCarritoByUsuario/{q}
 
-    return this.http.delete(url).pipe(
-
-    );
-
-
+    return this.http.delete(url).pipe();
   }
-
-  realizarPuja(idProducto: number, precioPuja: number, idUsuario: number): Observable<any> {
+  realizarPuja(
+    idProducto: number,
+    precioPuja: number,
+    idUsuario: number
+  ): Observable<any> {
     // Crea un objeto con los datos de la puja y el ID de usuario
     const pujaData = {
       PrecioPuja: precioPuja,
-      IdUsuario: idUsuario
+      IdUsuario: idUsuario,
     };
     console.log(pujaData);
     // Realiza la solicitud PUT para enviar la puja y el ID de usuario
-    return this.http.put(`http://localhost:5022/api/Producto/ActualizarSubasta/${idProducto}`, pujaData);
+    return this.http.put(
+      `http://localhost:5022/api/Producto/ActualizarSubasta/${idProducto}`,
+      pujaData
+    );
   }
-
-
+  ActualizarEstadoSubasta(idProducto: number) {
+    const url = `http://localhost:5022/api/Producto/ActualizarEstadoSubasta/${idProducto}`;
+    console.log('estado' + idProducto);
+    return this.http.put(url, {}).subscribe(
+      (data) => {
+        console.log('PUT Request is successful ', data);
+      },
+      (error) => {
+        console.log('Error', error);
+      }
+    );
+  }
   obtenerListCategorias() {
-    return this.http.get("http://localhost:5022/api/Categoria/Categoria/GetAll");
+    return this.http.get(
+      'http://localhost:5022/api/Categoria/Categoria/GetAll'
+    );
   }
-
-
+  obtenerEstadoSubasta(idSubasta: number){
+    const url = `http://localhost:5022/api/Producto/GetporId?limit=${idSubasta}`;
+    return this.http.get(url);
+  }
   obtenersubastasAbiertas() {
-    return this.http.get("http://localhost:5022/api/Producto/GetSBabiertas");
+    return this.http.get('http://localhost:5022/api/Producto/GetSBabiertas');
   }
-
   obtenersubastasCerradas() {
-    return this.http.get("http://localhost:5022/api/Producto/GetSBcerradas");
+    return this.http.get('http://localhost:5022/api/Producto/GetSBcerradas');
   }
-
-
-
 }

@@ -1,6 +1,6 @@
-import { Component, OnInit, Query } from "@angular/core";
-import { UsersService } from "../users/users.service";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { UsersService } from '../users/users.service';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
@@ -8,125 +8,182 @@ import { CookieService } from 'ngx-cookie-service';
 @Component({
   selector: 'app-ofertar',
   templateUrl: './ofertar.component.html',
-  styleUrls: ['./ofertar.component.css']
+  styleUrls: ['./ofertar.component.css'],
 })
-export class OfertarComponent implements OnInit{
+export class OfertarComponent implements OnInit {
   productos: any[] = [];
-  productos2: any[] = [];
+  subastaCerrada: boolean = false;
+  operacionRealizada: boolean = false;
+  idProducto: number = 0;
+  estado2: any = 0;
 
-  constructor(public userService: UsersService, private router: Router, private http: HttpClient , private cookieService: CookieService,private route: ActivatedRoute) {}
-
-
+  constructor(
+    public userService: UsersService,
+    private router: Router,
+    private http: HttpClient,
+    private cookieService: CookieService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
 
-    setInterval(() => {
-      this.calcularTiempoRestante(this.productos);
-    }, 1000);
+    const subastaCerradaEnLocalStorage = localStorage.getItem('subastaCerrada');
+    if (subastaCerradaEnLocalStorage === 'true') {
+      this.subastaCerrada = true;
+    }
 
 
-    let query = "";
-    // this.calcularTiempoRestante(this.productos);
-    this.route.params.subscribe(params => {
-      query = params['id']; // Obtiene el valor del parámetro "id"
-      // Ahora puedes usar "id" en tu componente
-      console.log(typeof query)
-
-      const numeroEntero = parseInt(query, 10); // La base 10 es común para números enteros
-
+    this.route.params.subscribe((params) => {
+      const query = params['id'];
+      const numeroEntero = parseInt(query, 10);
 
       if (typeof numeroEntero === 'number') {
-        this.userService.BuscarPorId(numeroEntero).subscribe((response: any) => {
-          this.productos = response;
-          console.log(this.productos);
-        })
+        this.idProducto = numeroEntero;
+        this.userService.BuscarPorId(this.idProducto).subscribe(
+          (response: any) => {
+            this.productos = response;
+          }
+        );
       }
     });
 
+    this.userService.obtenerEstadoSubasta(this.idProducto).subscribe(
+      (response: any) => {
+        this.estado2 = response[0].estado == 1;
 
+        if (response[0].estado == 1) {
+          this.subastaCerrada = true;
+        }
+      },
+      (error) => {
+        console.error('Error al obtener el estado de la subasta:', error);
+      }
+    );
 
-
-
+    setInterval(() => {
+      if (this.estado2 == 0) {
+        this.calcularTiempoRestante(this.productos);
+      }
+    }, 1000);
   }
+  OFERTAR(producto: any) {
+    if (!this.subastaCerrada && this.estado2 == 0) {
+      const precioOfertado = producto.newprecios;
+      const precioSubasta = producto.precio_subasta;
+
+      if (precioOfertado > precioSubasta) {
+        const idProducto = producto.id_producto;
+        const idUsuario = this.getIdUsuarioFromCookie();
+
+        this.userService
+          .realizarPuja(idProducto, precioOfertado, idUsuario)
+          .subscribe(
+            (response: any) => {
+              // Realizar acciones adicionales si es necesario
+            },
+            (error) => {
+              console.error('Error al realizar la puja:', error);
+            }
+          );
+
+      } else {
+        console.error('La oferta debe ser mayor al precio de subasta.');
+      }
+    }
+  }
+
+  detenerContador(producto: any) {
+    this.subastaCerrada = true;
+    producto.tiempoRestante = 'Subasta Cerrada';
+  }
+
   calcularTiempoRestante(producto: any) {
     const fechaFinalSubasta = new Date(producto.fecha_final);
     const fechaActual = new Date();
-
-    // Calcula la diferencia de tiempo en milisegundos
     const diferencia = fechaFinalSubasta.getTime() - fechaActual.getTime();
-    console.log(diferencia)
-
-    // Convierte la diferencia de tiempo a días, horas, minutos y segundos
     const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const horas = Math.floor(
+      (diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
     const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
     const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+    const tp = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
 
-    // Formatea el tiempo restante
-    const tp  = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
-    if (diferencia <= 0) {
-      this.onTiempoRestanteCero(); // Llama a la función cuando llega a cero
+    if (diferencia <= 0 && this.estado2 == 0 && !this.operacionRealizada) {
+      this.onTiempoRestanteCero(producto);
+      this.operacionRealizada = true; // Marca la operación como realizada
     }
+
     return tp;
-    console.log( producto.tiempoRestante)
-  }
-  onTiempoRestanteCero() {
-
-    console.log('El tiempo restante ha llegado a cero. Realizar acciones aquí.');
-
   }
 
+  getdir(): string {
+    const userData = this.cookieService.get('user');
+    if (userData) {
+      const userObject = JSON.parse(userData);
+      return userObject.direccion || '';
+    }
 
-  OFERTAR(producto: any) {
-    const precioOfertado = producto.newprecios; // Obtener el precio ingresado por el usuario
-    const precioSubasta = producto.precio_subasta; // Obtener el precio de subasta del producto
+    return '';
+  }
 
-    // Verificar si el precio ofertado es mayor al precio de subasta
-    if (precioOfertado > precioSubasta) {
-      // Realizar la oferta
-      //console.log(`Oferta aceptada: US $${precioOfertado}`);
+  onTiempoRestanteCero(producto: any) {
+    if (!this.subastaCerrada && this.estado2 == 0) {
+      const idUsuario = this.getIdUsuarioFromCookie();
+      const dir = this.getdir();
 
-      // Obtener el ID del producto y el ID del usuario
-      const idProducto = producto.id_producto; // Reemplaza con el campo correcto
-      const idUsuario = this.getIdUsuarioFromCookie(); // Reemplaza con el ID de usuario correcto
+      // Marca la subasta como cerrada en el almacenamiento local
+      localStorage.setItem('subastaCerrada', 'true');
 
-      // Llamar al método realizarPuja y pasar los parámetros
-      this.userService.realizarPuja(idProducto, precioOfertado, idUsuario).subscribe(
+      const pedido = {
+        total_pagar: producto.precio_subasta,
+        fecha_pedido: new Date().toISOString(),
+        id_estado_pedido: 1,
+        id_usuario: idUsuario,
+        ubicacion: dir,
+      };
+
+      this.userService.CrearPedido(pedido).subscribe(
         (response: any) => {
-          console.log('Puja realizada con éxito:', response);
-          // Realizar acciones adicionales si es necesario
+          const idPedido = response.id_pedido;
+          const detallesPedido = [
+            {
+              id_producto: producto.id_producto,
+              id_pedido: idPedido,
+              cantidad: 1,
+            },
+          ];
+
+          this.userService.AgregarDetalle(detallesPedido).subscribe(
+            (detalleResponse: any) => {
+              if (!this.subastaCerrada) {
+                this.userService.ActualizarEstadoSubasta(producto.id_producto);
+                this.detenerContador(producto);
+                console.log(detallesPedido);
+              }
+            },
+            (detalleError: any) => {
+              console.error(
+                'Error al agregar el detalle de pedido:',
+                detalleError
+              );
+            }
+          );
         },
         (error) => {
-          console.error('Error al realizar la puja:', error);
+          console.error('Error al crear el pedido:', error);
         }
       );
-
-      // Aquí puedes agregar la lógica adicional necesaria después de realizar la puja.
-    } else {
-      // Mostrar un mensaje de error al usuario
-      console.error('La oferta debe ser mayor al precio de subasta.');
-      // Puedes mostrar un mensaje de error al usuario de alguna manera, como un mensaje en la interfaz de usuario.
     }
   }
+
   getIdUsuarioFromCookie(): number {
     const userData = this.cookieService.get('user');
     if (userData) {
       const userObject = JSON.parse(userData);
-      // console.log(userObject.id_usuario+ ''+ typeof userObject.id_usuario)
       return userObject.id_usuario || '';
     }
 
-    return 1; // Ejemplo: reemplaza esto con la lógica real
+    return 1;
   }
-  loadProductos(): void {
-    // Llama a la función del servicio para cargar los producto
-    const limite =3
-    this.userService.buscarProducto(limite).subscribe((response: any) => {
-      this.productos2 = response;
-      console.log(this.productos2)
-    });
-  }
-
-
-
 }
