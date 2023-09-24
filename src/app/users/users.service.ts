@@ -33,6 +33,7 @@ export class UsersService {
     return this.http.get("https://reqres.in/api/users/2");
   }
   agregarProductos(user: any): Observable<any> {
+    console.log(user)
     return this.http.post('http://localhost:5022/api/Producto/add', user);
   }
 

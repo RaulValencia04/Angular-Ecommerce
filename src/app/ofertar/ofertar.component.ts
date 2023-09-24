@@ -54,6 +54,7 @@ export class OfertarComponent implements OnInit{
 
     // Calcula la diferencia de tiempo en milisegundos
     const diferencia = fechaFinalSubasta.getTime() - fechaActual.getTime();
+    console.log(diferencia)
 
     // Convierte la diferencia de tiempo a días, horas, minutos y segundos
     const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
@@ -62,8 +63,17 @@ export class OfertarComponent implements OnInit{
     const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
 
     // Formatea el tiempo restante
-    return producto.tiempoRestante = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+    const tp  = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+    if (diferencia <= 0) {
+      this.onTiempoRestanteCero(); // Llama a la función cuando llega a cero
+    }
+    return tp;
     console.log( producto.tiempoRestante)
+  }
+  onTiempoRestanteCero() {
+
+    console.log('El tiempo restante ha llegado a cero. Realizar acciones aquí.');
+
   }
 
 
@@ -74,7 +84,7 @@ export class OfertarComponent implements OnInit{
     // Verificar si el precio ofertado es mayor al precio de subasta
     if (precioOfertado > precioSubasta) {
       // Realizar la oferta
-      console.log(`Oferta aceptada: US $${precioOfertado}`);
+      //console.log(`Oferta aceptada: US $${precioOfertado}`);
 
       // Obtener el ID del producto y el ID del usuario
       const idProducto = producto.id_producto; // Reemplaza con el campo correcto
