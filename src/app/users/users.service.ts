@@ -62,11 +62,11 @@ export class UsersService {
 
     if (typeof query === 'number') {
 
-       url = `http://localhost:5022/api/Producto/GetporId?limit=${query}&tipo=Subasta`;
+       url = `http://localhost:5022/api/Producto/GetAll?limit=${query}&tipo=Subasta`;
 
     } else if (typeof query === 'string') {
 
-       url = `http://localhost:5022/api/Producto/GetAllSB?q=${query}&tipo=Subasta`;
+       url = `http://localhost:5022/api/Producto/GetAll?q=${query}&tipo=Subasta`;
 
     }
 
