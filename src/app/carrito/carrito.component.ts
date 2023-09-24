@@ -1,6 +1,7 @@
 import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users/users.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-carrito',
@@ -10,6 +11,7 @@ import { UsersService } from '../users/users.service';
 export class CarritoComponent implements OnInit {
   productos: any[] = [];
   total: number = 0;
+  cantidad: number= 0;
 
   constructor(
     public userService: UsersService,
@@ -24,84 +26,131 @@ export class CarritoComponent implements OnInit {
     this.loadCarritoProductos(idUsuarioFromCookie);
   }
 
-  getdir():string{
-    const userData = this.cookieService.get('user');
-    if (userData) {
-      const userObject = JSON.parse(userData);
-      // console.log(userObject.id_usuario+ ''+ typeof userObject.id_usuario)
-      return userObject.direccion || '';
-    }
 
-    return ""; // Ejemplo: reemplaza esto con la lógica real
 
-  }
 
-  getIdUsuarioFromCookie(): number {
-    const userData = this.cookieService.get('user');
-    if (userData) {
-      const userObject = JSON.parse(userData);
-      // console.log(userObject.id_usuario+ ''+ typeof userObject.id_usuario)
-      return userObject.id_usuario || '';
-    }
 
-    return 1; // Ejemplo: reemplaza esto con la lógica real
-  }
-
-  eliminarProducto(id_carrito: number) {
+  agregarDetalle(data: any) {
+    // Realiza la solicitud POST para agregar un detalle de pedido al carrito
     try {
-      this.userService.EliminarCarrito(id_carrito).subscribe(
-        () => {
+      this.userService.AgregarDetalle(data).subscribe(
+        (response: any) => {
+          console.log('Detalle de producto agregado con éxito:', response);
+          // Recarga los productos en el carrito después de agregar un detalle
           const idUsuarioFromCookie = this.getIdUsuarioFromCookie();
           this.loadCarritoProductos(idUsuarioFromCookie);
         },
-        (error) => {
-          console.error('Error al eliminar el carrito:', error);
+        (error: any) => {
+          console.error('Error al agregar el detalle de producto:', error);
+          if (error instanceof HttpErrorResponse) {
+            console.error('Estado del error:', error.status);
+            console.error('Mensaje de error:', error.message);
+            console.error('Cuerpo de la respuesta del servidor:', error.error);
+          }
         }
       );
+
     } catch (error) {
-      console.error('Error inesperado al eliminar el carrito:', error);
-    } finally {
-      // Refrescar la página actual
-      window.location.reload();
+      console.error('Error inesperado al agregar el detalle de producto:', error);
     }
   }
+
+
+
 
   realizarCompra() {
     // Obtener el id_usuario de la cookie del usuario
     const idUsuarioFromCookie = this.getIdUsuarioFromCookie();
-
     const dir = this.getdir();
 
     // Crear un objeto de pedido con los datos necesarios
     const pedido = {
-      total_pagar: this.total, // Reemplaza con el valor correcto
-      fecha_pedido: new Date().toISOString(),
-      id_estado_pedido: 1, // Reemplaza con el valor correcto
-      id_usuario: idUsuarioFromCookie,
-      ubicacion: dir, // Reemplaza con la ubicación correcta
+        total_pagar: this.total,
+        fecha_pedido: new Date().toISOString(),
+        id_estado_pedido: 1,
+        id_usuario: idUsuarioFromCookie,
+        ubicacion: dir,
     };
-    console.log(pedido) //{total_pagar: 1749.9, fecha_pedido: '2023-09-22T19:38:57.725Z', id_estado_pedido: 1, id_usuario: 1, ubicacion: 'raulvalenciau@gmail.com'}
 
     // Enviar la solicitud POST al endpoint de creación de pedido
     try {
-      this.userService.CrearPedido(pedido).subscribe(
-        (response: any) => {
-          console.log('Pedido creado con éxito:', response);
+        this.userService.CrearPedido(pedido).subscribe(
+            (response: any) => {
+                console.log('Pedido creado con éxito:', response);
+
+                const idPedido = response.id_pedido;
+
+                // Crear un arreglo para almacenar los detalles de pedido
+                const detallesPedido = [];
+
+                // Recorrer los productos en el carrito y crear objetos de detalle de pedido
+                for (const producto of this.productos) {
+                    const detallePedido = {
+                        id_producto: producto.idProducto,
+                        id_pedido: idPedido, // Usar el id_pedido obtenido
+                        cantidad: producto.cantidad,
+                    };
+                    detallesPedido.push(detallePedido);
+                }
+                console.log(detallesPedido);
 
 
-          // Perform additional actions if needed.
-        },
-        (error) => {
-          console.error('Error al crear el pedido:', error);
-        }
-      );
 
+
+                this.agregarDetalle(detallesPedido);
+            },
+            (error) => {
+                console.error('Error al crear el pedido:', error);
+            }
+        );
     } catch (error) {
-      console.error('Error inesperado al crear el pedido:', error);
-      console.log(pedido)
+        console.error('Error inesperado al crear el pedido:', error);
     }
     this.LimpiarCarrito();
+}
+
+getdir():string{
+  const userData = this.cookieService.get('user');
+  if (userData) {
+    const userObject = JSON.parse(userData);
+    // console.log(userObject.id_usuario+ ''+ typeof userObject.id_usuario)
+    return userObject.direccion || '';
   }
+
+  return ""; // Ejemplo: reemplaza esto con la lógica real
+
+}
+getIdUsuarioFromCookie(): number {
+  const userData = this.cookieService.get('user');
+  if (userData) {
+    const userObject = JSON.parse(userData);
+    // console.log(userObject.id_usuario+ ''+ typeof userObject.id_usuario)
+    return userObject.id_usuario || '';
+  }
+
+  return 1; // Ejemplo: reemplaza esto con la lógica real
+}
+eliminarProducto(id_carrito: number) {
+  try {
+    this.userService.EliminarCarrito(id_carrito).subscribe(
+      () => {
+        const idUsuarioFromCookie = this.getIdUsuarioFromCookie();
+        this.loadCarritoProductos(idUsuarioFromCookie);
+      },
+      (error) => {
+        console.error('Error al eliminar el carrito:', error);
+      }
+    );
+  } catch (error) {
+    console.error('Error inesperado al eliminar el carrito:', error);
+  } finally {
+    // Refrescar la página actual
+    window.location.reload();
+  }
+}
+
+
+
   calcularTotal(): void {
     let total = 0;
 
@@ -145,10 +194,11 @@ export class CarritoComponent implements OnInit {
       console.error('Error inesperado al eliminar el carrito:', error);
     } finally {
       // Refrescar la página actual
-      window.location.reload();
+      // window.location.reload();
     }
 
-
   }
+
+
 
 }

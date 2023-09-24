@@ -2,7 +2,7 @@
 import { CookieService } from "ngx-cookie-service";
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, of, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: "root",
@@ -23,7 +23,6 @@ export class UsersService {
   register(user: any): Observable<any> {
     return this.http.post("http://localhost:5022/api/Usuario/add", user);
   }
-
   setToken(token: String) {
     this.cookies.set("token", token);
   }
@@ -33,10 +32,11 @@ export class UsersService {
   getUser() {
     return this.http.get("https://reqres.in/api/users/2");
   }
-
   agregarProductos(user: any): Observable<any> {
     return this.http.post('http://localhost:5022/api/Producto/add', user);
   }
+
+
 
   buscarProducto(query: any): Observable<any> {
     console.log("busqueda: "+query)
@@ -103,6 +103,40 @@ export class UsersService {
     );
 
   }
+
+  AgregarDetalle(data: any[]): Observable<any> {
+    // Verifica que data sea una matriz y que contenga al menos un elemento
+    if (Array.isArray(data) && data.length > 0) {
+      const url = `http://localhost:5022/api/DetallePedido/add`;
+
+      // Utiliza un bucle for para recorrer los elementos del array y enviarlos
+      for (const detallePedido of data) {
+        console.log(detallePedido);
+        console.log(detallePedido.id_pedido);
+        console.log(detallePedido.id_producto);
+        console.log(detallePedido.cantidad);
+
+        // Realiza la solicitud POST para cada detallePedido
+        this.http.post(url, detallePedido).subscribe(
+          (response) => {
+            // Maneja la respuesta si es necesario
+            console.log('Respuesta del servidor:', response);
+          },
+          (error) => {
+            // Maneja errores si es necesario
+            console.error('Error en la solicitud POST:', error);
+          }
+        );
+      }
+
+      // Devuelve un observable que indica que la solicitud se ha completado
+      return of('Solicitud POST en proceso');
+    } else {
+      console.error('El objeto data no es una matriz o está vacío.');
+      return of(null); // Devuelve un observable nulo en caso de error
+    }
+  }
+
   AgregarCarrito(data: any){
     const url = `http://localhost:5022/api/Carrito/add`;
     // Devuelve el observable en lugar de suscribirte aquí
