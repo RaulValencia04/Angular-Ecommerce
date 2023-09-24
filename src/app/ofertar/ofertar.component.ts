@@ -15,7 +15,9 @@ export class OfertarComponent implements OnInit {
   subastaCerrada: boolean = false;
   operacionRealizada: boolean = false;
   idProducto: number = 0;
-  estado2: any = 0;
+  estado2: any = 1;
+  subastasCerradas: { [idProducto: number]: boolean } = {};
+
 
   constructor(
     public userService: UsersService,
@@ -26,12 +28,6 @@ export class OfertarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
-    const subastaCerradaEnLocalStorage = localStorage.getItem('subastaCerrada');
-    if (subastaCerradaEnLocalStorage === 'true') {
-      this.subastaCerrada = true;
-    }
-
 
     this.route.params.subscribe((params) => {
       const query = params['id'];
@@ -49,11 +45,13 @@ export class OfertarComponent implements OnInit {
 
     this.userService.obtenerEstadoSubasta(this.idProducto).subscribe(
       (response: any) => {
-        this.estado2 = response[0].estado == 1;
+        this.estado2 = response[0].estado ;
+       console.log(this.estado2);
 
-        if (response[0].estado == 1) {
-          this.subastaCerrada = true;
-        }
+
+
+        // Almacenar el estado de cierre para esta subasta
+        this.subastasCerradas[this.idProducto] = response[0].estado == 1;
       },
       (error) => {
         console.error('Error al obtener el estado de la subasta:', error);
@@ -68,6 +66,8 @@ export class OfertarComponent implements OnInit {
   }
   OFERTAR(producto: any) {
     if (!this.subastaCerrada && this.estado2 == 0) {
+
+
       const precioOfertado = producto.newprecios;
       const precioSubasta = producto.precio_subasta;
 
@@ -105,13 +105,18 @@ export class OfertarComponent implements OnInit {
     const horas = Math.floor(
       (diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
+    console.log( (diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
     const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
     const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
     const tp = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+    // console.log(tp);
 
-    if (diferencia <= 0 && this.estado2 == 0 && !this.operacionRealizada) {
+    if (diferencia <= 0 ) {
       this.onTiempoRestanteCero(producto);
-      this.operacionRealizada = true; // Marca la operación como realizada
+      this.operacionRealizada = true;
+      this.subastaCerrada = true;
+      producto.tiempoRestante = 'Subasta Cerrada';
+       // Marca la operación como realizada
     }
 
     return tp;
@@ -128,7 +133,8 @@ export class OfertarComponent implements OnInit {
   }
 
   onTiempoRestanteCero(producto: any) {
-    if (!this.subastaCerrada && this.estado2 == 0) {
+    if (!this.subastasCerradas[producto.id_producto] && this.estado2 == 0) {
+        console.log(this.estado2);
       const idUsuario = this.getIdUsuarioFromCookie();
       const dir = this.getdir();
 
@@ -174,6 +180,7 @@ export class OfertarComponent implements OnInit {
           console.error('Error al crear el pedido:', error);
         }
       );
+      this.subastasCerradas[producto.id_producto] = true;
     }
   }
 
