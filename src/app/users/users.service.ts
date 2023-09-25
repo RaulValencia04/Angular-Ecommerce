@@ -58,6 +58,12 @@ export class UsersService {
 
     return this.http.get(url);
   }
+  buscarSubasta2(){
+    const url = `http://localhost:5022/api/Producto/GetSBabiertas`
+
+    return this.http.get(url)
+  }
+
   BuscarPorId(query: any): Observable<any> {
     console.log('busqueda: ' + query);
     var url = '';

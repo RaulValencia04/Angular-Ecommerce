@@ -105,7 +105,7 @@ export class OfertarComponent implements OnInit {
     const horas = Math.floor(
       (diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
-    console.log( (diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    //console.log( (diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
     const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
     const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
     const tp = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
