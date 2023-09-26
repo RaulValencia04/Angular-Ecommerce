@@ -33,24 +33,21 @@ export class ProductGridComponent implements OnInit {
       this.hasUser = true; // Indica que existe un usuario en las cookies
     }
   }
-  
-  // isLoggedIn(): boolean {
-  //   return this.cookieService.check("user"); // Devuelve true si la cookie "user" existe
-  // }
 
-  // toggleModo(): void {
-  //   this.isVenta = !this.isVenta;
-  //   this.buscarProducto(''); // Realizar una nueva búsqueda al cambiar el modo
-  // }
+  isLoggedIn(): boolean {
+    return this.cookieService.check("user"); // Devuelve true si la cookie "user" existe
+  }
+
+  toggleModo(): void {
+    this.isVenta = !this.isVenta;
+    this.buscarProducto(''); // Realizar una nueva búsqueda al cambiar el modo
+  }
 
   ngOnInit(): void {
     const userCookie = this.cookieService.get("user");
 
 
-  if(!userCookie){
-    console.log(userCookie);
-    this.router.navigateByUrl("/");
-  }    
+
 
     this.loadInitialData();
 
