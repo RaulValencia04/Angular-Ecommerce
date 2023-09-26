@@ -21,7 +21,14 @@ export class HistorialComponent implements OnInit{
 
     const user = this.getIdUsuarioFromCookie();
 
+    const userCookie = this.cookieService.get("user");
 
+
+    if(!userCookie){
+      console.log(userCookie);
+      this.router.navigateByUrl("/");
+    }    
+  
 
     //vamos a traer las subastas que este abiertas
     this.userService.ObtenerSubastaActivosme(user).subscribe(

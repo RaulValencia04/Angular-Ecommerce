@@ -32,14 +32,12 @@ export class UsersService {
     return this.http.get('https://reqres.in/api/users/2');
   }
   agregarProductos(user: any): Observable<any> {
-    console.log(user);
     return this.http.post('http://localhost:5022/api/Producto/add', user);
   }
 
 
 
   buscarProducto(query: any, query2: any): Observable<any> {
-    console.log('busqueda: ' + query);
     var url = '';
 
     if(typeof query === 'string' && query2 > 0){
@@ -59,7 +57,6 @@ export class UsersService {
 
 
   buscarSubasta(query: any, query2: any): Observable<any> {
-    console.log('busqueda: ' + query);
     var url = '';
 
     if(typeof query === 'string' && query2 > 0){
@@ -88,11 +85,9 @@ export class UsersService {
   }
 
   BuscarPorId(query: any): Observable<any> {
-    console.log('busqueda: ' + query);
     var url = '';
 
     if (typeof query === 'number') {
-      console.log('busqueda: ' + query);
 
       url = `http://localhost:5022/api/Producto/GetporId?limit=${query}`;
     }
@@ -104,7 +99,6 @@ export class UsersService {
     return this.http.get(url);
   }
   EliminarCarrito(query: number) {
-    console.log('id carrito ' + query);
 
     const url = `http://localhost:5022/api/Carrito/deleteCarrito/${query}`;
 
@@ -117,10 +111,7 @@ export class UsersService {
 
       // Utiliza un bucle for para recorrer los elementos del array y enviarlos
       for (const detallePedido of data) {
-        console.log(detallePedido);
-        console.log(detallePedido.id_pedido);
-        console.log(detallePedido.id_producto);
-        console.log(detallePedido.cantidad);
+      
 
         // Realiza la solicitud POST para cada detallePedido
         this.http.post(url, detallePedido).subscribe(

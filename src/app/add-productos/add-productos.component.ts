@@ -32,9 +32,7 @@ export class AddProductosComponent implements OnInit {
         // Assuming data.token exists in the response
         if (data) {
           this.categorias = data;
-        } else {
-          console.log("si llega aqui inserto datos");
-        }
+        } 
       },
       (error) => {
         console.log(error);
@@ -103,24 +101,27 @@ export class AddProductosComponent implements OnInit {
       return;
     }
 
-   
-    if( (this.tipo_producto.toString().includes("Venta") && this.precio <= 0)
-    || (this.tipo_producto.toString().includes("Subasta") && (this.precio_subasta  <= 0  )
-    )
-    || (this.nombre.toString().length === 0
-    || this.estado.toString().length===0
-    || this.id_categoria.toString().length===0
-    || this.descripcion.toString().length === 0
-    || this.tipo_producto.toString().length===0)){
-       return;
+
+    if ((this.tipo_producto.toString().includes("Venta") && this.precio <= 0)
+      || (this.tipo_producto.toString().includes("Subasta") && (this.precio_subasta <= 0)
+          )
+      || (this.nombre.toString().length === 0
+        || this.estado.toString().length === 0
+        || this.id_categoria.toString().length === 0
+        || this.descripcion.toString().length === 0
+        || this.tipo_producto.toString().length === 0
+        )
+        ) 
+      {
+      return;
     }
-    if(this.fecha_inicio.toString()>=this.fecha_final.toString()){
+    if (this.fecha_inicio.toString() >= this.fecha_final.toString()) {
       alert('La fecha de fin de subasta tiene que ser mayor a la inicial.');
       return;
     }
-    if(this.tipo_producto.toString().includes("Venta")){
+    if (this.tipo_producto.toString().includes("Venta")) {
       this.precio_subasta = 0;
-    }else if(this.tipo_producto.toString().includes("Subasta")){
+    } else if (this.tipo_producto.toString().includes("Subasta")) {
       this.precio = 0;
     }
     // Gyuardar imagen en el servidor 
@@ -130,7 +131,6 @@ export class AddProductosComponent implements OnInit {
     this.http.post<any>('http://localhost:3000/subir-imagen', formData).subscribe(
       (respuesta) => {
         // Aquí puedes manejar la respuesta del servidor que debería contener la URL de la imagen cargada.
-        console.log('URL de la imagen cargada:', respuesta.imageUrl);
 
         // Almacena la URL de la imagen en imagen_url
         this.imagen_url = respuesta.imageUrl;
@@ -152,32 +152,30 @@ export class AddProductosComponent implements OnInit {
         };
 
 
-     
 
 
 
-      // Todos los campos están llenos, proceder con el registro
-      this.userService.agregarProductos(user).subscribe(
-        (data: any) => {
-          // Assuming data.token exists in the response
-          if (data.token) {
-            this.userService.setToken(data.token);
-            this.router.navigateByUrl("/");
-          } else {
-            console.log("si llega aqui inserto datos");
+
+        // Todos los campos están llenos, proceder con el registro
+        this.userService.agregarProductos(user).subscribe(
+          (data: any) => {
+            // Assuming data.token exists in the response
+            if (data.token) {
+              this.userService.setToken(data.token);
+              this.router.navigateByUrl("/");
+            } 
+
+
+
+            this.mostrarAlerta();
+            this.router.navigateByUrl("/listaProductos");
+          },
+          (error) => {
+            console.log(error);
           }
+        );
 
-          
-          
-          this.mostrarAlerta();
-          this.router.navigateByUrl("/listaProductos");
-        },
-        (error) => {
-          console.log(error);
-        }
-      );
-    
-        
+
 
       },
       (error) => {

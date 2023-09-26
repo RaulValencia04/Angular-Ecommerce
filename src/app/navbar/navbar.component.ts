@@ -42,7 +42,9 @@ export class NavbarComponent {
   }
   logout() {
     // Borra la cookie
-    this.cookieService.delete("user"); // Reemplaza "user" con el nombre de tu cookie
+    this.cookieService.delete("user");
+     // Reemplaza "user" con el nombre de tu cookie
+     this.router.navigateByUrl("/");
 
     this.mostrarAlerta();
   }
