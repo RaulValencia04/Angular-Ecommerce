@@ -140,6 +140,7 @@ export class AddProductosComponent implements OnInit {
           } else {
             console.log("si llega aqui inserto datos");
           }
+          this.router.navigateByUrl("/listaProductos");
         },
         (error) => {
           console.log(error);
