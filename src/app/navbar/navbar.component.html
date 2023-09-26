@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar scroll</a>
+    <a class="navbar-brand" href="#">E-tiendita</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -10,13 +10,15 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/add-productos">Vender</a>
+          <!-- Mostrar "Vender" solo si está logueado -->
+          <a class="nav-link active" *ngIf="isLoggedIn()" aria-current="page" href="/add-productos">Vender</a>
         </li>
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" [routerLink]="['/listaProductos']">Buscar Productos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" [routerLink]="['/historial']">Mis Produtos</a>
+          <!-- Mostrar "Mis Productos" solo si está logueado -->
+          <a class="nav-link active" *ngIf="isLoggedIn()" aria-current="page" [routerLink]="['/historial']">Mis Productos</a>
         </li>
       </ul>
       <ng-container *ngIf="isLoggedIn(); else notLoggedIn">

@@ -6,57 +6,47 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
-<body>
-    <!-- <h1 class="mt-5">hola</h1> -->
-
-    <div class="container">
-        <div class="card">
-          <div class="row" *ngFor="let pr of productos">
-          <h1>{{ pr.nombre }}</h1>
-          <div class="col-md-4">
-            <!-- Imagen a la izquierda -->
-            <img [src]="pr.imagen_url" alt="{{ pr.nombre }}" class="card-img-top" />
-          </div>
-          <div class="col-md-8">
-            <!-- Contenido de la tarjeta a la derecha -->
-            <div class="card-body" >
-              <h5 class="card-title"  >{{ pr.nombre }}</h5>
-              <div class="alert alert-danger" style="display: grid; place-items: center; height: 40px; width: auto;" role="alert">
-                <!-- Mostrar el tiempo restante o "Subasta Cerrada" -->
-                <p>Tiempo restante: {{ subastaCerrada ? 'Subasta Cerrada' : calcularTiempoRestante(pr) }}</p>
-              </div>
-
-              <!-- Puedes agregar más contenido aquí, como botones, enlaces, etc. -->
-              <div class="container">
-                <div class="row">
-                  <div class="col-6">
-                    <h2>Puja mas alta:</h2>
-                    <h4>US $ {{ pr.precio_subasta }}</h4>
-                  </div>
-                  <div class="col-6">
-                    <!-- Deshabilitar el botón si la subasta está cerrada -->
-                    <div class="input-group mb-3" *ngIf="!subastaCerrada">
-                      <input type="number" class="form-control" [(ngModel)]="pr.newprecios" min="1" max="10">
-                      <div class="input-group-append">
-                        <button class="btn btn-success" (click)="OFERTAR(pr)" [attr.data-producto-id]="pr.id_producto">
-                          Pujar >  (US $ {{ pr.precio_subasta }})
-                        </button>
+<body class="subas" style="height: 1000px; max-height: max-content;">
+  <div class="container mt-5"> <!-- Added margin-top class -->
+      <div class="row">
+          <div class="col-md-12"> <!-- Use a single column for the card -->
+              <div class="card">
+                  <div class="card-body">
+                      <div class="row" *ngFor="let pr of productos">
+                          <div class="col-md-4">
+                              <img [src]="pr.imagen_url" alt="{{ pr.nombre }}" class="card-img-top" />
+                          </div>
+                          <div class="col-md-8">
+                              <h5 class="card-title">{{ pr.nombre }}</h5>
+                              <div class="alert alert-danger" role="alert">
+                                  <p>Tiempo restante: {{ subastaCerrada ? 'Subasta Cerrada' : calcularTiempoRestante(pr) }}</p>
+                              </div>
+                              <div class="row">
+                                  <div class="col-6">
+                                      <h2>Puja mas alta:</h2>
+                                      <h4>US $ {{ pr.precio_subasta }}</h4>
+                                  </div>
+                                  <div class="col-6">
+                                      <div class="input-group mb-3" *ngIf="!subastaCerrada">
+                                          <input type="number" class="form-control" [(ngModel)]="pr.newprecios" min="1" max="10">
+                                          <div class="input-group-append">
+                                              <button class="btn btn-success" (click)="OFERTAR(pr)" [attr.data-producto-id]="pr.id_producto">
+                                                  Pujar >  (US $ {{ pr.precio_subasta }})
+                                              </button>
+                                          </div>
+                                      </div>
+                                      <div *ngIf="subastaCerrada">
+                                          <p>Subasta Cerrada</p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <p class="card-text">{{ pr.descripcion }}</p>
+                          </div>
                       </div>
-                    </div>
-                    <!-- Mostrar un mensaje si la subasta está cerrada -->
-                    <div *ngIf="subastaCerrada">
-                      <p>Subasta Cerrada</p>
-                    </div>
                   </div>
-                  <p class="card-text">  {{pr.descripcion}}</p>
-                </div>
               </div>
-            </div>
           </div>
-        </div>
-          </div>
-
-
-    </div>
+      </div>
+  </div>
 </body>
 </html>
