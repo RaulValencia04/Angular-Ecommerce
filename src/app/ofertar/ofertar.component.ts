@@ -164,6 +164,7 @@ export class OfertarComponent implements OnInit {
           this.userService.AgregarDetalle(detallesPedido).subscribe(
             (detalleResponse: any) => {
 
+                //aqui cambia el estado del producto
                 this.userService.ActualizarEstadoSubasta(producto.id_producto);
                 this.detenerContador(producto);
                 console.log(detallesPedido);
