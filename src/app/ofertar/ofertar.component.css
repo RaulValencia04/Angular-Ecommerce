@@ -4,3 +4,31 @@ body{
   max-height: 100px;
 }
 .subas { margin-top: 20px; }
+
+.alert-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Esto centra verticalmente en toda la ventana */
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente para resaltar la alerta */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+.alert-box {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+/* Cambiar el texto "localhost" en la alerta */
+.alert-box .alert-message::before {
+  content: "Tu mensaje personalizado aquí: ";
+  font-weight: bold;
+}
