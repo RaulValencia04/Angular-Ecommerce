@@ -17,6 +17,8 @@ export class RegisterComponent implements OnInit {
   password: string = "";
   confirmPassword: string = "";
 
+  MatchPassword: string = '';
+
   formSubmitted = false;
 
   constructor(public userService: UsersService, private router: Router, private cookieService: CookieService) { }
@@ -62,6 +64,14 @@ export class RegisterComponent implements OnInit {
     if (user.password.length === 0) {
       camposVacios.push('Password');
     }
+    
+    if (user.password !== this.confirmPassword) {
+      // Contraseñas no coinciden, mostrar un mensaje de error
+      this.MatchPassword = 'Las contraseñas no coinciden';
+      return;  // Detener el proceso de registro
+    } else {
+      this.MatchPassword = '';  // Limpiar el mensaje de error si coincide
+    }
   
     if (camposVacios.length === 0) {
       // Todos los campos están llenos, proceder con el registro
@@ -86,5 +96,7 @@ export class RegisterComponent implements OnInit {
       // Aquí podrías mostrar un mensaje al usuario indicando los campos que están vacíos
     }
   }
+
+  
   
 }

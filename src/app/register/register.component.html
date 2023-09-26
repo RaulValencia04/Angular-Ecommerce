@@ -1,5 +1,5 @@
-<div class="register">
-  <form class="custom-form" (submit)="register()" method="post">
+<div class="container">
+  <form class="custom-form mt-1 mb-5" (submit)="register()" method="post">
     <h1>Register</h1>
     
     <!-- First Name -->
@@ -29,8 +29,12 @@
 
     <!-- Confirm Password -->
     <div *ngIf="formSubmitted && !confirmPassword" class="error-message text-danger">Repeat Password is required</div>
+    <div *ngIf="MatchPassword" class="error-message text-danger">
+      {{ MatchPassword }}
+    </div>
     <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="Repeat the password" required />
-  
+    
+    
 
     <button type="submit" (click)="formSubmitted = true">Register</button>
   </form>
