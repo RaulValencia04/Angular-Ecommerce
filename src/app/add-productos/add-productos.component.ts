@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { UsersService } from "../users/users.service";
 import { Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
 import { CookieService } from "ngx-cookie-service";
 
 @Component({
@@ -84,12 +85,17 @@ export class AddProductosComponent implements OnInit {
   }
 
 
+  mostrarAlerta() {
+    Swal.fire({
+      title: 'Producto creado Correctamente',
+      icon: 'success', // Puedes cambiar el ícono a tu gusto (success, error, warning, etc.)
+      timer: 2500, // Tiempo de visualización en milisegundos (2 segundos)
+      showConfirmButton: false // Oculta el botón de confirmación
+    });
+  }
+
 
   guardarProducto() {
-
-
-
-
     const idUsuarioFromCookie = this.getIdUsuarioFromCookie();
 
     if (!this.selectedFile) {
@@ -140,6 +146,10 @@ export class AddProductosComponent implements OnInit {
           } else {
             console.log("si llega aqui inserto datos");
           }
+
+          
+          
+          this.mostrarAlerta();
           this.router.navigateByUrl("/listaProductos");
         },
         (error) => {

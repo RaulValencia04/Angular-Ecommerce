@@ -3,6 +3,7 @@ import { UsersService } from "../users/users.service";
 import Swal from 'sweetalert2';
 import { CookieService } from "ngx-cookie-service"; // Importa el servicio de cookies
 
+
 @Component({
   selector: 'app-product-grid',
   templateUrl: './product-grid.component.html',
