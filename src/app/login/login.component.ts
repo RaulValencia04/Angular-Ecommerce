@@ -14,14 +14,21 @@ export class LoginComponent {
   nombre: string ='';
 
   constructor(private userService: UsersService, private router: Router, private cookieService: CookieService) {}
+  ngOnInit() {
+    // Verifica si la cookie "user" existe
+    const userCookie = this.cookieService.get("user");
 
+    if(userCookie){
+      this.router.navigateByUrl("/");
+    }    
+   
+  }
   login() {
     const user = { correo: this.email, password: this.password };
-    console.log("Este anda");
+
 
     this.userService.login(user).subscribe(
       (data: any) => {
-        console.log("Respuesta recibida:", data);
 
         // Aquí puedes realizar otras acciones en función de la respuesta del servicio
         if (data) {
@@ -30,9 +37,7 @@ export class LoginComponent {
           // Por ejemplo, redirige al usuario a una página de inicio o muestra un mensaje de éxito.
           this.cookieService.set("user", JSON.stringify(data));
           this.router.navigateByUrl("/");
-        } else {
-          console.log("No se encontraron datos relevantes en la respuesta.");
-        }
+        } 
       },
       (error) => {
         console.log("Error en la autenticación:", error);

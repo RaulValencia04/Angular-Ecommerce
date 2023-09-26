@@ -24,7 +24,11 @@ export class AddProductosComponent implements OnInit {
     // const fechaHoraActual = new Date();
     // this.fecha_inicios = fechaHoraActual.toISOString().slice(0, 16);
 
+    const userCookie = this.cookieService.get("user");
 
+    if(!userCookie){
+      this.router.navigateByUrl("/");
+    }   
 
     // Código que se ejecutará cuando el componente se inicie
     this.userService.obtenerListCategorias().subscribe(
