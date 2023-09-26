@@ -51,17 +51,17 @@ export class ProductGridComponent implements OnInit {
     query = query.trim();
     console.log("Búsqueda realizada: " + query);
 
-    if (this.isVenta) {
+    
       this.userService.buscarProducto(query).subscribe((response: any) => {
-        console.log(response);
+        console.log("noo",response);
         this.productos = response;
       });
-    } else {
+    
       this.userService.buscarSubasta(query).subscribe((response: any) => {
-        console.log(response);
+        console.log("este",response);
         this.subasta = response;
       });
-    }
+  
   }
   toggleVentaSubasta(): void {
     this.isVenta = !this.isVenta; // Cambiar entre Venta y Subasta
