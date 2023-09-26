@@ -162,11 +162,11 @@ export class OfertarComponent implements OnInit {
 
           this.userService.AgregarDetalle(detallesPedido).subscribe(
             (detalleResponse: any) => {
-              if (!this.subastaCerrada) {
+
                 this.userService.ActualizarEstadoSubasta(producto.id_producto);
                 this.detenerContador(producto);
                 console.log(detallesPedido);
-              }
+
             },
             (detalleError: any) => {
               console.error(
