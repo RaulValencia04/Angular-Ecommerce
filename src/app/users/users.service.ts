@@ -57,7 +57,7 @@ export class UsersService {
 
 
 
-  
+
   buscarSubasta(query: any, query2: any): Observable<any> {
     console.log('busqueda: ' + query);
     var url = '';
@@ -75,7 +75,7 @@ export class UsersService {
     return this.http.get(url);
   }
   buscarSubasta2(query: any): Observable<any> {
-    
+
     var url = ``
     if (typeof query === 'number') {
       url = `http://localhost:5022/api/Producto/GetAll?limit=${query}&tipo=Subasta`;
@@ -83,7 +83,7 @@ export class UsersService {
       url = `http://localhost:5022/api/Producto/GetAll?q=${query}&tipo=Subasta`;
     }
 
-    
+
     return this.http.get(url)
   }
 
@@ -209,4 +209,14 @@ export class UsersService {
    const url =`http://localhost:5022/api/Producto/GetProductosByUserId/${data}`
     return this.http.get(url);
   }
+  ObtenerSubastaActivosme(data: number): Observable<any>{
+
+    const url =`http://localhost:5022/api/Producto/GetSBabiertasByUser?id_usuario=${data}`
+     return this.http.get(url);
+   }
+   ObtenerSubastaCerradame(data: number): Observable<any>{
+
+    const url =`http://localhost:5022/api/Producto/GetSBcerradasbyuser?id_usuario=${data}`
+     return this.http.get(url);
+   }
 }

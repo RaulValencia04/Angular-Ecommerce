@@ -65,7 +65,11 @@ export class OfertarComponent implements OnInit {
     }, 1000);
   }
   OFERTAR(producto: any) {
-    if (!this.subastaCerrada && this.estado2 == 0) {
+
+    const idUsuarioCookie = this.getIdUsuarioFromCookie();
+
+    // Verificar si el id_usuario de la cookie es igual al id_usuario del producto
+    if (!this.subastaCerrada && this.estado2 == 0 && idUsuarioCookie !== producto.id_usuario) {
 
 
       const precioOfertado = producto.newprecios;
@@ -90,7 +94,11 @@ export class OfertarComponent implements OnInit {
       } else {
         console.error('La oferta debe ser mayor al precio de subasta.');
       }
+    } else {
+      console.error('No puedes pujar en esta subasta.');
+      alert('No puedes pujar en esta subasta.')
     }
+
   }
 
   detenerContador(producto: any) {
@@ -164,7 +172,7 @@ export class OfertarComponent implements OnInit {
           this.userService.AgregarDetalle(detallesPedido).subscribe(
             (detalleResponse: any) => {
 
-                //aqui cambia el estado del producto
+                //aqui cambia el estado del productogit dd
                 this.userService.ActualizarEstadoSubasta(producto.id_producto);
                 this.detenerContador(producto);
                 console.log(detallesPedido);

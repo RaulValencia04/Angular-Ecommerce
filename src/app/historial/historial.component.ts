@@ -19,9 +19,12 @@ export class HistorialComponent implements OnInit{
 
   ngOnInit() {
 
+    const user = this.getIdUsuarioFromCookie();
+
+
 
     //vamos a traer las subastas que este abiertas
-    this.userService.obtenersubastasAbiertas().subscribe(
+    this.userService.ObtenerSubastaActivosme(user).subscribe(
       (data: any) => {
         // Assuming data.token exists in the response
         if (data) {
@@ -37,7 +40,7 @@ export class HistorialComponent implements OnInit{
 
 
     //vamos a traer las subastas que este cerradas
-    this.userService.obtenersubastasCerradas().subscribe(
+    this.userService.ObtenerSubastaCerradame(user).subscribe(
       (data: any) => {
         // Assuming data.token exists in the response
         if (data) {
@@ -51,7 +54,6 @@ export class HistorialComponent implements OnInit{
       }
     );
 
-      const user = this.getIdUsuarioFromCookie();
 
     this.userService.ObtenerGanador(user).subscribe(
       (data: any) => {
