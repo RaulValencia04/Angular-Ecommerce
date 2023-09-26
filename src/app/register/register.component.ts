@@ -8,7 +8,7 @@ import { CookieService } from "ngx-cookie-service";
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.css"],
 })
-export class RegisterComponent implements OnInit  {
+export class RegisterComponent implements OnInit {
   firstName: string = "";
   lastName: string = "";
   email: string = "";
@@ -17,7 +17,9 @@ export class RegisterComponent implements OnInit  {
   password: string = "";
   confirmPassword: string = "";
 
-  constructor(public userService: UsersService, private router: Router, private cookieService: CookieService ) {}
+  formSubmitted = false;
+
+  constructor(public userService: UsersService, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
     // Verifica si la cookie "user" existe
@@ -31,27 +33,58 @@ export class RegisterComponent implements OnInit  {
 
   register() {
     const user = {
-      nombre_usuario: this.firstName, // Update property names based on the response body
+      nombre_usuario: this.firstName,
       apellido_usuario: this.lastName,
       correo: this.email,
       telefono: this.phoneNumber,
       direccion: this.address,
       password: this.password,
     };
-
-    this.userService.register(user).subscribe(
-      (data: any) => {
-        // Assuming data.token exists in the response
-        if (data.token) {
-          this.userService.setToken(data.token);
-          this.router.navigateByUrl("/");
-        } else {
-          console.log("Token not found in response.");
+  
+    const camposVacios = []; // Array para almacenar los nombres de los campos vacíos
+  
+    // Verificar cada campo y agregar al array si está vacío
+    if (user.nombre_usuario.length === 0) {
+      camposVacios.push('First Name');
+    }
+    if (user.apellido_usuario.length === 0) {
+      camposVacios.push('Last Name');
+    }
+    if (user.correo.length === 0) {
+      camposVacios.push('Email');
+    }
+    if (user.direccion.length === 0) {
+      camposVacios.push('Address');
+    }
+    if (user.telefono.length === 0) {
+      camposVacios.push('Phone Number');
+    }
+    if (user.password.length === 0) {
+      camposVacios.push('Password');
+    }
+  
+    if (camposVacios.length === 0) {
+      // Todos los campos están llenos, proceder con el registro
+      this.userService.register(user).subscribe(
+        (data: any) => {
+          if (data.token) {
+            this.userService.setToken(data.token);
+            this.router.navigateByUrl("/");
+          } else {
+            console.log("Token not found in response.");
+          }
+          
+          this.router.navigateByUrl("/login");
+        },
+        (error) => {
+          console.log(error);
         }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+      );
+    } else {
+      // Al menos un campo está vacío, puedes mostrar un mensaje o hacer lo que necesites
+      console.log('Campos vacíos:', camposVacios);
+      // Aquí podrías mostrar un mensaje al usuario indicando los campos que están vacíos
+    }
   }
+  
 }

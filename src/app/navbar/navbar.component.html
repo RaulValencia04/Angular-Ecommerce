@@ -1,38 +1,40 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<nav class="navbar navbar-expand-lg fixed-top" style="margin-bottom: 5px;">
-  <!-- Resto de tu código para la barra de navegación -->
-  <div class="collapse navbar-collapse" id="navbarScroll">
-    <ul class="navbar-nav me-auto my-2 my-lg-0">
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" href="/add-productos">Vender</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" [routerLink]="['/listaProductos']">Buscar Productos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" aria-current="page" [routerLink]="['/historial']">Mis Produtos</a>
-      </li>
-    </ul>
-      <!-- Estructura condicional para mostrar elementos según el estado de autenticación -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar scroll</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/add-productos">Vender</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" [routerLink]="['/listaProductos']">Buscar Productos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" [routerLink]="['/historial']">Mis Produtos</a>
+        </li>
+      </ul>
       <ng-container *ngIf="isLoggedIn(); else notLoggedIn">
-          <!-- Mostrar nombre de usuario y botón de carrito si está logueado -->
-          <div class="d-flex align-items-center">
-              <p class="m-0 me-2">Bienvenido, {{ getUsername() }}</p>
-              <a class="btn btn-primary" href="/carrito" style="margin-right: 50px;"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
-                <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
-              </svg></a>
-              <a class="btn btn-outline-danger" (click)="logout()">Cerrar sesion</a>
-          </div>
-      </ng-container>
-      <!-- Si no está logueado -->
-      <ng-template #notLoggedIn>
-          <form class="d-flex" role="search">
-              <a class="btn btn-outline" href="/login"><i class="bi bi-person-check"></i> Iniciar Sesión</a>
-              <a class="btn btn-outline" href="/register"><i class="bi bi-person-add"></i> Registro</a>
-          </form>
-      </ng-template>
+        <!-- Mostrar nombre de usuario y botón de carrito si está logueado -->
+        <div class="d-flex align-items-center">
+            <p class="m-0 me-2">Bienvenido, {{ getUsername() }}</p>
+            <a class="btn btn-primary" href="/carrito" style="margin-right: 50px;"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-cart4" viewBox="0 0 16 16">
+              <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5zM3.14 5l.5 2H5V5H3.14zM6 5v2h2V5H6zm3 0v2h2V5H9zm3 0v2h1.36l.5-2H12zm1.11 3H12v2h.61l.5-2zM11 8H9v2h2V8zM8 8H6v2h2V8zM5 8H3.89l.5 2H5V8zm0 5a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/>
+            </svg></a>
+            <a class="btn btn-outline-danger" (click)="logout()">Cerrar sesion</a>
+        </div>
+    </ng-container>
+    <!-- Si no está logueado -->
+    <ng-template #notLoggedIn>
+        <form class="d-flex" role="search">
+            <a class="btn btn-outline" href="/login"><i class="bi bi-person-check"></i> Iniciar Sesión</a>
+            <a class="btn btn-outline" href="/register"><i class="bi bi-person-add"></i> Registro</a>
+        </form>
+    </ng-template>
+    </div>
   </div>
-</nav>
