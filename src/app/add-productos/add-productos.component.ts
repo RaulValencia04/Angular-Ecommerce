@@ -102,6 +102,27 @@ export class AddProductosComponent implements OnInit {
       alert('Selecciona una imagen primero.');
       return;
     }
+
+   
+    if( (this.tipo_producto.toString().includes("Venta") && this.precio <= 0)
+    || (this.tipo_producto.toString().includes("Subasta") && (this.precio_subasta  <= 0  )
+    )
+    || (this.nombre.toString().length === 0
+    || this.estado.toString().length===0
+    || this.id_categoria.toString().length===0
+    || this.descripcion.toString().length === 0
+    || this.tipo_producto.toString().length===0)){
+       return;
+    }
+    if(this.fecha_inicio.toString()>=this.fecha_final.toString()){
+      alert('La fecha de fin de subasta tiene que ser mayor a la inicial.');
+      return;
+    }
+    if(this.tipo_producto.toString().includes("Venta")){
+      this.precio_subasta = 0;
+    }else if(this.tipo_producto.toString().includes("Subasta")){
+      this.precio = 0;
+    }
     // Gyuardar imagen en el servidor 
     const formData = new FormData();
     formData.append('imagen', this.selectedFile);
@@ -133,7 +154,6 @@ export class AddProductosComponent implements OnInit {
 
      
 
-        console.log(user);
 
 
       // Todos los campos están llenos, proceder con el registro
