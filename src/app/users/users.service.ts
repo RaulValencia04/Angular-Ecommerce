@@ -58,9 +58,16 @@ export class UsersService {
 
     return this.http.get(url);
   }
-  buscarSubasta2(){
-    const url = `http://localhost:5022/api/Producto/GetSBabiertas`
+  buscarSubasta2(query: any): Observable<any> {
+    
+    var url = ``
+    if (typeof query === 'number') {
+      url = `http://localhost:5022/api/Producto/GetAll?limit=${query}&tipo=Subasta`;
+    } else if (typeof query === 'string') {
+      url = `http://localhost:5022/api/Producto/GetAll?q=${query}&tipo=Subasta`;
+    }
 
+    
     return this.http.get(url)
   }
 
