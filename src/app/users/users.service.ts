@@ -35,11 +35,18 @@ export class UsersService {
     console.log(user);
     return this.http.post('http://localhost:5022/api/Producto/add', user);
   }
-  buscarProducto(query: any): Observable<any> {
+
+
+
+  buscarProducto(query: any, query2: any): Observable<any> {
     console.log('busqueda: ' + query);
     var url = '';
 
-    if (typeof query === 'number') {
+    if(typeof query === 'string' && query2 > 0){
+      url = `http://localhost:5022/api/Producto/GetAll?q=${query}&categoria=${query2}&tipo=Venta`;
+    }else if(query2 > 0) {
+      url = `http://localhost:5022/api/Producto/GetAll?categoria=${query2}&tipo=Venta`;
+    }else if (typeof query === 'number') {
       url = `http://localhost:5022/api/Producto/GetAll?limit=${query}&tipo=Venta`;
     } else if (typeof query === 'string') {
       url = `http://localhost:5022/api/Producto/GetAll?q=${query}&tipo=Venta`;
@@ -47,11 +54,19 @@ export class UsersService {
 
     return this.http.get(url);
   }
-  buscarSubasta(query: any): Observable<any> {
+
+
+
+  
+  buscarSubasta(query: any, query2: any): Observable<any> {
     console.log('busqueda: ' + query);
     var url = '';
 
-    if (typeof query === 'number') {
+    if(typeof query === 'string' && query2 > 0){
+      url = `http://localhost:5022/api/Producto/GetAll?q=${query}&categoria=${query2}&tipo=Subasta`;
+    }else if(query2 > 0) {
+      url = `http://localhost:5022/api/Producto/GetAll?categoria=${query2}&tipo=Subasta`;
+    }else if (typeof query === 'number') {
       url = `http://localhost:5022/api/Producto/GetAll?limit=${query}&tipo=Subasta`;
     } else if (typeof query === 'string') {
       url = `http://localhost:5022/api/Producto/GetAll?q=${query}&tipo=Subasta`;
@@ -59,9 +74,16 @@ export class UsersService {
 
     return this.http.get(url);
   }
-  buscarSubasta2(){
-    const url = `http://localhost:5022/api/Producto/GetSBabiertas`
+  buscarSubasta2(query: any): Observable<any> {
+    
+    var url = ``
+    if (typeof query === 'number') {
+      url = `http://localhost:5022/api/Producto/GetAll?limit=${query}&tipo=Subasta`;
+    } else if (typeof query === 'string') {
+      url = `http://localhost:5022/api/Producto/GetAll?q=${query}&tipo=Subasta`;
+    }
 
+    
     return this.http.get(url)
   }
 

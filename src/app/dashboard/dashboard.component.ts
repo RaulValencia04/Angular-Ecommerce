@@ -39,10 +39,10 @@ export class DashboardComponent  implements OnInit{
   loadProductos(): void {
     // Llama a la función del servicio para cargar los producto
     const limite =3
-    this.userService.buscarProducto(limite).subscribe((response: any) => {
+    this.userService.buscarProducto(limite, 0).subscribe((response: any) => {
       this.productos = response;
     });
-    this.userService.buscarSubasta2().subscribe((response: any) => {
+    this.userService.buscarSubasta2(limite).subscribe((response: any) => {
       this.productos2 = response;
       console.log(response)
 
