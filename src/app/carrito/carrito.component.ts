@@ -194,7 +194,7 @@ eliminarProducto(id_carrito: number) {
       console.error('Error inesperado al eliminar el carrito:', error);
     } finally {
       // Refrescar la página actual
-      // window.location.reload();
+
     }
 
   }

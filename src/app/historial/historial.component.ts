@@ -13,6 +13,7 @@ import { CookieService } from "ngx-cookie-service";
 export class HistorialComponent implements OnInit{
   SBabiertas: any[] = [];
   SBcerradas: any[] = [];
+  SBcerradasG: any[] = [];
 
 
 
@@ -50,8 +51,34 @@ export class HistorialComponent implements OnInit{
       }
     );
 
-    
+      const user = this.getIdUsuarioFromCookie();
 
+    this.userService.ObtenerGanador(user).subscribe(
+      (data: any) => {
+        // Assuming data.token exists in the response
+        if (data) {
+          this.SBcerradasG = data;
+        } else {
+          console.log("si llega aqui inserto datos");
+        }
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+
+
+
+  }
+  getIdUsuarioFromCookie(): number {
+    const userData = this.cookieService.get('user');
+    if (userData) {
+      const userObject = JSON.parse(userData);
+      // console.log(userObject.id_usuario+ ''+ typeof userObject.id_usuario)
+      return userObject.id_usuario || '';
+    }
+
+    return 1; // Ejemplo: reemplaza esto con la lógica real
   }
 
 
