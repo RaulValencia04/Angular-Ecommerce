@@ -3,6 +3,7 @@ import { UsersService } from "../users/users.service";
 import { Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from "ngx-cookie-service";
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -10,6 +11,7 @@ import { CookieService } from "ngx-cookie-service";
   templateUrl: './historial.component.html',
   styleUrls: ['./historial.component.css']
 })
+
 export class HistorialComponent implements OnInit{
   SBabiertas: any[] = [];
   SBcerradas: any[] = [];
@@ -95,5 +97,25 @@ export class HistorialComponent implements OnInit{
 
 
 
+  eliminarProducto(id_producto: number){
+    this.userService.EliminarSubasta(id_producto).subscribe(
+      () => {
+        this.mostrarAlerta();
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  mostrarAlerta() {
+    Swal.fire({
+      title: 'Subasta Cancelada',
+      icon: 'info', 
+      timer: 2500, 
+      showConfirmButton: false 
+    });
+  }
 
 }
