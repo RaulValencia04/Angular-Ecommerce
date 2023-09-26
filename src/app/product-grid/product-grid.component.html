@@ -1,80 +1,104 @@
 <!-- src/app/product-grid/product-grid.component.html -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <div class="container">
-  <h1>ProductGridApp</h1>
+<style>
+  .card:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    transform: scale(1.02); /* Escalar ligeramente la tarjeta */
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+
+</style>
+
+  <h1 class="mt-5">Buscar Productos y Subastas</h1>
 
   <!-- Add Category -->
-  <form (submit)="addCategory(inputValue, id_categoria)">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Buscar Producto"
-      [(ngModel)]="inputValue"
-      name="inputValue"
-    />
+  <form (submit)="addCategory(inputValue, id_categoria)" class="d-flex align-items-center mt-5">
 
-    <div class="form-group">
-      <!-- <label for="categoria">Selecciona una categoría:</label> -->
-      <select id="categoria" name="categoria" [(ngModel)]="id_categoria" class="form-control">
+    <div class="col-5" style="margin-right: 15px;">
+      <label for="inputValue" style="font-weight: bold;">Buscar por Categorias:</label>
+      <select id="categoria"  name="categoria" [(ngModel)]="id_categoria" class="form-select mr-5" style="margin-right: 15px;">
         <option *ngFor="let cat of categorias" [value]="cat.id_categoria">{{ cat.descripcion }}</option>
       </select>
     </div>
-
-    <button type="submit" class="btn btn-primary">Agregar</button>
+  
+    <div class="col-5" style="margin-right: 15px;">
+      <label for="inputValue" style="font-weight: bold;">Buscar por Palabra:</label>
+      <input
+        type="text"
+        id="inputValue"
+        class="form-control mr-2"
+        placeholder="Buscar por palabra"
+        [(ngModel)]="inputValue"
+        name="inputValue"
+      />
+    </div>
+    
+    <div style="display: flex; flex-direction: column; align-items: center;">
+      <button type="submit" class="btn btn-primary mt-4">Buscar Productos</button>
+    </div>
+    
+    
+    
   </form>
+  
 
 
 
 
 
   <!-- Mostrar el valor de la búsqueda antes de la lista de productos -->
-  <h2>Resultados para: {{ inputValue }}</h2>
+  <h2 class="mt-5">Resultados para: {{ inputValue }}</h2>
 
 
 
   <!-- Product List -->
-  <div class="row">
+  <div class="row mt-4">
     <!-- subastas -->
-    <div *ngFor="let pr of subasta" class="col-md-4 mb-4">
-      <div class="card">
-        <img [src]="pr.imagen_url" alt="{{ pr.nombre }}" class="card-img-top" />
-        <div class="card-body">
-          <h5 class="card-title">{{ pr.nombre }}</h5>
-          <p class="card-text">Precio: ${{ pr.precio }}</p>
-          <p class="card-text">Descripción: {{ pr.descripcion }}</p>
+    <div class="row">
+      <div *ngFor="let pr of subasta" class="col-md-4 mb-4">
+        <div class="card h-100 rounded bg-light" style="max-width: 300px;">
+          <img [src]="pr.imagen_url" alt="{{ pr.nombre }}" class="card-img-top" style="max-height: 200px; object-fit: cover;" />
+          <div class="card-body">
+            <h5 class="card-title font-weight-bold" style="font-size: 1.5rem; font-family: 'Arial', sans-serif;">{{ pr.nombre }}</h5>
+            <p class="card-text" style="font-size: 1rem;">Precio: ${{ pr.precio_subasta }}</p>
+            <p class="card-text" style="max-height: 100px; overflow: hidden; font-size: 0.875rem;">Descripción: {{ pr.descripcion }}</p>
+      
+            <div class="input-group mb-3">
+              <div class="input-group-append">
+                <a [routerLink]="['/ofertar', pr.id_producto]" class="btn btn-primary" >Ofertar</a>
 
-          <!-- Botón "Agregar al carrito" -->
-          <div class="input-group mb-3">
-            <div class="input-group-append">
-              <a [routerLink]="['/ofertar',  pr.id_producto]" class="btn btn-primary">Ofertar</a>
-
+              </div>
             </div>
           </div>
-          <!-- Add more product details here as needed. -->
         </div>
       </div>
-    </div>
+      
+      
+    
+    
 
    <!-- ventasss -->
-    <div *ngFor="let pr of productos" class="col-md-4 mb-4">
-      <div class="card">
-        <img [src]="pr.imagen_url" alt="{{ pr.nombre }}" class="card-img-top" />
-        <div class="card-body">
-          <h5 class="card-title">{{ pr.nombre }}</h5>
-          <p class="card-text">Precio: ${{ pr.precio }}</p>
-          <p class="card-text">Descripción: {{ pr.descripcion }}</p>
-
-          <!-- Botón "Agregar al carrito" -->
-          <div class="input-group mb-3">
-            <input type="number" class="form-control" [(ngModel)]="pr.cantidad" min="1" max="10">
-            <div class="input-group-append">
-              <button class="btn btn-success" (click)="agregarAlCarrito(pr)" [attr.data-producto-id]="pr.id_producto">Agregar al carrito</button>
-            </div>
+   <div *ngFor="let pr of productos" class="col-md-4 mb-4">
+    <div class="card h-100">
+      <img [src]="pr.imagen_url" alt="{{ pr.nombre }}" class="card-img-top" style="max-height: 200px; object-fit: cover;" />
+      <div class="card-body">
+        <h5 class="card-title" style="font-size: 1.5rem; font-weight: bold; font-family: 'Arial', sans-serif;">{{ pr.nombre }}</h5>
+        <p class="card-text" style="font-size: 1rem;">Precio: ${{ pr.precio }}</p>
+        <p class="card-text" style="font-size: 0.875rem;">Descripción: {{ pr.descripcion }}</p>
+  
+        <!-- Botón "Agregar al carrito" -->
+        <div class="input-group mb-3">
+          <input type="number" class="form-control" [(ngModel)]="pr.cantidad" min="1" max="10">
+          <div class="input-group-append">
+            <button class="btn btn-success" (click)="agregarAlCarrito(pr)" (click)="mostrarAlerta()" [attr.data-producto-id]="pr.id_producto">Agregar al carrito</button>
           </div>
-          <!-- Add more product details here as needed. -->
         </div>
+        <!-- Add more product details here as needed. -->
       </div>
     </div>
+  </div>
+  
   </div>
 </div>
 

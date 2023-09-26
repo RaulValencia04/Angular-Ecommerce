@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UsersService } from "../users/users.service";
+import Swal from 'sweetalert2';
 import { CookieService } from "ngx-cookie-service"; // Importa el servicio de cookies
 
 @Component({
@@ -59,6 +60,16 @@ export class ProductGridComponent implements OnInit {
   loadInitialData(): void {
     this.buscarProducto('');
   }
+
+  mostrarAlerta() {
+    Swal.fire({
+      title: 'Producto agregado al carrito',
+      icon: 'success', // Puedes cambiar el ícono a tu gusto (success, error, warning, etc.)
+      timer: 1500, // Tiempo de visualización en milisegundos (2 segundos)
+      showConfirmButton: false // Oculta el botón de confirmación
+    });
+  }
+  
 
   addCategory(newCategory1?: string, newCategory2?: number): void {
     if (newCategory1 !== undefined && newCategory1.trim() !== "" &&  newCategory2 !== undefined && newCategory2 > 0) {
