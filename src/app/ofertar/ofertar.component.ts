@@ -80,6 +80,7 @@ export class OfertarComponent implements OnInit {
           .subscribe(
             (response: any) => {
               // Realizar acciones adicionales si es necesario
+              window.location.reload();
             },
             (error) => {
               console.error('Error al realizar la puja:', error);

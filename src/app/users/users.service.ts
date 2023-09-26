@@ -2,6 +2,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, catchError, of, throwError } from 'rxjs';
+import { da } from 'date-fns/locale';
 
 @Injectable({
   providedIn: 'root',
@@ -187,5 +188,10 @@ export class UsersService {
   }
   obtenersubastasCerradas() {
     return this.http.get('http://localhost:5022/api/Producto/GetSBcerradas');
+  }
+  ObtenerGanador(data: number): Observable<any>{
+
+   const url =`http://localhost:5022/api/Producto/GetProductosByUserId/${data}`
+    return this.http.get(url);
   }
 }
