@@ -6,7 +6,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
-  styleUrls: ['./carrito.component.css'],
+  styleUrls: ['../../assets/css/tarjeta.css'],
+
 })
 export class CarritoComponent implements OnInit {
   productos: any[] = [];
