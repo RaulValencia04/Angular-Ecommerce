@@ -4,7 +4,7 @@
   <h1>ProductGridApp</h1>
 
   <!-- Add Category -->
-  <form (submit)="addCategory(inputValue)">
+  <form (submit)="addCategory(inputValue, id_categoria)">
     <input
       type="text"
       class="form-control"
@@ -12,8 +12,19 @@
       [(ngModel)]="inputValue"
       name="inputValue"
     />
+
+    <div class="form-group">
+      <!-- <label for="categoria">Selecciona una categoría:</label> -->
+      <select id="categoria" name="categoria" [(ngModel)]="id_categoria" class="form-control">
+        <option *ngFor="let cat of categorias" [value]="cat.id_categoria">{{ cat.descripcion }}</option>
+      </select>
+    </div>
+
     <button type="submit" class="btn btn-primary">Agregar</button>
   </form>
+
+
+
 
 
   <!-- Mostrar el valor de la búsqueda antes de la lista de productos -->

@@ -9,11 +9,15 @@ import { CookieService } from "ngx-cookie-service"; // Importa el servicio de co
 })
 export class ProductGridComponent implements OnInit {
   categories: string[] = [];
+  categories2: number[] = [];
   productos: any[] = [];
   subasta: any[] = [];
   inputValue = '';
   showModal = false;
   isVenta = true;
+  categorias: any[] = [];
+  id_categoria: number = 0;
+  
 
 
   constructor(public userService: UsersService, private cookieService: CookieService) {} // Inyecta el servicio de cookies
@@ -33,6 +37,22 @@ export class ProductGridComponent implements OnInit {
     }
 
 
+    //traer las categorias para el filtro
+    this.userService.obtenerListCategorias().subscribe(
+      (data: any) => {
+        // Assuming data.token exists in the response
+        if (data) {
+          this.categorias = data;
+        } else {
+          console.log("si llega aqui inserto datos");
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+
 
   }
 
@@ -40,27 +60,103 @@ export class ProductGridComponent implements OnInit {
     this.buscarProducto('');
   }
 
-  addCategory(newCategory: string): void {
-    if (!this.categories.includes(newCategory)) {
-      this.categories.unshift(newCategory);
-      this.buscarProducto(newCategory);
+  addCategory(newCategory1?: string, newCategory2?: number): void {
+    if (newCategory1 !== undefined && newCategory1.trim() !== "" &&  newCategory2 !== undefined && newCategory2 > 0) {
+      
+        this.categories.unshift(newCategory1);
+        console.log("Los dos");
+        console.log("Nueva categoría 1:", newCategory1);
+        this.categories2.unshift(newCategory2);
+        console.log("Nueva categoría 1:", newCategory2);
+        this.buscarProducto(newCategory1, newCategory2);
+
+    }else if (newCategory1 !== undefined && newCategory1.trim() !== ""){
+      console.log("solo el primero", newCategory1);
+      this.categories.unshift(newCategory1);
+        console.log("Nueva categoría 1:", newCategory1);
+        this.buscarProducto(newCategory1, newCategory2);
+
+    }else if (newCategory2 !== undefined && newCategory2 > 0){
+
+        console.log("solo el segundo");
+        this.categories2.unshift(newCategory2);
+        console.log("Nueva categoría 1:", newCategory2);
+        this.buscarProducto(newCategory1, newCategory2);
     }
+  
+
+  
+    //console.log("Categorías actualizadas:", this.categories);
   }
+  
 
-  buscarProducto(query: string): void {
-    query = query.trim();
-    console.log("Búsqueda realizada: " + query);
+  buscarProducto(query?: string, query2?: number): void {
 
+
+
+    if (query !== undefined && query.trim() !== "" && query2 !== undefined && query2 > 0) {
+      
+      console.log("No puede serrrrr2")
+      this.userService.buscarProducto(query, query2).subscribe((response: any) => {
+        console.log("noo",response);
+        this.productos = response;
+      });
+
+      this.userService.buscarSubasta(query, query2).subscribe((response: any) => {
+        console.log("este",response);
+        this.subasta = response;
+      });
+     
     
-      this.userService.buscarProducto(query).subscribe((response: any) => {
+  
+    }else if (query !== undefined && query.trim() !== ""){
+
+      console.log("No puede serrrrr2")
+      this.userService.buscarProducto(query, query2).subscribe((response: any) => {
         console.log("noo",response);
         this.productos = response;
       });
     
-      this.userService.buscarSubasta(query).subscribe((response: any) => {
+      this.userService.buscarSubasta(query, query2).subscribe((response: any) => {
         console.log("este",response);
         this.subasta = response;
       });
+  
+    }else if (query2 !== undefined && query2 > 0){
+
+      console.log("No puede serrrrr2")
+      this.userService.buscarProducto(query, query2).subscribe((response: any) => {
+        console.log("noo",response);
+        this.productos = response;
+      });
+
+      this.userService.buscarSubasta(query, query2).subscribe((response: any) => {
+        console.log("este",response);
+        this.subasta = response;
+      });
+     
+      
+      
+    } else{
+
+      console.log("No puede serrrrr2")
+      this.userService.buscarProducto(query, query2).subscribe((response: any) => {
+        console.log("noo",response);
+        this.productos = response;
+      });
+
+      this.userService.buscarSubasta(query, query2).subscribe((response: any) => {
+        console.log("este",response);
+        this.subasta = response;
+      });
+     
+
+
+    }
+
+
+    
+      
   
   }
   toggleVentaSubasta(): void {
