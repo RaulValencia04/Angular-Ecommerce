@@ -17,9 +17,10 @@ import { CarritoComponent } from './carrito/carrito.component';
 import { HistorialComponent } from './historial/historial.component';
 import { OfertarComponent } from './ofertar/ofertar.component';
 import { RouterModule } from '@angular/router';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, ProductosComponent, AddProductosComponent, DashboardComponent, ProductGridComponent, CarritoComponent, HistorialComponent, OfertarComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, ProductosComponent, AddProductosComponent, DashboardComponent, ProductGridComponent, CarritoComponent, HistorialComponent, OfertarComponent, FooterComponent],
   imports: [
     BrowserModule,
     FormsModule,
