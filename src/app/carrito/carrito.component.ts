@@ -1,7 +1,10 @@
 import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users/users.service';
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-carrito',
@@ -14,9 +17,11 @@ export class CarritoComponent implements OnInit {
   total: number = 0;
   cantidad: number= 0;
 
+
   constructor(
     public userService: UsersService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -107,8 +112,19 @@ export class CarritoComponent implements OnInit {
     } catch (error) {
         console.error('Error inesperado al crear el pedido:', error);
     }
+    finally{
+      this.router.navigateByUrl("/factura");
+    }
+
     this.LimpiarCarrito();
+
+
+   // this.imprimirFactura();
+
+
 }
+
+
 
 getdir():string{
   const userData = this.cookieService.get('user');
@@ -210,7 +226,5 @@ eliminarProducto(id_carrito: number) {
     }
 
   }
-
-
 
 }

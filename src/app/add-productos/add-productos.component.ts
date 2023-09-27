@@ -141,7 +141,7 @@ export class AddProductosComponent implements OnInit {
         const user = {
           nombre: this.nombre,
           precio: this.precio,
-          precioSubasta: this.precio_subasta,
+          precio_subasta: this.precio_subasta,
           imagen_url: respuesta.imageUrl,
           descripcion: this.descripcion,
           id_categoria: this.id_categoria,
@@ -153,7 +153,7 @@ export class AddProductosComponent implements OnInit {
         };
 
 
-
+        
 
 
 

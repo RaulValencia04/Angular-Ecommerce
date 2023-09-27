@@ -19,7 +19,7 @@ export class ProductGridComponent implements OnInit {
   isVenta = true;
   categorias: any[] = [];
   id_categoria: number = 0;
-  
+
 
   username: string = "";
   hasUser: boolean = false;
@@ -89,13 +89,13 @@ export class ProductGridComponent implements OnInit {
       showConfirmButton: false // Oculta el botón de confirmación
     });
   }
-  
+
 
   addCategory(newCategory1?: string, newCategory2?: number): void {
     if (newCategory1 !== undefined && newCategory1.trim() !== "" &&  newCategory2 !== undefined && newCategory2 > 0) {
-      
+
         this.categories.unshift(newCategory1);
-  
+
         this.categories2.unshift(newCategory2);
         this.buscarProducto(newCategory1, newCategory2);
 
@@ -108,19 +108,18 @@ export class ProductGridComponent implements OnInit {
         this.categories2.unshift(newCategory2);
         this.buscarProducto(newCategory1, newCategory2);
     }
-  
 
-  
+
+
     //console.log("Categorías actualizadas:", this.categories);
   }
-  
+
 
   buscarProducto(query?: string, query2?: number): void {
 
 
 
     if (query !== undefined && query.trim() !== "" && query2 !== undefined && query2 > 0) {
-      
       this.userService.buscarProducto(query, query2).subscribe((response: any) => {
         this.productos = response;
       });
@@ -128,19 +127,19 @@ export class ProductGridComponent implements OnInit {
       this.userService.buscarSubasta(query, query2).subscribe((response: any) => {
         this.subasta = response;
       });
-     
-    
-  
+
+
+
     }else if (query !== undefined && query.trim() !== ""){
 
       this.userService.buscarProducto(query, query2).subscribe((response: any) => {
         this.productos = response;
       });
-    
+
       this.userService.buscarSubasta(query, query2).subscribe((response: any) => {
         this.subasta = response;
       });
-  
+
     }else if (query2 !== undefined && query2 > 0){
 
       this.userService.buscarProducto(query, query2).subscribe((response: any) => {
@@ -150,9 +149,9 @@ export class ProductGridComponent implements OnInit {
       this.userService.buscarSubasta(query, query2).subscribe((response: any) => {
         this.subasta = response;
       });
-     
-      
-      
+
+
+
     } else{
 
       this.userService.buscarProducto(query, query2).subscribe((response: any) => {
@@ -162,15 +161,15 @@ export class ProductGridComponent implements OnInit {
       this.userService.buscarSubasta(query, query2).subscribe((response: any) => {
         this.subasta = response;
       });
-     
+
 
 
     }
 
 
-    
-      
-  
+
+
+
   }
   toggleVentaSubasta(): void {
     this.isVenta = !this.isVenta; // Cambiar entre Venta y Subasta
