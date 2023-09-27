@@ -72,7 +72,19 @@ export class CarritoComponent implements OnInit {
     // Obtener el id_usuario de la cookie del usuario
     const idUsuarioFromCookie = this.getIdUsuarioFromCookie();
     const dir = this.getdir();
-
+    const modalElement = document.getElementById('myModal');
+    const modalBackdropElement = document.querySelector('.modal-backdrop');
+  
+    if (modalElement) {
+      // Hide the modal
+      modalElement.classList.remove('show');
+      modalElement.style.display = 'none';
+    }
+  
+    if (modalBackdropElement) {
+      // Remove the backdrop
+      modalBackdropElement.parentElement?.removeChild(modalBackdropElement);
+    }
     // Crear un objeto de pedido con los datos necesarios
     const pedido = {
         total_pagar: this.total,
