@@ -29,6 +29,9 @@
                   <th style="position: sticky; top: 0; background-color: white">
                     Última Puja
                   </th>
+                  <th style="position: sticky; top: 0; background-color: white">
+                    Cancelar
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -44,6 +47,10 @@
                   <td>{{ cat.nombre }}</td>
 
                   <td>{{ cat.precio_subasta }}</td>
+
+                  <td>
+                    <button class="btn btn-danger" (click)="eliminarProducto(cat.id_producto)">Cancelar</button>
+                  </td>
                 </tr>
                 <!-- Puedes agregar más filas de datos aquí -->
               </tbody>
@@ -67,6 +74,9 @@
                   <th style="position: sticky; top: 0; background-color: white">
                     Puja más alta
                   </th>
+                  <th style="position: sticky; top: 0; background-color: white">
+                    Eliminar
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -82,6 +92,10 @@
                   <td>{{ cat.nombre }}</td>
 
                   <td>{{ cat.precio_subasta }}</td>
+
+                  <td>
+                    <button class="btn btn-danger" (click)="eliminarProducto(cat.id_producto)">Eliminar</button>
+                  </td>
                 </tr>
                 <!-- Puedes agregar más filas de datos aquí -->
               </tbody>

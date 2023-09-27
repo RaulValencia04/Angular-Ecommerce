@@ -210,4 +210,11 @@ export class UsersService {
     const url =`http://localhost:5022/api/Producto/GetSBcerradasbyuser?id_usuario=${data}`
      return this.http.get(url);
    }
+
+   EliminarSubasta(data: number): Observable<any>{
+
+    const url =`http://localhost:5022/api/Producto/deleteProducto/${data}`
+
+    return this.http.delete(url);
+   }
 }
