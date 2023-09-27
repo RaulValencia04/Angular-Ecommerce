@@ -23,9 +23,11 @@
       <tr *ngFor="let producto of productos">
         <td>{{ producto.nombreProducto }}</td>
         <td>{{ producto.cantidad }}</td>
-        <td>{{ producto.total | currency:'USD':'symbol':'1.2-2' }}</td>
+        <td *ngIf="producto.tipoProducto.toString().includes('Venta')">{{ producto.total | currency:'USD':'symbol':'1.2-2' }}</td>
+        <td *ngIf="producto.tipoProducto.toString().includes('Subasta')">{{ producto.precioSubasta | currency:'USD':'symbol':'1.2-2' }}</td>
         <td>{{ producto.fechaAgregado | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
-        <td>{{ producto.total * producto.cantidad| currency:'USD':'symbol':'1.2-2' }}</td>
+        <td *ngIf="producto.tipoProducto.toString().includes('Venta')">{{ producto.total * producto.cantidad| currency:'USD':'symbol':'1.2-2' }}</td>        
+        <td *ngIf="producto.tipoProducto.toString().includes('Subasta')">{{ producto.precioSubasta * producto.cantidad| currency:'USD':'symbol':'1.2-2' }}</td>
         <td>
           <button class="btn btn-danger" (click)="eliminarProducto(producto.idCarrito)">Eliminar</button>
         </td>

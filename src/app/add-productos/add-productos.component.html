@@ -73,7 +73,7 @@
       <div class="form-group" *ngIf="(tipo_producto === 'Subasta')">
         <div *ngIf="formSubmitted && !fecha_inicio" class="error-message text-danger">La fecha de inicio es requerida</div>
         <label for="fechaInicio">Fecha de Inicio:</label>
-        <input type="datetime-local" id="fechaInicio" name="fechaInicio" [(ngModel)]="fecha_inicio" required class="form-control">
+        <input type="datetime-local" id="fechaInicio" name="fechaInicio"  [(ngModel)]="fecha_inicio" required class="form-control">
       </div>
     
       <div class="form-group" *ngIf="(tipo_producto === 'Subasta')">

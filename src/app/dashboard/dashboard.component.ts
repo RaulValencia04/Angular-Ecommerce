@@ -44,7 +44,6 @@ export class DashboardComponent  implements OnInit{
     });
     this.userService.buscarSubasta2(limite).subscribe((response: any) => {
       this.productos2 = response;
-      console.log(response)
 
     });
   }
