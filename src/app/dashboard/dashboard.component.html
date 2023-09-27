@@ -148,7 +148,7 @@
       <br>
       <div class="row">
         <div *ngFor="let pr of productos" class="col-md-4 mb-4">
-          <div class="card">
+          <div class="card h-100">
             <img [src]="pr.imagen_url" alt="{{ pr.nombre }}" class="card-img-top" />
             <div class="card-body">
               <h5 class="card-title">{{ pr.nombre }}</h5>
@@ -182,7 +182,7 @@
       <br>
       <div class="row">
         <div *ngFor="let p of productos2" class="col-md-4 mb-4">
-          <div class="card">
+          <div class="card h-100">
             <img [src]="p.imagen_url" alt="{{ p.nombre }}" class="card-img-top" />
             <div class="card-body">
               <h5 class="card-title">{{ p.nombre }}</h5>

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-ofertar',
@@ -96,9 +97,18 @@ export class OfertarComponent implements OnInit {
       }
     } else {
       console.error('No puedes pujar en esta subasta.');
-      alert('No puedes pujar en esta subasta.')
+      this. mostrarAlerta();
     }
 
+  }
+
+  mostrarAlerta() {
+    Swal.fire({
+      title: 'No puedes ofertar en tus subastas',
+      icon: 'error', // Puedes cambiar el ícono a tu gusto (success, error, warning, etc.)
+      timer: 2500, // Tiempo de visualización en milisegundos (2 segundos)
+      showConfirmButton: false // Oculta el botón de confirmación
+    });
   }
 
   detenerContador(producto: any) {
