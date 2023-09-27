@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users/users.service';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Renderer2, ElementRef } from '@angular/core';
+
 
 
 
@@ -21,7 +23,9 @@ export class CarritoComponent implements OnInit {
   constructor(
     public userService: UsersService,
     private cookieService: CookieService,
+    private renderer: Renderer2,
     private router: Router,
+    private el: ElementRef
   ) {}
 
   ngOnInit(): void {
@@ -111,15 +115,25 @@ export class CarritoComponent implements OnInit {
         );
     } catch (error) {
         console.error('Error inesperado al crear el pedido:', error);
+    }finally{
+
+      const modalElement = this.el.nativeElement.querySelector('#myModal');
+      this.renderer.removeClass(modalElement, 'show');
+      this.renderer.setStyle(modalElement, 'display', 'none');
+
+      // Eliminar la clase 'modal-open' del elemento 'body'
+      document.body.classList.remove('modal-open');
+
     }
-    finally{
-      // document.body.classList.remove('modal-open');
-      window.location.reload();
-      this.router.navigateByUrl("/factura");
-    }
+
+
+
+
 
     this.LimpiarCarrito();
 
+
+     this.router.navigateByUrl("/factura");
 
    // this.imprimirFactura();
 
