@@ -101,6 +101,7 @@ export class HistorialComponent implements OnInit{
     this.userService.EliminarSubasta(id_producto).subscribe(
       () => {
         this.mostrarAlerta();
+        window.location.reload();
       },
       (error: any) => {
         console.log(error);

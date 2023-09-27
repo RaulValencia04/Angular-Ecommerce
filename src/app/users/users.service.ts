@@ -213,8 +213,8 @@ export class UsersService {
 
    EliminarSubasta(data: number): Observable<any>{
 
-    const url =`http://localhost:5022/api/Producto/deleteUsuario/${data}`
+    const url =`http://localhost:5022/api/Producto/deleteProducto/${data}`
 
-    return this.http.get(url);
+    return this.http.delete(url);
    }
 }
