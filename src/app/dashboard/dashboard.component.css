@@ -220,7 +220,7 @@ font-size: 4.2rem;
 }
 
 .custom-background {
-  background-color: #d1dcdd; /* Cambia este color al que desees */
+  background-color: #E0F7FA; /* Cambia este color al que desees */
   padding: 0px; /* Ajusta el relleno según sea necesario */
 }
 
@@ -232,6 +232,17 @@ font-size: 4.2rem;
 .secciondescubre {
   background-color: #E0F7FA; /* Cambia este color al que desees */
   padding: 0px;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: 100vh; 
+}
+
+.seccion::before {
+  content: "-";
+  display: block;
+  height: 5px;
+  background-color: #186477; /* Color de la línea */
 }
 
 .card:hover {

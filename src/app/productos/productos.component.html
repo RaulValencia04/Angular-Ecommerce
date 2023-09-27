@@ -19,7 +19,7 @@
                         <option value="">Todas las categorías</option>
                         <!-- Aquí puedes agregar manualmente las opciones de categoría si es necesario -->
                     </select>
-                    <button type="submit" class="btn btn-primary ms-2 ml-2 ml-auto">Filtrar</button>
+                    <button type="submit" class="btn btn-primary ml-auto">Filtrar</button>
                 </div>
             </form>
         </div>
@@ -31,28 +31,29 @@
 
         <div class="container pt-2">
 
-            <div class="products">
-                <div class="product">
-                    <div class="image">
-                      <img src="assets/img/descarga.jpeg" alt="hola">
-
-                    </div>
-                    <div class="namePrice">
-                        <h3>Nombre del Producto</h3>
-                        <span>$ Precio del Producto</span>
-                    </div>
-                    <p class="mb-5">Descripción del Producto</p>
-                    <form method="POST" action="URL_AQUI">
-                        <input type="hidden" name="id_producto" value="ID_DEL_PRODUCTO">
-                        <div class="bay">
-                            <div style="display: flex; align-items: center;">
-                                <div class="stars">
-                                    <input type="number" name="cantidad" value="1" min="1" max="10">
-                                </div>
-                                <button type="submit">Agregar al carrito</button>
-                            </div>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="product">
+                        <div class="image">
+                            <img src="assets/img/descarga.jpeg" alt="hola">
                         </div>
-                    </form>
+                        <div class="namePrice">
+                            <h3>Nombre del Producto</h3>
+                            <span>$ Precio del Producto</span>
+                        </div>
+                        <p class="mb-5">Descripción del Producto</p>
+                        <form method="POST" action="URL_AQUI">
+                            <input type="hidden" name="id_producto" value="ID_DEL_PRODUCTO">
+                            <div class="bay">
+                                <div style="display: flex; align-items: center; justify-content: center;">
+                                    <div class="stars">
+                                        <input type="number" name="cantidad" value="1" min="1" max="10">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
