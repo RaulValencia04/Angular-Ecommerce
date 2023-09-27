@@ -168,7 +168,7 @@ export class OfertarComponent implements OnInit {
         ubicacion: dir,
       };
 
-      this.userService.ActualizarEstadoSubasta(producto.id_producto);
+       this.userService.ActualizarEstadoSubasta(producto.id_producto);
 
       // this.userService.CrearPedido(pedido).subscribe(
       //   (response: any) => {
@@ -180,13 +180,13 @@ export class OfertarComponent implements OnInit {
       //         cantidad: 1,
       //       },
       //     ];
-         
+
 
       //     // this.userService.AgregarDetalle(detallesPedido).subscribe(
       //     //   (detalleResponse: any) => {
 
       //     //       //aqui cambia el estado del productogit dd
-             
+
       //     //       this.detenerContador(producto);
       //     //       console.log(detallesPedido);
 

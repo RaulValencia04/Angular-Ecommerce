@@ -181,7 +181,7 @@ export class UsersService {
     );
   }
   ActualizarUsuario(idProducto: number) {
-    
+
     const url = `http://localhost:5022/api/Producto/ActualizarEstadoSubasta/${idProducto}A NULL`;
     console.log(url);
     console.log('estado' + idProducto);
@@ -243,6 +243,47 @@ export class UsersService {
     const url =`http://localhost:5022/api/Pedido/deletePedidobyUser/${data}`
 
     return this.http.delete(url);
+
+   }
+   GetSubastasOpen(){
+
+    const url = `http://localhost:5022/api/Producto/GetAll?tipo=Subasta`
+
+    return this.http.get(url);
+
+// EJEMLO DEL RETURN[
+//   {
+//     "id_producto": 44,
+//     "nombre": "producto#2",
+//     "precio": 0,
+//     "precio_subasta": 3,
+//     "imagen_url": "assets/carpeta_imagenes/1695744540833-309947139.jpeg",
+//     "descripcion": "crisisisisisiss",
+//     "id_categoria": 1,
+//     "estado": 0,
+//     "fecha_inicio": "2023-09-26T10:08:00",
+//     "fecha_final": "2023-09-26T10:09:00",
+//     "tipo_producto": "Subasta",
+//     "id_usuario": 1,
+//     "id_usuario_ultima_puja": 1
+//   },
+//   {
+//     "id_producto": 45,
+//     "nombre": "producto#3",
+//     "precio": 0,
+//     "precio_subasta": 6,
+//     "imagen_url": "assets/carpeta_imagenes/1695744558247-305197267.jpeg",
+//     "descripcion": "crisisisisisiss",
+//     "id_categoria": 1,
+//     "estado": 0,
+//     "fecha_inicio": "2023-09-26T10:08:00",
+//     "fecha_final": "2023-09-26T10:10:00",
+//     "tipo_producto": "Subasta",
+//     "id_usuario": 1,
+//     "id_usuario_ultima_puja": 1
+//   }
+// ]
+
 
    }
 }

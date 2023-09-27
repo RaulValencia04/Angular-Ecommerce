@@ -3,6 +3,8 @@ import { UsersService } from "../users/users.service";
 import Swal from 'sweetalert2';
 import { CookieService } from "ngx-cookie-service"; // Importa el servicio de cookies
 import { Router } from "@angular/router";
+import { interval } from 'rxjs';
+
 
 @Component({
   selector: 'app-product-grid',
@@ -19,10 +21,14 @@ export class ProductGridComponent implements OnInit {
   isVenta = true;
   categorias: any[] = [];
   id_categoria: number = 0;
+  productosEstado: any[] = [];
+  subastaCerrada: boolean = false;
+  operacionRealizada: boolean = false;
 
 
   username: string = "";
   hasUser: boolean = false;
+
 
   constructor(public userService: UsersService,private router: Router, private cookieService: CookieService) {} // Inyecta el servicio de cookies
 
@@ -44,6 +50,30 @@ export class ProductGridComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
+
+    this.userService.GetSubastasOpen().subscribe(
+      (data: any) => {
+        // Assuming data.token exists in the response
+        if (data) {
+          this.productosEstado = data;
+        }
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+    interval(1000)
+    .subscribe(() => {
+      this.subasta.forEach((producto: any) => {
+        this.calcularTiempoRestante(producto);
+      });
+    });
+
+
+
     const userCookie = this.cookieService.get("user");
 
 
@@ -75,7 +105,14 @@ export class ProductGridComponent implements OnInit {
 
 
 
+
   }
+
+  // ngOnDestroy() {
+  //   this.onDestroy$.next(); // Liberar recursos cuando el componente se destruye
+  //   this.onDestroy$.complete();
+  // }
+
 
   loadInitialData(): void {
     this.buscarProducto('');
@@ -216,6 +253,47 @@ export class ProductGridComponent implements OnInit {
         console.error('Error al agregar el producto al carrito:', error);
       }
     );
+
+  }
+
+  calcularTiempoRestante(producto: any) {
+    const fechaFinalSubasta = new Date(producto.fecha_final);
+    const fechaActual = new Date();
+    const diferencia = fechaFinalSubasta.getTime() - fechaActual.getTime();
+    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    const horas = Math.floor(
+      (diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    //console.log( (diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+    const tp = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+    // console.log(tp);
+
+    if (diferencia <= 0 ) {
+      this.onTiempoRestanteCero(producto);
+      this.operacionRealizada = true;
+      this.subastaCerrada = true;
+      producto.tiempoRestante = 'Subasta Cerrada';
+       // Marca la operación como realizada
+    }
+
+  }
+  onTiempoRestanteCero(producto: any) {
+
+        // console.log(this.estado2);
+;
+
+      // Marca la subasta como cerrada en el almacenamiento local
+      localStorage.setItem('subastaCerrada', 'true');
+
+
+
+      this.userService.ActualizarEstadoSubasta(producto.id_producto);
+
+
+
+      // this.subastasCerradas[producto.id_producto] = true;//
 
   }
 
