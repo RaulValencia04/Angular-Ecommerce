@@ -12,6 +12,7 @@ import { CookieService } from "ngx-cookie-service";
 export class FacturaComponent implements OnInit {
 
   factura:any[] = []
+  fechaGlobal: string = new Date().toLocaleDateString();
 
   constructor(public userService: UsersService, private router: Router, private http: HttpClient ,private cookieService: CookieService) {}
 
@@ -35,6 +36,9 @@ export class FacturaComponent implements OnInit {
 
 
 
+  }
+  imprimirFactura() {
+    window.print();
   }
   getIdUsuarioFromCookie(): number {
     const userData = this.cookieService.get('user');

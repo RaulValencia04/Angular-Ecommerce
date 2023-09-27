@@ -26,7 +26,11 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     // Verifica si la cookie "user" existe
     const userCookieExists = this.cookieService.check("user");
+    const userCookie = this.cookieService.get("user");
 
+    if(userCookie){
+      this.router.navigateByUrl("/");
+    }    
     if (userCookieExists) {
       // Si la cookie no existe, redirige a la página de inicio de sesión
       this.router.navigateByUrl("/");

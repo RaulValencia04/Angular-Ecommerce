@@ -2,16 +2,21 @@ import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users/users.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import * as jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 
 @Component({
   selector: 'app-carrito',
   templateUrl: './carrito.component.html',
-  styleUrls: ['./carrito.component.css'],
+  styleUrls: ['../../assets/css/tarjeta.css'],
+
 })
 export class CarritoComponent implements OnInit {
   productos: any[] = [];
   total: number = 0;
   cantidad: number= 0;
+  router: any;
 
   constructor(
     public userService: UsersService,
@@ -106,8 +111,19 @@ export class CarritoComponent implements OnInit {
     } catch (error) {
         console.error('Error inesperado al crear el pedido:', error);
     }
+    finally{
+      this.router.navigateByUrl("/factura");
+    }
+
     this.LimpiarCarrito();
+
+
+   // this.imprimirFactura();
+
+
 }
+
+
 
 getdir():string{
   const userData = this.cookieService.get('user');
@@ -198,7 +214,5 @@ eliminarProducto(id_carrito: number) {
     }
 
   }
-
-
 
 }

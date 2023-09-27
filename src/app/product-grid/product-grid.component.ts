@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { UsersService } from "../users/users.service";
 import Swal from 'sweetalert2';
 import { CookieService } from "ngx-cookie-service"; // Importa el servicio de cookies
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-product-grid',
@@ -20,8 +21,22 @@ export class ProductGridComponent implements OnInit {
   id_categoria: number = 0;
 
 
+  username: string = "";
+  hasUser: boolean = false;
 
-  constructor(public userService: UsersService, private cookieService: CookieService) {} // Inyecta el servicio de cookies
+  constructor(public userService: UsersService,private router: Router, private cookieService: CookieService) {} // Inyecta el servicio de cookies
+
+ checkUser(): void {
+    const userCookie = this.cookieService.get("user"); // Obtiene el valor de la cookie "user"
+    if (userCookie) {
+      this.username = userCookie; // Establece el nombre de usuario si existe
+      this.hasUser = true; // Indica que existe un usuario en las cookies
+    }
+  }
+
+  isLoggedIn(): boolean {
+    return this.cookieService.check("user"); // Devuelve true si la cookie "user" existe
+  }
 
   toggleModo(): void {
     this.isVenta = !this.isVenta;
@@ -29,6 +44,11 @@ export class ProductGridComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const userCookie = this.cookieService.get("user");
+
+
+
+
     this.loadInitialData();
 
     const userData = this.cookieService.get("user");
@@ -75,23 +95,17 @@ export class ProductGridComponent implements OnInit {
     if (newCategory1 !== undefined && newCategory1.trim() !== "" &&  newCategory2 !== undefined && newCategory2 > 0) {
 
         this.categories.unshift(newCategory1);
-        console.log("Los dos");
-        console.log("Nueva categoría 1:", newCategory1);
+
         this.categories2.unshift(newCategory2);
-        console.log("Nueva categoría 1:", newCategory2);
         this.buscarProducto(newCategory1, newCategory2);
 
     }else if (newCategory1 !== undefined && newCategory1.trim() !== ""){
-      console.log("solo el primero", newCategory1);
       this.categories.unshift(newCategory1);
-        console.log("Nueva categoría 1:", newCategory1);
         this.buscarProducto(newCategory1, newCategory2);
 
     }else if (newCategory2 !== undefined && newCategory2 > 0){
 
-        console.log("solo el segundo");
         this.categories2.unshift(newCategory2);
-        console.log("Nueva categoría 1:", newCategory2);
         this.buscarProducto(newCategory1, newCategory2);
     }
 
@@ -106,15 +120,11 @@ export class ProductGridComponent implements OnInit {
 
 
     if (query !== undefined && query.trim() !== "" && query2 !== undefined && query2 > 0) {
-
-      console.log("No puede serrrrr2")
       this.userService.buscarProducto(query, query2).subscribe((response: any) => {
-        console.log("noo",response);
         this.productos = response;
       });
 
       this.userService.buscarSubasta(query, query2).subscribe((response: any) => {
-        console.log("este",response);
         this.subasta = response;
       });
 
@@ -122,27 +132,21 @@ export class ProductGridComponent implements OnInit {
 
     }else if (query !== undefined && query.trim() !== ""){
 
-      console.log("No puede serrrrr2")
       this.userService.buscarProducto(query, query2).subscribe((response: any) => {
-        console.log("noo",response);
         this.productos = response;
       });
 
       this.userService.buscarSubasta(query, query2).subscribe((response: any) => {
-        console.log("este",response);
         this.subasta = response;
       });
 
     }else if (query2 !== undefined && query2 > 0){
 
-      console.log("No puede serrrrr2")
       this.userService.buscarProducto(query, query2).subscribe((response: any) => {
-        console.log("noo",response);
         this.productos = response;
       });
 
       this.userService.buscarSubasta(query, query2).subscribe((response: any) => {
-        console.log("este",response);
         this.subasta = response;
       });
 
@@ -150,14 +154,11 @@ export class ProductGridComponent implements OnInit {
 
     } else{
 
-      console.log("No puede serrrrr2")
       this.userService.buscarProducto(query, query2).subscribe((response: any) => {
-        console.log("noo",response);
         this.productos = response;
       });
 
       this.userService.buscarSubasta(query, query2).subscribe((response: any) => {
-        console.log("este",response);
         this.subasta = response;
       });
 

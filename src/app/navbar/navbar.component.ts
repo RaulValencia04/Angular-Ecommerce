@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { UsersService } from "../users/users.service";
 import { CookieService } from "ngx-cookie-service"; // Importa el servicio de cookies
 import { Router } from "@angular/router";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-navbar',
@@ -41,13 +42,24 @@ export class NavbarComponent {
   }
   logout() {
     // Borra la cookie
-    this.cookieService.delete("user"); // Reemplaza "user" con el nombre de tu cookie
+    this.cookieService.delete("user");
+     // Reemplaza "user" con el nombre de tu cookie
+     this.router.navigateByUrl("/");
 
-
+    this.mostrarAlerta();
   }
 
   redirectToCart(): void {
     this.router.navigate(['/carrito']); // Cambia '/carrito' a la ruta de tu página de carrito
+  }
+
+  mostrarAlerta() {
+    Swal.fire({
+      title: 'Sesion Cerrada',
+      icon: 'info', // Puedes cambiar el ícono a tu gusto (success, error, warning, etc.)
+      timer: 2500, // Tiempo de visualización en milisegundos (2 segundos)
+      showConfirmButton: false // Oculta el botón de confirmación
+    });
   }
 
 }
