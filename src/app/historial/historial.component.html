@@ -50,7 +50,7 @@
 
                   <td>
                     <button class="btn btn-danger" (click)="eliminarProducto(cat.id_producto)">Cancelar</button>
-                  </td>
+                  </td> 
                 </tr>
                 <!-- Puedes agregar más filas de datos aquí -->
               </tbody>
@@ -120,6 +120,7 @@
                   <th style="position: sticky; top: 0; background-color: white">
                     Pagar
                   </th>
+                  
                 </tr>
               </thead>
               <tbody>
@@ -135,6 +136,11 @@
                   <td>{{ cat.nombre }}</td>
 
                   <td>{{ cat.precio_subasta }}</td>
+                  <td>
+                    <div class="input-group-append">
+                      <button class="btn btn-success"  (click)="mostrarAlertaSucces()" (click)="agregarAlCarrito(cat)"  [attr.data-producto-id]="cat.id_producto">Agregar al carrito</button>
+                    </div>
+                  </td>
                 </tr>
                 <!-- Puedes agregar más filas de datos aquí -->
               </tbody>

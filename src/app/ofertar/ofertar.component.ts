@@ -158,38 +158,42 @@ export class OfertarComponent implements OnInit {
         ubicacion: dir,
       };
 
-      this.userService.CrearPedido(pedido).subscribe(
-        (response: any) => {
-          const idPedido = response.id_pedido;
-          const detallesPedido = [
-            {
-              id_producto: producto.id_producto,
-              id_pedido: idPedido,
-              cantidad: 1,
-            },
-          ];
+      this.userService.ActualizarEstadoSubasta(producto.id_producto);
 
-          this.userService.AgregarDetalle(detallesPedido).subscribe(
-            (detalleResponse: any) => {
+      // this.userService.CrearPedido(pedido).subscribe(
+      //   (response: any) => {
+      //     const idPedido = response.id_pedido;
+      //     const detallesPedido = [
+      //       {
+      //         id_producto: producto.id_producto,
+      //         id_pedido: idPedido,
+      //         cantidad: 1,
+      //       },
+      //     ];
+         
 
-                //aqui cambia el estado del productogit dd
-                this.userService.ActualizarEstadoSubasta(producto.id_producto);
-                this.detenerContador(producto);
-                console.log(detallesPedido);
+      //     // this.userService.AgregarDetalle(detallesPedido).subscribe(
+      //     //   (detalleResponse: any) => {
 
-            },
-            (detalleError: any) => {
-              console.error(
-                'Error al agregar el detalle de pedido:',
-                detalleError
-              );
-            }
-          );
-        },
-        (error) => {
-          console.error('Error al crear el pedido:', error);
-        }
-      );
+      //     //       //aqui cambia el estado del productogit dd
+             
+      //     //       this.detenerContador(producto);
+      //     //       console.log(detallesPedido);
+
+      //     //   },
+      //     //   (detalleError: any) => {
+      //     //     console.error(
+      //     //       'Error al agregar el detalle de pedido:',
+      //     //       detalleError
+      //     //     );
+      //     //   }
+      //     // );
+      //   },
+      //   (error) => {
+      //     console.error('Error al crear el pedido:', error);
+      //   }
+      // );
+
       this.subastasCerradas[producto.id_producto] = true;
     }
   }
