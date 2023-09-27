@@ -111,7 +111,7 @@ export class UsersService {
 
       // Utiliza un bucle for para recorrer los elementos del array y enviarlos
       for (const detallePedido of data) {
-      
+
 
         // Realiza la solicitud POST para cada detallePedido
         this.http.post(url, detallePedido).subscribe(
@@ -224,11 +224,25 @@ export class UsersService {
     const url =`http://localhost:5022/api/Producto/GetSBcerradasbyuser?id_usuario=${data}`
      return this.http.get(url);
    }
+   factura(data:any){
 
+    const url = `http://localhost:5022/api/Pedido/GetAllscc?idUsuario=${data}`;
+
+
+    return this.http.get(url)
+   }
    EliminarSubasta(data: number): Observable<any>{
 
     const url =`http://localhost:5022/api/Producto/deleteProducto/${data}`
 
     return this.http.delete(url);
+
+   }
+   EliminarPedido(data: number): Observable<any>{
+
+    const url =`http://localhost:5022/api/Pedido/deletePedidobyUser/${data}`
+
+    return this.http.delete(url);
+
    }
 }
