@@ -180,6 +180,20 @@ export class UsersService {
       }
     );
   }
+  ActualizarUsuario(idProducto: number) {
+    
+    const url = `http://localhost:5022/api/Producto/ActualizarEstadoSubasta/${idProducto}A NULL`;
+    console.log(url);
+    console.log('estado' + idProducto);
+    return this.http.put(url, {}).subscribe(
+      (data) => {
+        console.log('PUT Request is successful ', data);
+      },
+      (error) => {
+        console.log('Error', error);
+      }
+    );
+  }
   obtenerListCategorias() {
     return this.http.get(
       'http://localhost:5022/api/Categoria/Categoria/GetAll'

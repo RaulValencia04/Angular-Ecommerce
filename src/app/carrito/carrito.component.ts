@@ -174,9 +174,20 @@ eliminarProducto(id_carrito: number) {
     for (const producto of this.productos) {
       // Verificar si los valores son numéricos y no están indefinidos
       const cantidad = typeof producto.cantidad === 'number' && !isNaN(producto.cantidad) ? producto.cantidad : 0;
-      const precio = typeof producto.total === 'number' && !isNaN(producto.total) ? producto.total : 0;
+      var precio = 0;
+      if (producto.tipoProducto.toString().includes("Subasta")){
+        const precioSubasta = producto.precioSubasta;
+          precio = precioSubasta;              
+      }else{
+        precio = typeof producto.total === 'number' && !isNaN(producto.total) ? producto.total : 0;
+      }
+    
+
+
 
       const precioTotalPorProducto = cantidad * precio;
+
+      
       total += precioTotalPorProducto;
     }
 

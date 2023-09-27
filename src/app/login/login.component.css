@@ -5,7 +5,7 @@
 }
 html,
 body {
-  background: #ecf0f3;
+  background: #04233b;
 }
 h1 {
   margin: 0;
@@ -20,7 +20,7 @@ h1 {
   margin: auto;
   border-radius: 2.5rem;
   background-color: #ecf0f3;
-  box-shadow: 13px 13px 20px #cbced1, -13px -13px 20px #ffffff;
+  box-shadow: 13px 13px 20px #1c1f22, -13px -13px 20px #746a6a;
   color: black;
   margin-top: 10rem;
 }
@@ -43,11 +43,18 @@ h1 {
   font-size: 0.875rem;
   color: #ffffff;
   font-weight: bold;
-  background-color: #bcd8c1;
+  background-color: #5b7c61;
   width: 100%;
   display: block;
   padding: 0.875rem 1rem;
   border-radius: 1.5rem;
   box-shadow: 3px 3px 8px #b1b1b1, -3px -3px 8px #ffffff;
   cursor: pointer;
+}
+
+.fondo {
+  background-image: url('../../assets/img/inicio.png');
+  background-size: cover; /* Ajusta la imagen al tamaño de la ventana del navegador */
+  background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
+  height: 300%;
 }
