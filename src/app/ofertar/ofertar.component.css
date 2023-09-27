@@ -32,3 +32,71 @@ body{
   content: "Tu mensaje personalizado aquí: ";
   font-weight: bold;
 }
+
+.card {
+  border: none; /* Elimina el borde predeterminado de la tarjeta */
+  border-radius: 10px; /* Añade bordes redondeados a la tarjeta */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Sombreado 3D */
+  transition: box-shadow 0.3s ease-in-out; /* Efecto de transición al pasar el mouse */
+}
+
+.card:hover {
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); /* Sombreado más fuerte al pasar el mouse */
+}
+
+.card-title {
+  font-size: 44px; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  color: #030303; /* Color del texto */
+  margin-bottom: 10px; /* Espacio entre el título y el contenido siguiente */
+}
+
+.row {
+  margin-bottom: 20px; /* Agregar espacio entre filas */
+}
+
+.col-6 {
+  padding: 10px; /* Agregar espacio interno a las columnas */
+}
+
+h2 {
+  font-size: 24px; /* Tamaño de fuente para el título "Puja más alta" */
+  font-weight: bold; /* Negrita */
+  color: #000000; /* Color verde */
+  margin-bottom: 5px; /* Espacio entre el título y el precio */
+}
+
+h4 {
+  font-size: 20px; /* Tamaño de fuente para el precio */
+  color: #333; /* Color del texto */
+  margin-top: 0; /* Eliminar el espacio superior */
+}
+
+.input-group {
+  margin-top: 10px; /* Agregar espacio entre el grupo de entrada y el contenido siguiente */
+}
+
+.card-text {
+  font-size: 16px; /* Tamaño de fuente para la descripción */
+  color: #555; /* Color del texto de la descripción */
+  margin-top: 15px; /* Agregar espacio entre la descripción y los elementos anteriores */
+}
+
+p {
+  font-size: 18px; /* Tamaño de fuente */
+  font-weight: bold; /* Negrita */
+  color: #080808; /* Color del texto, por ejemplo, un tono de rojo */
+  margin-top: 10px; /* Espacio superior */
+}
+
+.custom-input {
+  max-width: 300px; /* Ancho máximo específico */
+  width: auto; /* Permite que el ancho se ajuste automáticamente al contenido */
+  margin-right: 15px;
+}
+
+
+
+
+
+
