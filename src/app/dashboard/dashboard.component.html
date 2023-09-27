@@ -1,50 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EasyBuying</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Montserrat"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
-  </head>
 
-  <body>
-    <!-- <app-root></app-root> -->
-    <!-- <nav class="navbar navbar-expand-lg fixed-top"> -->
-    <!-- Resto de tu código para la barra de navegación -->
-    <!-- <div class="collapse navbar-collapse" id="navbarScroll">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    E-tiendita
+  </title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<body>
+  <!-- <app-root></app-root> -->
+  <!-- <nav class="navbar navbar-expand-lg fixed-top"> -->
+  <!-- Resto de tu código para la barra de navegación -->
+  <!-- <div class="collapse navbar-collapse" id="navbarScroll">
         <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
         </ul> -->
-    <!-- Estructura condicional para mostrar elementos según el estado de autenticación -->
-    <!-- <ng-container *ngIf="isLoggedIn(); else notLoggedIn"> -->
-    <!-- Mostrar nombre de usuario y botón de carrito si está logueado -->
-    <!-- <div class="d-flex align-items-center">
+  <!-- Estructura condicional para mostrar elementos según el estado de autenticación -->
+  <!-- <ng-container *ngIf="isLoggedIn(); else notLoggedIn"> -->
+  <!-- Mostrar nombre de usuario y botón de carrito si está logueado -->
+  <!-- <div class="d-flex align-items-center">
                 <p class="m-0 me-2">Bienvenido, {{ getUsername() }}</p>
                 <a class="btn btn-primary" href="/carrito">Carrito</a>
                 <a class="btn btn-primary" (click)="logout()">Cerrar sesion</a>
             </div>
         </ng-container> -->
-    <!-- Si no está logueado -->
-    <!-- <ng-template #notLoggedIn>
+  <!-- Si no está logueado -->
+  <!-- <ng-template #notLoggedIn>
             <form class="d-flex" role="search">
                 <a class="btn btn-outline" href="/login"><i class="bi bi-person-check"></i> Iniciar Sesión</a>
                 <a class="btn btn-outline" href="/register"><i class="bi bi-person-add"></i> Registro</a>
@@ -53,55 +43,46 @@
     </div>
 </nav> -->
 
-    <div
-      id="carouselExampleAutoplaying"
-      class="carousel slide"
-      data-bs-ride="carousel"
-    >
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="assets/img/Car1.png" class="d-block w-100" alt="..." />
-        </div>
-        <div class="carousel-item">
-          <img src="assets/img/car2.png" class="d-block w-100" alt="..." />
-        </div>
+  <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="assets/img/card1.png" class="d-block w-100" alt="..." />
       </div>
-      <button
-        class="carousel-control-prev"
-        type="button"
-        data-bs-target="#carouselExampleAutoplaying"
-        data-bs-slide="prev"
-      >
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button
-        class="carousel-control-next"
-        type="button"
-        data-bs-target="#carouselExampleAutoplaying"
-        data-bs-slide="next"
-      >
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
+      <div class="carousel-item">
+        <img src="assets/img/card2.png" class="d-block w-100" alt="..." />
+      </div>
+      <div class="carousel-item active">
+        <img src="assets/img/card3.png" class="d-block w-100" alt="..." />
+      </div>
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+      data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+      data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 
-    <div
-      class="container m-5 text-center align-items-center d-flex flex-column"
-    >
+  <div class="secciondescubre">
+    <div class="container m-5 text-center align-items-center d-flex flex-column">
+      <br>
+      <br>
+      <br>
       <div class="row">
-        <h2>
-          <strong
-            >Descubre las diversas opciones que EasyBuying tiene para ti</strong
-          >
-        </h2>
-        <br /><br />
+        <br>
+        <h1 style="color: #082130; text-align: center;" class="tituloseccion">¡Descubre las diversas opciones que Etiendita tiene para ti!</h1>
+        <br>
       </div>
+      <br>
       <div class="row">
         <div class="col">
           <div class="imagen-con-fondo">
             <img src="assets/img/sub_img.png" alt="Descripción de la imagen" />
-            <div class="texto" style="color: #1565c0; text-align: center">
+            <div class="texto" style="color: #082130; text-align: center">
               <p>
                 <strong>
                   Participa en nuestras emocionantes subastas en vivo y compite
@@ -114,11 +95,8 @@
         </div>
         <div class="col">
           <div class="imagen-con-fondo">
-            <img
-              src="assets/img/img_categorias.png"
-              alt="Descripción de la imagen"
-            />
-            <div class="texto" style="color: #1565c0; text-align: center">
+            <img src="assets/img/img_categorias.png" alt="Descripción de la imagen" />
+            <div class="texto" style="color: #082130; text-align: center">
               <p>
                 <strong>
                   Explora una amplia gama de categorías de productos, y
@@ -130,52 +108,48 @@
           </div>
         </div>
       </div>
+      <br><br>
     </div>
+  </div>
 
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-6 px-0">
-          <img
-            src="assets/img/imgCol2.png"
-            alt="Descripción de la imagen"
-            class="img-fluid"
-          />
-        </div>
-        <div class="col-6">
-          <div
-            class="container mt-5 text-center align-items-center d-flex flex-column"
-          >
-            <h3>
-              <strong
-                >¡Únete a la comunidad de EasyBuying y desbloquea un mundo de
-                oportunidades!</strong
-              >
-            </h3>
-            <br /><br />
-            <p>
-              Con una cuenta en EasyBuying, tendrás acceso a una plataforma de
-              compraventa segura y conveniente. Crea tu cuenta hoy mismo y
-              empieza a vender tus productos de manera rápida y sencilla. Si
-              estás buscando tesoros ocultos, nuestra comunidad de compradores
-              te espera con ofertas exclusivas.
-            </p>
-            <a class="btn btn-registro" type="submit">¡Regístrate ahora!</a>
-          </div>
+  <div class="container-fluid unete" style="margin: 0; padding: 0;">
+    <div class="row">
+      <div class="col-6 px-0">
+        <img src="assets/img/col.png" alt="Descripción de la imagen" class="img-fluid" />
+      </div>
+      <div class="col-6" style="margin: 0; padding: 0;">
+        <div class="container mt-0 text-center align-items-center d-flex flex-column" style="margin: 0; padding: 0;">
+          <br><br>
+          <h3 style="color: #144d70; text-align: center;">
+            <strong>¡Únete a la comunidad de Etiendita y desbloquea un mundo de oportunidades!</strong>
+          </h3>
+          <br><br>
+          <p style="margin: 0; padding: 0;">
+            Con una cuenta en Etiendita, tendrás acceso a una plataforma de
+            compraventa segura y conveniente. Crea tu cuenta hoy mismo y
+            empieza a vender tus productos de manera rápida y sencilla. Si
+            estás buscando tesoros ocultos, nuestra comunidad de compradores
+            te espera con ofertas exclusivas.
+          </p>
+          <a class="btn btn-registro" type="submit">¡Regístrate ahora!</a>
         </div>
       </div>
     </div>
+  </div>
+  
+  
+  
 
+  <div class="custom-background">
+    <!-- VENTAS DISPONIBLES -->
     <div class="container card-container">
       <br />
-      <h2>OFERTONEEEES!!!!!</h2>
+      <h2 class="text-center tituloseccion">¡APROVECHA LAS MEJORES OFERTAS!</h2>
+      <br>
       <div class="row">
         <div *ngFor="let pr of productos" class="col-md-4 mb-4">
           <div class="card">
-            <img
-              [src]="pr.imagen_url"
-              alt="{{ pr.nombre }}"
-              class="card-img-top"
-            />
+            <img [src]="pr.imagen_url" alt="{{ pr.nombre }}" class="card-img-top" />
             <div class="card-body">
               <h5 class="card-title">{{ pr.nombre }}</h5>
               <p class="card-text">Precio: ${{ pr.precio }}</p>
@@ -184,13 +158,15 @@
           </div>
         </div>
       </div>
-      <a [routerLink]="['/listaProductos']" class="btn btn-primary"
-        >Ver más productos</a
-      >
+      <div class="text-center">
+        <a [routerLink]="['/listaProductos']" class="btn btn-orange btn-square">Ver más productos</a>
+      </div>
     </div>
+    <!-- SUBASTAS DISPONIBLES -->
     <div class="container card-container">
-      <br />
-      <h2>OFERTAS EN VIVO!!</h2>
+      <br>
+      <h2 class="text-center tituloseccion">¡SUBASTAS DISPONIBLES!</h2>
+      <br>
       <div class="row">
         <div *ngFor="let p of productos2" class="col-md-4 mb-4">
           <div class="card">
@@ -199,61 +175,64 @@
               <h5 class="card-title">{{ p.nombre }}</h5>
               <p class="card-text">Precio: ${{ p.precio }}</p>
               <p class="card-text">{{ p.descripcion }}</p>
-              <!-- Cambia el <a> por un botón con (click) -->
-              <button (click)="generateOfertarURL(p.id_producto)" class="btn btn-primary">Ofertar</button>
+              <button (click)="generateOfertarURL(p.id_producto)" class="btn btn-orange">Ofertar</button>
             </div>
           </div>
         </div>
       </div>
-      <a [routerLink]="['/listaProductos']" class="btn btn-primary">Ver más productos</a>
+      <div class="text-center">
+        <a [routerLink]="['/listaProductos']" class="btn btn-orange btn-square">Ver más productos</a>
+      </div>
     </div>
-    <footer class="pie-pagina">
-      <div class="grupo-1">
-        <div class="box mt-4">
-          <img src="assets/img/logo_nav.png" alt="" width="280" height="80" />
-        </div>
-        <div class="box">
-          <h2>SOBRE NOSOTROS</h2>
-          <p>¿Quieres conocer más sobre EasyBuying?</p>
-          <a class="nav-about" style="color: white">Nosotros</a>
-        </div>
-        <div class="box">
-          <h2>SIGUENOS</h2>
-          <div class="red-social">
-            <!-- Enlace de Facebook -->
-            <a href="https://www.facebook.com" target="_blank">
-              <i class="fab fa-facebook"></i>
-            </a>
+    <br>
+    <br>
+  </div>
 
-            <!-- Enlace de Instagram -->
-            <a href="https://www.instagram.com" target="_blank">
-              <i class="fab fa-instagram"></i>
-            </a>
 
-            <!-- Enlace de Twitter -->
-            <a href="https://www.twitter.com" target="_blank">
-              <i class="fab fa-twitter-square"></i>
-            </a>
+  <footer class="pie-pagina">
+    <div class="grupo-1">
+      <div class="box mt-4">
+        <img src="assets/img/logotiendita.png" alt="" width="200" height="150" />
+      </div>
+      <div class="box">
+        <h2>SOBRE NOSOTROS</h2>
+        <p>¿Quieres conocer más sobre Etiendita?</p>
+        <a class="nav-about" style="color: white">Nosotros</a>
+      </div>
+      <div class="box">
+        <h2>SIGUENOS</h2>
+        <div class="red-social">
+          <!-- Enlace de Facebook -->
+          <a href="https://www.facebook.com" target="_blank">
+            <i class="fab fa-facebook"></i>
+          </a>
 
-            <!-- Enlace de YouTube -->
-            <a href="https://www.youtube.com" target="_blank">
-              <i class="fab fa-youtube-square"></i>
-            </a>
-          </div>
+          <!-- Enlace de Instagram -->
+          <a href="https://www.instagram.com" target="_blank">
+            <i class="fab fa-instagram"></i>
+          </a>
+
+          <!-- Enlace de Twitter -->
+          <a href="https://www.twitter.com" target="_blank">
+            <i class="fab fa-twitter-square"></i>
+          </a>
+
+          <!-- Enlace de YouTube -->
+          <a href="https://www.youtube.com" target="_blank">
+            <i class="fab fa-youtube-square"></i>
+          </a>
         </div>
       </div>
-      <div class="grupo-2">
-        <small
-          >&copy; 2023 <b>EasyBuying</b> - Todos los Derechos Reservados:
-          Astrosoftware.</small
-        >
-      </div>
-    </footer>
+    </div>
+    <div class="grupo-2">
+      <small>&copy; 2023 <b>e-tiendita</b> - Todos los Derechos Reservados:
+        Astrosoftware.</small>
+    </div>
+  </footer>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>
