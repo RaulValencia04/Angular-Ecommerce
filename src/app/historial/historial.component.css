@@ -1,0 +1,43 @@
+.btn-orange {
+    background-color: #FFAB91; /* Color de fondo naranja */
+    color: #470b0b; /* Nuevo color de texto (naranja oscuro) */
+    border: none; /* Elimina el borde del botón */
+    padding: 10px 20px; /* Ajusta el relleno del botón según sea necesario */
+    transition: background-color 0.3s, color 0.3s; /* Agrega transición suave para el color de fondo y el texto */
+    cursor: pointer;
+  }
+  
+  .btn-orange:hover {
+    background-color: #FFCC70; /* Color de fondo naranja más oscuro al pasar el mouse */
+    color: #470b0b; /* Nuevo color de texto (naranja oscuro) */
+  }
+  .btn-rojo {
+    background-color: #FFAB91; /* Color de fondo naranja */
+    color: #470b0b; /* Nuevo color de texto (naranja oscuro) */
+    border: none; /* Elimina el borde del botón */
+    padding: 10px 20px; /* Ajusta el relleno del botón según sea necesario */
+    transition: background-color 0.3s, color 0.3s; /* Agrega transición suave para el color de fondo y el texto */
+    cursor: pointer;
+  }
+  
+  .btn-rojo:hover {
+    background-color: #a00202; /* Color de fondo naranja más oscuro al pasar el mouse */
+    color: #ffffff; /* Nuevo color de texto (naranja oscuro) */
+  }
+  
+  /* Define un estilo para hacer que los botones sean cuadrados */
+  .btn-square {
+    width: 200px; /* Establece el ancho deseado */
+    height: 40px; /* Establece la altura deseada */
+    border-radius: 0; /* Elimina la esquina redondeada para hacerlo cuadrado */
+    text-align: center; /* Centra el texto horizontalmente en el botón */
+    line-height: 1.5; /* Ajusta el espaciado entre líneas para centrar verticalmente el texto */
+  }
+
+  .btn-squarecancel{
+    width: 120px; /* Establece el ancho deseado */
+    height: 40px; /* Establece la altura deseada */
+    border-radius: 0; /* Elimina la esquina redondeada para hacerlo cuadrado */
+    text-align: center; /* Centra el texto horizontalmente en el botón */
+    line-height: 1.5; 
+  }

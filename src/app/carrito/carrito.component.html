@@ -26,7 +26,7 @@
         <td *ngIf="producto.tipoProducto.toString().includes('Venta')">{{ producto.total | currency:'USD':'symbol':'1.2-2' }}</td>
         <td *ngIf="producto.tipoProducto.toString().includes('Subasta')">{{ producto.precioSubasta | currency:'USD':'symbol':'1.2-2' }}</td>
         <td>{{ producto.fechaAgregado | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
-        <td *ngIf="producto.tipoProducto.toString().includes('Venta')">{{ producto.total * producto.cantidad| currency:'USD':'symbol':'1.2-2' }}</td>
+        <td *ngIf="producto.tipoProducto.toString().includes('Venta')">{{ producto.total * producto.cantidad| currency:'USD':'symbol':'1.2-2' }}</td>        
         <td *ngIf="producto.tipoProducto.toString().includes('Subasta')">{{ producto.precioSubasta * producto.cantidad| currency:'USD':'symbol':'1.2-2' }}</td>
         <td>
           <button class="btn btn-danger" (click)="eliminarProducto(producto.idCarrito)">Eliminar</button>
@@ -48,8 +48,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
+<div class="modal fade " id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
   <div class="modal-dialog modal-dialog-centered ">
     <div class="modal-content" >
       <div class="modal-header ">

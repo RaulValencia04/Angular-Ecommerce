@@ -1,154 +1,167 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <title>Listado de productos</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-      crossorigin="anonymous"
-    />
-  </head>
+<head>
+  <title>Listado de productos</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    crossorigin="anonymous"
+  />
+</head>
 
-  <body>
-    <div class="container pt-2 mt-2">
-      <div class="row mt-5">
-        <div class="col-lg-6">
-          <div style="max-height: 300px; overflow-y: auto">
-            <h2>Subastas abiertas</h2>
-            <hr />
-            <table class="table table-hover">
-              <!-- Contenido de la tabla de Subastas abiertas aquí -->
-              <thead>
-                <tr>
-                  <th style="position: sticky; top: 0; background-color: white">
-                    Imagen
-                  </th>
-                  <th style="position: sticky; top: 0; background-color: white">
-                    Nombre
-                  </th>
-                  <th style="position: sticky; top: 0; background-color: white">
-                    Última Puja
-                  </th>
-                  <th style="position: sticky; top: 0; background-color: white">
-                    Cancelar
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Fila de ejemplo 1 -->
-                <tr *ngFor="let cat of SBabiertas">
-                  <td>
-                    <img
-                      [src]="cat.imagen_url"
-                      alt="Imagen de Categoría"
-                      width="70"
-                    />
-                  </td>
-                  <td>{{ cat.nombre }}</td>
+<body>
+  <div class="container pt-2 mt-2">
+    <div class="row mt-5">
+      <div class="col-lg-6">
+        <div style="max-height: 300px; overflow-y: auto" class="d-flex justify-content-center">
+          <div class="card">
+            <div class="card-body">
+              <h2>Subastas abiertas</h2>
+              <hr />
+              <table class="table table-hover">
+                <!-- Contenido de la tabla de Subastas abiertas aquí -->
+                <thead>
+                  <tr>
+                    <th style="position: sticky; top: 0; background-color: white">
+                      Imagen
+                    </th>
+                    <th style="position: sticky; top: 0; background-color: white">
+                      Nombre
+                    </th>
+                    <th style="position: sticky; top: 0; background-color: white">
+                      Última Puja
+                    </th>
+                    <th style="position: sticky; top: 0; background-color: white">
+                      Cancelar
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Fila de ejemplo 1 -->
+                  <tr *ngFor="let cat of SBabiertas">
+                    <td>
+                      <img
+                        [src]="cat.imagen_url"
+                        alt="Imagen de Categoría"
+                        width="70"
+                      />
+                    </td>
+                    <td>{{ cat.nombre }}</td>
 
-                  <td>{{ cat.precio_subasta }}</td>
+                    <td>{{ cat.precio_subasta }}</td>
 
-                  <td>
-                    <button class="btn btn-danger" (click)="eliminarProducto(cat.id_producto)">Cancelar</button>
-                  </td> 
-                </tr>
-                <!-- Puedes agregar más filas de datos aquí -->
-              </tbody>
-            </table>
+                    <td>
+                      <button class="btn btn-rojo btn-squarecancel" (click)="eliminarProducto(cat.id_producto)">Cancelar</button>
+                    </td> 
+                  </tr>
+                  <!-- Puedes agregar más filas de datos aquí -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-        <div class="col-lg-6">
-          <div class="table-responsive">
-            <h2 style="position: sticky; top: 0; background-color: white">Subastas cerradas</h2>
-            <hr />
-            <table class="table table-hover">
-              <!-- Contenido de la tabla de Subastas cerradas aquí -->
-              <thead>
-                <tr>
-                  <th style="position: sticky; top: 0; background-color: white">
-                    Imagen
-                  </th>
-                  <th style="position: sticky; top: 0; background-color: white">
-                    Nombre
-                  </th>
-                  <th style="position: sticky; top: 0; background-color: white">
-                    Puja más alta
-                  </th>
-                  <th style="position: sticky; top: 0; background-color: white">
-                    Eliminar
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Fila de ejemplo 1 -->
-                <tr *ngFor="let cat of SBcerradas">
-                  <td>
-                    <img
-                      [src]="cat.imagen_url"
-                      alt="Imagen de Categoría"
-                      width="70"
-                    />
-                  </td>
-                  <td>{{ cat.nombre }}</td>
-
-                  <td>{{ cat.precio_subasta }}</td>
-
-                  <td>
-                    <button class="btn btn-danger" (click)="eliminarProducto(cat.id_producto)">Eliminar</button>
-                  </td>
-                </tr>
-                <!-- Puedes agregar más filas de datos aquí -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="col-lg-3"></div>
-        <div class="col-lg-6 pt-5">
-          <div class="table-responsive">
-            <h2>Subastas Ganadas!!</h2>
-            <hr />
-            <table class="table table-hover">
-              <!-- Contenido de la tabla de Subastas cerradas aquí -->
-              <thead>
-                <tr>
-                  <th style="position: sticky; top: 0; background-color: white">
-                    Imagen
-                  </th>
-                  <th style="position: sticky; top: 0; background-color: white">
-                    Nombre
-                  </th>
-                  <th style="position: sticky; top: 0; background-color: white">
-                    Pagar
-                  </th>
-                  
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Fila de ejemplo 1 -->
-                <tr *ngFor="let cat of SBcerradasG">
-                  <td>
-                    <img
-                      [src]="cat.imagen_url"
-                      alt="Imagen de Categoría"
-                      width="70"
-                    />
-                  </td>
-                  <td>{{ cat.nombre }}</td>
-
-                  <td>{{ cat.precio_subasta }}</td>
-                  <td>
-                    <div class="input-group-append">
-                      <button class="btn btn-success"  (click)="mostrarAlertaSucces()" (click)="agregarAlCarrito(cat)"  [attr.data-producto-id]="cat.id_producto">Agregar al carrito</button>
-                    </div>
-                  </td>
-                </tr>
-                <!-- Puedes agregar más filas de datos aquí -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="col-lg-3"></div>
       </div>
+      <div class="col-lg-6">
+        <div class="table-responsive d-flex justify-content-center">
+          <div class="card">
+            <div class="card-body">
+              <h2 style="position: sticky; top: 0; background-color: white">Subastas cerradas</h2>
+              <hr />
+              <table class="table table-hover">
+                <!-- Contenido de la tabla de Subastas cerradas aquí -->
+                <thead>
+                  <tr>
+                    <th style="position: sticky; top: 0; background-color: white">
+                      Imagen
+                    </th>
+                    <th style="position: sticky; top: 0; background-color: white">
+                      Nombre
+                    </th>
+                    <th style="position: sticky; top: 0; background-color: white">
+                      Puja más alta
+                    </th>
+                    <th style="position: sticky; top: 0; background-color: white">
+                      Eliminar
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Fila de ejemplo 1 -->
+                  <tr *ngFor="let cat of SBcerradas">
+                    <td>
+                      <img
+                        [src]="cat.imagen_url"
+                        alt="Imagen de Categoría"
+                        width="70"
+                      />
+                    </td>
+                    <td>{{ cat.nombre }}</td>
+
+                    <td>{{ cat.precio_subasta }}</td>
+
+                    <td>
+                      <button class="btn btn-rojo btn-squarecancel" (click)="eliminarProducto(cat.id_producto)">Eliminar</button>
+                    </td>
+                  </tr>
+                  <!-- Puedes agregar más filas de datos aquí -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6 pt-5">
+        <div class="table-responsive d-flex justify-content-center">
+          <div class="card">
+            <div class="card-body">
+              <h2>Subastas Ganadas!!</h2>
+              <hr />
+              <table class="table table-hover">
+                <!-- Contenido de la tabla de Subastas cerradas aquí -->
+                <thead>
+                  <tr>
+                    <th style="position: sticky; top: 0; background-color: white">
+                      Imagen
+                    </th>
+                    <th style="position: sticky; top: 0; background-color: white">
+                      Nombre
+                    </th>
+                    <th style="position: sticky; top: 0; background-color: white">
+                      Pagar
+                    </th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Fila de ejemplo 1 -->
+                  <tr *ngFor="let cat of SBcerradasG">
+                    <td>
+                      <img
+                        [src]="cat.imagen_url"
+                        alt="Imagen de Categoría"
+                        width="70"
+                      />
+                    </td>
+                    <td>{{ cat.nombre }}</td>
+
+                    <td>{{ cat.precio_subasta }}</td>
+                    <td>
+                      <div class="input-group-append">
+                        <button class="btn btn-orange btn-square"  (click)="mostrarAlertaSucces()" (click)="agregarAlCarrito(cat)"  [attr.data-producto-id]="cat.id_producto">Agregar al carrito</button>
+                      </div>
+                    </td>
+                  </tr>
+                  <!-- Puedes agregar más filas de datos aquí -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3"></div>
     </div>
-  </body>
+  </div>
+</body>
 </html>

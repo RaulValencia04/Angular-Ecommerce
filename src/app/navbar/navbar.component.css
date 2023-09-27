@@ -23,3 +23,6 @@
   height: 100pxo; /* Mantiene la proporción original de la imagen */
 }
 
+.bground{
+  background-color: #007bff;
+}
