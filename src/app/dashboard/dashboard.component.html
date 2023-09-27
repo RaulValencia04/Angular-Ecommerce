@@ -154,6 +154,18 @@
               <h5 class="card-title">{{ pr.nombre }}</h5>
               <p class="card-text">Precio: ${{ pr.precio }}</p>
               <p class="card-text">{{ pr.descripcion }}</p>
+              <div class="input-group mb-3">
+                <input type="number" *ngIf="isLoggedIn()" class="form-control" [(ngModel)]="pr.cantidad" min="1" max="10">
+                <div class="input-group-append">
+                  <button class="btn  btn-orange" *ngIf="isLoggedIn()" (click)="agregarAlCarrito(pr)" (click)="mostrarAlerta()" [attr.data-producto-id]="pr.id_producto">Agregar al carrito</button>
+                </div>
+              </div>
+              <div class="input-group mb-3" *ngIf="!isLoggedIn()" >
+                <input type="number"  class="form-control ps-5 mx-2" [(ngModel)]="pr.cantidad" min="1" max="10">
+                <div class="input-group-append">
+                  <button class="btn  btn-orange" [routerLink]="['/login']" >Agregar al carrito</button>
+                </div>
+              </div>           
             </div>
           </div>
         </div>
@@ -176,7 +188,10 @@
               <h5 class="card-title">{{ p.nombre }}</h5>
               <p class="card-text">Precio: ${{ p.precio }}</p>
               <p class="card-text">{{ p.descripcion }}</p>
-              <button (click)="generateOfertarURL(p.id_producto)" class="btn btn-orange">Ofertar</button>
+              <div class="input-group-append" *ngIf="!isLoggedIn()">
+                <a [routerLink]="['/login']"  class="btn  btn-orange" >Ofertar</a>
+              </div>
+              <button (click)="generateOfertarURL(p.id_producto)"  *ngIf="isLoggedIn()" class="btn btn-orange">Ofertar</button>
             </div>
           </div>
         </div>
