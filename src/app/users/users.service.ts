@@ -224,4 +224,11 @@ export class UsersService {
     return this.http.delete(url);
 
    }
+   EliminarPedido(data: number): Observable<any>{
+
+    const url =`http://localhost:5022/api/Pedido/deletePedidobyUser/${data}`
+
+    return this.http.delete(url);
+
+   }
 }

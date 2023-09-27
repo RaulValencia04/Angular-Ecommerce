@@ -119,15 +119,12 @@ export class AddProductosComponent implements OnInit {
       {
       return;
     }
-    if (this.fecha_inicio.toString() >= this.fecha_final.toString()) {
+    if ((this.fecha_inicio.toString() >= this.fecha_final.toString()) && this.tipo_producto.toString().includes("Subasta")) {
       alert('La fecha de fin de subasta tiene que ser mayor a la inicial.');
       return;
     }
-    if (this.tipo_producto.toString().includes("Venta")) {
-      this.precio_subasta = 0;
-    } else if (this.tipo_producto.toString().includes("Subasta")) {
-      this.precio = 0;
-    }
+
+   
     // Gyuardar imagen en el servidor 
     const formData = new FormData();
     formData.append('imagen', this.selectedFile);

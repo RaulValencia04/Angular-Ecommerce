@@ -1,9 +1,9 @@
 import { CookieService } from 'ngx-cookie-service';
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users/users.service';
+import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
-import * as jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+
 
 
 @Component({
@@ -16,11 +16,12 @@ export class CarritoComponent implements OnInit {
   productos: any[] = [];
   total: number = 0;
   cantidad: number= 0;
-  router: any;
+
 
   constructor(
     public userService: UsersService,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {

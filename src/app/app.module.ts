@@ -17,10 +17,11 @@ import { CarritoComponent } from './carrito/carrito.component';
 import { HistorialComponent } from './historial/historial.component';
 import { OfertarComponent } from './ofertar/ofertar.component';
 import { RouterModule } from '@angular/router';
-import { FacturaComponent } from './factura/factura.component';
+import { FooterComponent } from './footer/footer.component';
+import { FacturacionComponent } from './facturacion/facturacion.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, ProductosComponent, AddProductosComponent, DashboardComponent, ProductGridComponent, CarritoComponent, HistorialComponent, OfertarComponent, FacturaComponent],
+  declarations: [AppComponent, LoginComponent, RegisterComponent, HomeComponent, NavbarComponent, ProductosComponent, AddProductosComponent, DashboardComponent, ProductGridComponent, CarritoComponent, HistorialComponent, OfertarComponent, FooterComponent, FacturacionComponent],
   imports: [
     BrowserModule,
     FormsModule,

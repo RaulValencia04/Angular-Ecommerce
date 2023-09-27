@@ -3,21 +3,21 @@ import { UsersService } from "../users/users.service";
 import { Router } from "@angular/router";
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from "ngx-cookie-service";
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-factura',
-  templateUrl: './factura.component.html',
-  styleUrls: ['./factura.component.css']
+  selector: 'app-facturacion',
+  templateUrl: './facturacion.component.html',
+  styleUrls: ['./facturacion.component.css']
 })
-export class FacturaComponent implements OnInit {
-
+export class FacturacionComponent {
   factura:any[] = []
-  fechaGlobal: string = new Date().toLocaleDateString();
 
   constructor(public userService: UsersService, private router: Router, private http: HttpClient ,private cookieService: CookieService) {}
 
-
   ngOnInit(): void {
+
+
     const user = this.getIdUsuarioFromCookie();
 
     this.userService.factura(user).subscribe(
@@ -50,7 +50,39 @@ export class FacturaComponent implements OnInit {
 
     return 1; // Ejemplo: reemplaza esto con la lógica real
   }
+  deleteCompras(){
+    const user = this.getIdUsuarioFromCookie();
 
 
+
+    try {
+      this.userService.EliminarPedido(user).subscribe(
+        () => {
+          // const idUsuarioFromCookie = this.getIdUsuarioFromCookie();
+          // this.loadCarritoProductos(idUsuarioFromCookie);
+        },
+        (error) => {
+          console.error('Error al eliminar el carrito:', error);
+        }
+      );
+      this.router.navigateByUrl("/");
+
+    } catch (error) {
+       console.log("algo anda mal. "+error)
+
+    }
+
+
+
+
+  }
+  mostrarAlerta() {
+    Swal.fire({
+      title: 'Compra finalizada :3',
+      icon: 'success', // Puedes cambiar el ícono a tu gusto (success, error, warning, etc.)
+      timer: 1500, // Tiempo de visualización en milisegundos (2 segundos)
+      showConfirmButton: false // Oculta el botón de confirmación
+    });
+  }
 
 }

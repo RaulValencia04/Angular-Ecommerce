@@ -10,7 +10,7 @@ import { ProductGridComponent } from "./product-grid/product-grid.component";
 import { CarritoComponent } from "./carrito/carrito.component";
 import { HistorialComponent } from "./historial/historial.component";
 import { OfertarComponent } from "./ofertar/ofertar.component";
-import { FacturaComponent } from "./factura/factura.component";
+import { FacturacionComponent } from "./facturacion/facturacion.component";
 
 
 
@@ -26,7 +26,7 @@ import { FacturaComponent } from "./factura/factura.component";
   { path: "carrito", component: CarritoComponent},
   { path: "historial", component: HistorialComponent},
   { path: 'ofertar/:id', component: OfertarComponent},
-  { path: 'factura', component: FacturaComponent},
+  { path: 'factura', component: FacturacionComponent},
 
 ];
 
