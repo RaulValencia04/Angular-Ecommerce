@@ -113,6 +113,8 @@ export class CarritoComponent implements OnInit {
         console.error('Error inesperado al crear el pedido:', error);
     }
     finally{
+      // document.body.classList.remove('modal-open');
+      window.location.reload();
       this.router.navigateByUrl("/factura");
     }
 
@@ -177,17 +179,17 @@ eliminarProducto(id_carrito: number) {
       var precio = 0;
       if (producto.tipoProducto.toString().includes("Subasta")){
         const precioSubasta = producto.precioSubasta;
-          precio = precioSubasta;              
+          precio = precioSubasta;
       }else{
         precio = typeof producto.total === 'number' && !isNaN(producto.total) ? producto.total : 0;
       }
-    
+
 
 
 
       const precioTotalPorProducto = cantidad * precio;
 
-      
+
       total += precioTotalPorProducto;
     }
 
