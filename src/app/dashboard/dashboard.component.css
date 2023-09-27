@@ -1,5 +1,5 @@
 nav {
-  background-color: #E0F7FA;
+  background-color: #89b1b6;
 }
 
 footer {
@@ -9,11 +9,15 @@ footer {
 body {
   font-family: 'Montserrat';
   font-size: 18px;
+  background-color: #f4f3e6; /* Cambia el color de fondo del cuerpo */
+  margin: 0; /* Elimina el margen predeterminado del cuerpo */
+  padding: 0; /* Elimina el relleno predeterminado del cuerpo */
+  overflow-x: hidden; /* Oculta la barra de desplazamiento horizontal */
 }
 .btn-outline {
   padding: 10px 20px;
   text-decoration: none;
-  color:#1565C0;
+  color:#082130;
   transition: background-color 0.3s, color 0.3s;
   cursor: pointer;
 }
@@ -32,7 +36,7 @@ body {
 }
 
 .btn-registro:hover {
-  background-color: #1565C0;
+  background-color: #051a31;
   color: white;
 }
 
@@ -97,8 +101,8 @@ body {
 
 .pie-pagina{
   width: 100%;
-  margin-top: 10px;
-  background-color: #000000;
+  margin-top: 0;
+  background-color: #11364b;
 }
 .pie-pagina .grupo-1{
   width: 100%;
@@ -136,7 +140,7 @@ body {
   line-height: 45px;
   color: #fff;
   margin-right: 10px;
-  background-color: #061d29;
+  background-color: #186477;
   text-align: center;
   transition: all 300ms ease;
 }
@@ -144,7 +148,7 @@ body {
   color: aqua;
 }
 .pie-pagina .grupo-2{
-  background-color: #061d29;
+  background-color: #1e9add;
   padding: 12px 10px;
   text-align: center;
   color: #fff;
@@ -152,9 +156,9 @@ body {
 .pie-pagina .grupo-2 small{
   font-size: 15px;
 }
-@media screen and (max-width:800px){
+@media screen and (max-width:1000px){
   .pie-pagina .grupo-1{
-      width: 90%;
+      width: 100%;
       grid-template-columns: repeat(1, 1fr);
       grid-gap:30px;
       padding: 35px 0px;
@@ -190,5 +194,43 @@ font-size: 4.2rem;
 
 .card-text {
   font-size: 1rem; /* Tamaño de fuente del texto de la tarjeta */
+}
+
+.btn-orange {
+  background-color: #FFAB91; /* Color de fondo naranja */
+  color: #470b0b; /* Nuevo color de texto (naranja oscuro) */
+  border: none; /* Elimina el borde del botón */
+  padding: 10px 20px; /* Ajusta el relleno del botón según sea necesario */
+  transition: background-color 0.3s, color 0.3s; /* Agrega transición suave para el color de fondo y el texto */
+  cursor: pointer;
+}
+
+.btn-orange:hover {
+  background-color: #FFCC70; /* Color de fondo naranja más oscuro al pasar el mouse */
+  color: #470b0b; /* Nuevo color de texto (naranja oscuro) */
+}
+
+/* Define un estilo para hacer que los botones sean cuadrados */
+.btn-square {
+  width: 200px; /* Establece el ancho deseado */
+  height: 40px; /* Establece la altura deseada */
+  border-radius: 0; /* Elimina la esquina redondeada para hacerlo cuadrado */
+  text-align: center; /* Centra el texto horizontalmente en el botón */
+  line-height: 1.5; /* Ajusta el espaciado entre líneas para centrar verticalmente el texto */
+}
+
+.custom-background {
+  background-color: #d1dcdd; /* Cambia este color al que desees */
+  padding: 0px; /* Ajusta el relleno según sea necesario */
+}
+
+.tituloseccion {
+  font-weight: bold;
+  font-family: 'Playfair Display', serif;
+}
+
+.secciondescubre {
+  background-color: #E0F7FA; /* Cambia este color al que desees */
+  padding: 0px;
 }
 

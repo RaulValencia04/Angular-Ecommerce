@@ -1,6 +1,6 @@
 /* Estilos para la barra de navegación */
 .navbar {
-  background-color: #ffffff; /* Cambia el color de fondo */
+  background-color: #38137b; /* Cambia el color de fondo */
 }
 
 .navbar-brand {
@@ -18,3 +18,8 @@
 .navbar-nav .nav-item .nav-link:hover {
   color: #007bff; /* Cambia el color al pasar el ratón por encima */
 }
+.navbar-logo {
+  width: 100px; /* Establece el ancho deseado */
+  height: 100pxo; /* Mantiene la proporción original de la imagen */
+}
+
