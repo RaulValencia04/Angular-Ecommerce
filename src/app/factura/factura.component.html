@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factura</title>
+</head>
+<body>
+    <div>
+        <h1>Factura</h1>
+        <hr>
+        <div *ngFor="let item of factura">
+            <div>
+                <h2>Pedido #{{ item.pedido.id_pedido }}</h2>
+                <p>Fecha: {{ item.pedido.fecha_pedido | date:'dd/MM/yyyy' }}</p>
+                <p>Ubicación: {{ item.pedido.ubicacion }}</p>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{ item.detallesPedido.id_producto }}</td>
+                        <td>{{ item.detallesPedido.cantidad }}</td>
+                        <td>{{ item.pedido.total_pagar }}</td>
+                        <td>{{ item.detallesPedido.cantidad * item.pedido.total_pagar }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Total a pagar: {{ item.pedido.total_pagar }}</p>
+        </div>
+    </div>
+</body>
+</html>
+

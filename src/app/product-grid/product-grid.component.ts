@@ -18,7 +18,7 @@ export class ProductGridComponent implements OnInit {
   isVenta = true;
   categorias: any[] = [];
   id_categoria: number = 0;
-  
+
 
 
   constructor(public userService: UsersService, private cookieService: CookieService) {} // Inyecta el servicio de cookies
@@ -69,11 +69,11 @@ export class ProductGridComponent implements OnInit {
       showConfirmButton: false // Oculta el botón de confirmación
     });
   }
-  
+
 
   addCategory(newCategory1?: string, newCategory2?: number): void {
     if (newCategory1 !== undefined && newCategory1.trim() !== "" &&  newCategory2 !== undefined && newCategory2 > 0) {
-      
+
         this.categories.unshift(newCategory1);
         console.log("Los dos");
         console.log("Nueva categoría 1:", newCategory1);
@@ -94,19 +94,19 @@ export class ProductGridComponent implements OnInit {
         console.log("Nueva categoría 1:", newCategory2);
         this.buscarProducto(newCategory1, newCategory2);
     }
-  
 
-  
+
+
     //console.log("Categorías actualizadas:", this.categories);
   }
-  
+
 
   buscarProducto(query?: string, query2?: number): void {
 
 
 
     if (query !== undefined && query.trim() !== "" && query2 !== undefined && query2 > 0) {
-      
+
       console.log("No puede serrrrr2")
       this.userService.buscarProducto(query, query2).subscribe((response: any) => {
         console.log("noo",response);
@@ -117,9 +117,9 @@ export class ProductGridComponent implements OnInit {
         console.log("este",response);
         this.subasta = response;
       });
-     
-    
-  
+
+
+
     }else if (query !== undefined && query.trim() !== ""){
 
       console.log("No puede serrrrr2")
@@ -127,12 +127,12 @@ export class ProductGridComponent implements OnInit {
         console.log("noo",response);
         this.productos = response;
       });
-    
+
       this.userService.buscarSubasta(query, query2).subscribe((response: any) => {
         console.log("este",response);
         this.subasta = response;
       });
-  
+
     }else if (query2 !== undefined && query2 > 0){
 
       console.log("No puede serrrrr2")
@@ -145,9 +145,9 @@ export class ProductGridComponent implements OnInit {
         console.log("este",response);
         this.subasta = response;
       });
-     
-      
-      
+
+
+
     } else{
 
       console.log("No puede serrrrr2")
@@ -160,15 +160,15 @@ export class ProductGridComponent implements OnInit {
         console.log("este",response);
         this.subasta = response;
       });
-     
+
 
 
     }
 
 
-    
-      
-  
+
+
+
   }
   toggleVentaSubasta(): void {
     this.isVenta = !this.isVenta; // Cambiar entre Venta y Subasta

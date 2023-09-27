@@ -219,4 +219,12 @@ export class UsersService {
     const url =`http://localhost:5022/api/Producto/GetSBcerradasbyuser?id_usuario=${data}`
      return this.http.get(url);
    }
+   factura(data:any){
+
+    const url = `http://localhost:5022/api/Pedido/GetAllscc?idUsuario=${data}`;
+
+
+    return this.http.get(url)
+
+   }
 }
