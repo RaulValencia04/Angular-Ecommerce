@@ -17,13 +17,14 @@
                   <div class="card-body ">
                       <div class="row" *ngFor="let pr of productos" >
                           <div class="col-md-4">
-                            <img [src]="pr.imagen_url" alt="{{ pr.nombre }}" class="card-img-top" width="200" height="440" />
+                            <img [src]="pr.imagenUrl" alt="{{ pr.nombre }}" class="card-img-top" width="200" height="440" />
                           </div>
                           <div class="col-md-8">
                             <div class="d-flex">
                                 <h5 class="card-title mr-auto">{{ pr.nombre }}</h5>
+                                <!-- <h5 class="card-title mr-auto">{{ pr.idProducto }}</h5> -->
                                 <div class="text-right ml-auto" style="margin-left: 370px;" *ngIf="!subastaCerrada">
-                                    <p>Pujar mayor a: {{ pr.precio_subasta }}</p>
+                                    <p>Pujar mayor a: {{ pr.precioSubasta }}</p>
                                 </div>
                             </div>
                               <div class="alert alert-danger" role="alert">
@@ -32,7 +33,7 @@
                               <div class="row">
                                   <div class="col-6">
                                       <h2>Puja mas alta:</h2>
-                                      <h4>US $ {{ pr.precio_subasta }}</h4>
+                                      <h4>US $ {{ pr.precioSubasta }}</h4>
                                   </div>
                                   <div class="col-6">
                                       

@@ -59,37 +59,41 @@
   <div class="row mt-4">
     <!-- subastas -->
     <div class="row">
-      <div *ngFor="let pr of subasta" class="col-md-4 mb-4">
-        <div class="card h-100 rounded bg-light" style="max-width: 300px; position: relative;">
-          <img [src]="pr.imagen_url" alt="{{ pr.nombre }}" class="card-img-top" style="max-height: 200px; object-fit: cover;" />
+      <div class="row">
+        <ng-container *ngFor="let pr of subasta">
+          <div *ngIf="pr.tipoProducto === 'Subasta'" class="col-md-4 mb-4">
+            <div class="card h-100 rounded bg-light" style="max-width: 300px; position: relative;">
+              <img [src]="pr.imagenUrl" alt="{{ pr.nombre }}" class="card-img-top" style="max-height: 200px; object-fit: cover;" />
+              
+              <!-- Contenedor para el icono de reloj y el texto -->
+              <div style="position: absolute; top: 10px; right: 10px; background-color: rgba(255, 255, 255, 0.7); padding: 5px; margin-bottom: 35px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                  <path d="M7.5.5a.5.5 0 0 1 .5.5V7a.5.5 0 0 1-.293.456L7 7.707V3.5a.5.5 0 0 1 .5-.5zM8 0a8 8 0 1 0 8 8 8 8 0 0 0-8-8zm0 14A6 6 0 1 1 8 2a6 6 0 0 1 0 12z"/>
+                  <path d="M8.5 1a.5.5 0 0 0-.5.5V7a.5.5 0 0 0 .293.456L8.5 7.707V1.5a.5.5 0 0 0-.5-.5z"/>
+                </svg> <!-- Icono de reloj (Bootstrap Icons) -->
           
-          <!-- Contenedor para el icono de reloj y el texto -->
-          <div style="position: absolute; top: 10px; right: 10px; background-color: rgba(255, 255, 255, 0.7); padding: 5px; margin-bottom: 35px;">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
-              <path d="M7.5.5a.5.5 0 0 1 .5.5V7a.5.5 0 0 1-.293.456L7 7.707V3.5a.5.5 0 0 1 .5-.5zM8 0a8 8 0 1 0 8 8 8 8 0 0 0-8-8zm0 14A6 6 0 1 1 8 2a6 6 0 0 1 0 12z"/>
-              <path d="M8.5 1a.5.5 0 0 0-.5.5V7a.5.5 0 0 0 .293.456L8.5 7.707V1.5a.5.5 0 0 0-.5-.5z"/>
-            </svg> <!-- Icono de reloj (Bootstrap Icons) -->
-      
-            <span class="m-1">{{ pr.fecha_final | date:'yyyy-MM-dd' }}</span>
-
-          </div>
-          
-          <div class="card-body">
-            <h5 class="card-title font-weight-bold" style="font-size: 1.5rem; font-family: 'Arial', sans-serif;">{{ pr.nombre }}</h5>
-            <p class="card-text" style="font-size: 1rem;">Precio: ${{ pr.precio_subasta }}</p>
-            <p class="card-text" style="max-height: 100px; overflow: hidden; font-size: 0.875rem;">Descripción: {{ pr.descripcion }}</p>
-      
-            <div class="input-group mb-3">
-              <div class="input-group-append">
-                <a [routerLink]="['/ofertar', pr.id_producto]"  *ngIf="isLoggedIn()" class="btn btn-primary" >Ofertar</a>
+                <span class="m-1">{{ pr.fechaFinal | date:'yyyy-MM-dd' }}</span>
               </div>
-              <div class="input-group-append" *ngIf="!isLoggedIn()">
-                <a [routerLink]="['/login']"  class="btn btn-primary" >Ofertar</a>
+              
+              <div class="card-body">
+                <h5 class="card-title font-weight-bold" style="font-size: 1.5rem; font-family: 'Arial', sans-serif;">{{ pr.nombre }}</h5>
+                <p class="card-text" style="font-size: 1rem;">Precio: ${{ pr.precioSubasta }}</p>
+                <p class="card-text" style="max-height: 100px; overflow: hidden; font-size: 0.875rem;">Descripción: {{ pr.descripcion }}</p>
+          
+                <div class="input-group mb-3">
+                  <div class="input-group-append">
+                    <a [routerLink]="['/ofertar', pr.idProducto]"  *ngIf="isLoggedIn()" class="btn btn-primary" >Ofertar</a>
+                  </div>
+                  <div class="input-group-append" *ngIf="!isLoggedIn()">
+                    <a [routerLink]="['/login']"  class="btn btn-primary" >Ofertar</a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
+    </div>
       
       
       
@@ -97,15 +101,16 @@
     
     
 
-   <!-- ventasss -->
-   <div *ngFor="let pr of productos" class="col-md-4 mb-4">
+<!-- ventasss -->
+<ng-container *ngFor="let pr of productos">
+  <div *ngIf="pr.tipoProducto === 'Venta'" class="col-md-4 mb-4">
     <div class="card h-100">
-      <img [src]="pr.imagen_url" alt="{{ pr.nombre }}" class="card-img-top" style="max-height: 200px; object-fit: cover;" />
+      <img [src]="pr.imagenUrl" alt="{{ pr.nombre }}" class="card-img-top" style="max-height: 200px; object-fit: cover;" />
       <div class="card-body">
         <h5 class="card-title" style="font-size: 1.5rem; font-weight: bold; font-family: 'Arial', sans-serif;">{{ pr.nombre }}</h5>
         <p class="card-text" style="font-size: 1rem;">Precio: ${{ pr.precio }}</p>
         <p class="card-text" style="font-size: 0.875rem;">Descripción: {{ pr.descripcion }}</p>
-  
+
         <!-- Botón "Agregar al carrito" -->
         <div class="input-group mb-3">
           <input type="number" *ngIf="isLoggedIn()" class="form-control" [(ngModel)]="pr.cantidad" min="1" max="10">
@@ -123,6 +128,8 @@
       </div>
     </div>
   </div>
+</ng-container>
+
   
   </div>
 </div>

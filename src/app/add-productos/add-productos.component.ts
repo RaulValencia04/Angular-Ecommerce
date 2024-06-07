@@ -49,7 +49,7 @@ export class AddProductosComponent implements OnInit {
     if (userData) {
       const userObject = JSON.parse(userData);
       // console.log(userObject.id_usuario+ ''+ typeof userObject.id_usuario)
-      return userObject.id_usuario || "";
+      return userObject.idUsuario || "";
 
     }
 
@@ -61,15 +61,15 @@ export class AddProductosComponent implements OnInit {
 
   nombre: string = "";
   precio: number = 0.0;
-  precio_subasta: number = 0.0;
-  imagen_url: string = "";
+  precioSubasta: number = 0.0;
+  imagenUrl: string = "";
   descripcion: string = "";
-  id_categoria: number = 0;
+  idCategoria: number = 0;
   estado: number = 0;
-  fecha_inicio: Date = new Date();
-  fecha_final: Date = new Date();
-  tipo_producto: string = "";
-  id_usuario: number = 0;
+  fechaInicio: Date = new Date();
+  fechaFinal: Date = new Date();
+  tipoproducto: string = "";
+  idUsuario: number = 0;
 
 
 
@@ -106,20 +106,20 @@ export class AddProductosComponent implements OnInit {
     }
 
 
-    if ((this.tipo_producto.toString().includes("Venta") && this.precio <= 0)
-      || (this.tipo_producto.toString().includes("Subasta") && (this.precio_subasta <= 0)
+    if ((this.tipoproducto.toString().includes("Venta") && this.precio <= 0)
+      || (this.tipoproducto.toString().includes("Subasta") && (this.precioSubasta <= 0)
           )
       || (this.nombre.toString().length === 0
         || this.estado.toString().length === 0
-        || this.id_categoria.toString().length === 0
+        || this.idCategoria.toString().length === 0
         || this.descripcion.toString().length === 0
-        || this.tipo_producto.toString().length === 0
+        || this.tipoproducto.toString().length === 0
         )
         ) 
       {
       return;
     }
-    if ((this.fecha_inicio.toString() >= this.fecha_final.toString()) && this.tipo_producto.toString().includes("Subasta")) {
+    if ((this.fechaInicio.toString() >= this.fechaFinal.toString()) && this.tipoproducto.toString().includes("Subasta")) {
       alert('La fecha de fin de subasta tiene que ser mayor a la inicial.');
       return;
     }
@@ -134,22 +134,22 @@ export class AddProductosComponent implements OnInit {
         // Aquí puedes manejar la respuesta del servidor que debería contener la URL de la imagen cargada.
 
         // Almacena la URL de la imagen en imagen_url
-        this.imagen_url = respuesta.imageUrl;
+        this.imagenUrl = respuesta.imageUrl;
 
 
         // Resto del código para guardar el producto en la base de datos
         const user = {
           nombre: this.nombre,
           precio: this.precio,
-          precio_subasta: this.precio_subasta,
-          imagen_url: respuesta.imageUrl,
+          precioSubasta: this.precioSubasta,
+          imagenUrl: respuesta.imageUrl,
           descripcion: this.descripcion,
-          id_categoria: this.id_categoria,
+          idCategoria: this.idCategoria,
           estado: this.estado,
-          fecha_inicio: this.fecha_inicio,
-          fecha_final: this.fecha_final,
-          tipo_producto: this.tipo_producto,
-          id_usuario: idUsuarioFromCookie
+          fechaInicio: this.fechaInicio,
+          fechaFinal: this.fechaFinal,
+          tipoProducto: this.tipoproducto,
+          idUsuario: idUsuarioFromCookie
         };
 
 
@@ -189,3 +189,4 @@ export class AddProductosComponent implements OnInit {
 }
 
 
+// CODIGO CHIDO

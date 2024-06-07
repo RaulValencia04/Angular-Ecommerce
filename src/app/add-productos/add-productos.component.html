@@ -19,10 +19,10 @@
         <h1 class="text-center mb-4" style="color: #470b0b;">Añadir un nuevo producto</h1>
         <form (submit)="guardarProducto()" class="container">
           <div class="form-group">
-            <div *ngIf="formSubmitted && !tipo_producto" class="error-message text-danger">Tipo de producto es requerido
+            <div *ngIf="formSubmitted && !tipoproducto" class="error-message text-danger">Tipo de producto es requerido
             </div>
             <label for="tipoProducto">Tipo de Producto:</label>
-            <select id="tipoProducto" name="tipoProducto" [(ngModel)]="tipo_producto" required class="form-control">
+            <select id="tipoProducto" name="tipoProducto" [(ngModel)]="tipoproducto" required class="form-control">
               <option value="Venta">Venta</option>
               <option value="Subasta">Subasta</option>
             </select>
@@ -35,26 +35,26 @@
               class="form-control">
           </div>
 
-          <div class="form-group " *ngIf="(tipo_producto === 'Venta')">
+          <div class="form-group " *ngIf="(tipoproducto === 'Venta')">
             <div *ngIf="formSubmitted && !precio" class="error-message text-danger">EL precio es requerido</div>
             <label for="precio">Precio:</label>
             <input type="number" id="precio" name="precio" [(ngModel)]="precio" required class="form-control">
           </div>
 
-          <div class="form-group " *ngIf="(tipo_producto === 'Subasta')">
+          <div class="form-group " *ngIf="(tipoproducto === 'Subasta')">
 
-            <div *ngIf="formSubmitted && !precio_subasta" class="error-message text-danger">EL precio de subasta es
+            <div *ngIf="formSubmitted && !precioSubasta" class="error-message text-danger">EL precio de subasta es
               requerido</div>
             <label for="precioSubasta">Precio en Subasta:</label>
-            <input type="number" id="precioSubasta" name="precioSubasta" [(ngModel)]="precio_subasta"
+            <input type="number" id="precioSubasta" name="precioSubasta" [(ngModel)]="precioSubasta"
               class="form-control">
           </div>
           <br>
           <div class="form-group">
-            <div *ngIf="formSubmitted && !imagen_url" class="error-message text-danger">Por favor seleccione una imagen
+            <div *ngIf="formSubmitted && !imagenUrl" class="error-message text-danger">Por favor seleccione una imagen
             </div>
             <label for="imagenUrl">URL de la Imagen:</label>
-            <input type="file" id="imagenUrl" name="imagenUrl" [(ngModel)]="imagen_url"
+            <input type="file" id="imagenUrl" name="imagenUrl" [(ngModel)]="imagenUrl"
               (change)="onFileSelected($event)" accept="image/*" required class="form-control-file">
           </div>
           <br>
@@ -70,10 +70,10 @@
 
           <div class="form-group">
 
-            <div *ngIf="formSubmitted && !id_categoria" class="error-message text-danger">Por favor seleccione una
+            <div *ngIf="formSubmitted && !idCategoria" class="error-message text-danger">Por favor seleccione una
               categoria</div>
             <label for="categoria">Selecciona una categoría:</label>
-            <select id="categoria" name="categoria" [(ngModel)]="id_categoria" class="form-control">
+            <select id="categoria" name="categoria" [(ngModel)]="idCategoria" class="form-control">
               <option *ngFor="let cat of categorias" [value]="cat.id_categoria">{{ cat.descripcion }}</option>
             </select>
           </div>
@@ -87,19 +87,19 @@
             </select>
           </div>
 
-          <div class="form-group" *ngIf="(tipo_producto === 'Subasta')">
-            <div *ngIf="formSubmitted && !fecha_inicio" class="error-message text-danger">La fecha de inicio es
+          <div class="form-group" *ngIf="(tipoproducto === 'Subasta')">
+            <div *ngIf="formSubmitted && !fechaInicio" class="error-message text-danger">La fecha de inicio es
               requerida</div>
             <label for="fechaInicio">Fecha de Inicio:</label>
-            <input type="datetime-local" id="fechaInicio" name="fechaInicio" [(ngModel)]="fecha_inicio" required
+            <input type="datetime-local" id="fechaInicio" name="fechaInicio" [(ngModel)]="fechaInicio" required
               class="form-control">
           </div>
 
-          <div class="form-group" *ngIf="(tipo_producto === 'Subasta')">
-            <div *ngIf="formSubmitted && !fecha_final" class="error-message text-danger">La fecha de inicio de
+          <div class="form-group" *ngIf="(tipoproducto === 'Subasta')">
+            <div *ngIf="formSubmitted && !fechaFinal" class="error-message text-danger">La fecha de inicio de
               finalización</div>
             <label for="fechaFinal">Fecha Final:</label>
-            <input type="datetime-local" id="fechaFinal" name="fechaFinal" [(ngModel)]="fecha_final" required
+            <input type="datetime-local" id="fechaFinal" name="fechaFinal" [(ngModel)]="fechaFinal" required
               class="form-control">
           </div>
           <br>
@@ -121,3 +121,5 @@
 </body>
 
 </html>
+
+<!-- //CODIGO CHIDO -->

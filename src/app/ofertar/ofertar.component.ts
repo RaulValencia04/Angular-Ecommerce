@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../users/users.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import Swal from 'sweetalert2';
 
@@ -19,7 +18,6 @@ export class OfertarComponent implements OnInit {
   estado2: any = 1;
   subastasCerradas: { [idProducto: number]: boolean } = {};
 
-
   constructor(
     public userService: UsersService,
     private router: Router,
@@ -29,113 +27,103 @@ export class OfertarComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-
     this.route.params.subscribe((params) => {
       const query = params['id'];
       const numeroEntero = parseInt(query, 10);
+      console.log(numeroEntero);
 
-      if (typeof numeroEntero === 'number') {
+      if (!isNaN(numeroEntero)) {
         this.idProducto = numeroEntero;
-        this.userService.BuscarPorId(this.idProducto).subscribe(
-          (response: any) => {
-            this.productos = response;
-          }
-        );
+        this.cargarProducto(this.idProducto);
+      } else {
+        console.error('El parámetro id no es un número válido');
       }
     });
 
-    this.userService.obtenerEstadoSubasta(this.idProducto).subscribe(
-      (response: any) => {
-        this.estado2 = response[0].estado ;
-       console.log(this.estado2);
-
-
-
-        // Almacenar el estado de cierre para esta subasta
-        this.subastasCerradas[this.idProducto] = response[0].estado == 1;
-      },
-      (error) => {
-        console.error('Error al obtener el estado de la subasta:', error);
-      }
-    );
-
     setInterval(() => {
-      if (this.estado2 == 0) {
-        this.calcularTiempoRestante(this.productos);
+      if (this.estado2 === 0) {
+        this.calcularTiempoRestante(this.productos[0]);
       }
     }, 1000);
   }
-  OFERTAR(producto: any) {
 
+  cargarProducto(id: number) {
+    this.userService.BuscarPorId(id).subscribe(
+      (response: any) => {
+        if (response) {
+          this.productos = [response];
+          this.estado2 = response.estado || 0;
+          this.subastasCerradas[id] = response.estado === 1;
+        }
+      },
+      (error) => {
+        console.error('Error al buscar por ID:', error);
+      }
+    );
+  }
+
+  OFERTAR(producto: any) {
     const idUsuarioCookie = this.getIdUsuarioFromCookie();
 
-    // Verificar si el id_usuario de la cookie es igual al id_usuario del producto
-    if (!this.subastaCerrada && this.estado2 == 0 && idUsuarioCookie !== producto.id_usuario) {
-
-
+    if (!this.subastaCerrada && this.estado2 == 0 && idUsuarioCookie !== producto.idUsuario) {
       const precioOfertado = producto.newprecios;
-      const precioSubasta = producto.precio_subasta;
+      const precioSubasta = producto.precioSubasta;
 
       if (precioOfertado > precioSubasta) {
-        const idProducto = producto.id_producto;
+        const idProducto = producto.idProducto;
         const idUsuario = this.getIdUsuarioFromCookie();
 
-        this.userService
-          .realizarPuja(idProducto, precioOfertado, idUsuario)
-          .subscribe(
-            (response: any) => {
-              // Realizar acciones adicionales si es necesario
-              window.location.reload();
-            },
-            (error) => {
-              console.error('Error al realizar la puja:', error);
-            }
-          );
-
+        this.userService.realizarPuja(idProducto, precioOfertado, idUsuario).subscribe(
+          (response: any) => {
+             window.location.reload();
+          },
+          (error) => {
+            console.error('Error al realizar la puja:', error);
+          }
+        );
       } else {
+        this.mostrarAlerta2();
         console.error('La oferta debe ser mayor al precio de subasta.');
+        
       }
     } else {
       console.error('No puedes pujar en esta subasta.');
-      this. mostrarAlerta();
+      this.mostrarAlerta();
     }
-
   }
 
   mostrarAlerta() {
     Swal.fire({
       title: 'No puedes ofertar en tus subastas',
-      icon: 'error', // Puedes cambiar el ícono a tu gusto (success, error, warning, etc.)
-      timer: 2500, // Tiempo de visualización en milisegundos (2 segundos)
-      showConfirmButton: false // Oculta el botón de confirmación
+      icon: 'error',
+      timer: 2500,
+      showConfirmButton: false
+    });
+  }
+  mostrarAlerta2() {
+    Swal.fire({
+      title: 'La oferta debe ser mayor al precio de subasta.',
+      icon: 'error',
+      timer: 2500,
+      showConfirmButton: false
     });
   }
 
-  detenerContador(producto: any) {
-    this.subastaCerrada = true;
-    producto.tiempoRestante = 'Subasta Cerrada';
-  }
-
   calcularTiempoRestante(producto: any) {
-    const fechaFinalSubasta = new Date(producto.fecha_final);
+    const fechaFinalSubasta = new Date(producto.fechaFinal);
     const fechaActual = new Date();
     const diferencia = fechaFinalSubasta.getTime() - fechaActual.getTime();
     const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
-    const horas = Math.floor(
-      (diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    //console.log( (diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
     const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
     const tp = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
-    // console.log(tp);
 
-    if (diferencia <= 0 ) {
+    if (diferencia <= 0) {
       this.onTiempoRestanteCero(producto);
       this.operacionRealizada = true;
       this.subastaCerrada = true;
       producto.tiempoRestante = 'Subasta Cerrada';
-       // Marca la operación como realizada
     }
 
     return tp;
@@ -147,17 +135,15 @@ export class OfertarComponent implements OnInit {
       const userObject = JSON.parse(userData);
       return userObject.direccion || '';
     }
-
     return '';
   }
 
   onTiempoRestanteCero(producto: any) {
-    if (!this.subastasCerradas[producto.id_producto] && this.estado2 == 0) {
-        console.log(this.estado2);
+    if (!this.subastasCerradas[producto.idProducto] && this.estado2 == 0) {
+      console.log(this.estado2);
       const idUsuario = this.getIdUsuarioFromCookie();
       const dir = this.getdir();
 
-      // Marca la subasta como cerrada en el almacenamiento local
       localStorage.setItem('subastaCerrada', 'true');
 
       const pedido = {
@@ -168,43 +154,16 @@ export class OfertarComponent implements OnInit {
         ubicacion: dir,
       };
 
-       this.userService.ActualizarEstadoSubasta(producto.id_producto);
+      this.userService.actualizarEstadoSubasta(producto.idProducto).subscribe(
+        (response: any) => {
+          console.log('Estado de la subasta actualizado:', response);
+        },
+        (error) => {
+          console.error('Error al actualizar el estado de la subasta:', error);
+        }
+      );
 
-      // this.userService.CrearPedido(pedido).subscribe(
-      //   (response: any) => {
-      //     const idPedido = response.id_pedido;
-      //     const detallesPedido = [
-      //       {
-      //         id_producto: producto.id_producto,
-      //         id_pedido: idPedido,
-      //         cantidad: 1,
-      //       },
-      //     ];
-
-
-      //     // this.userService.AgregarDetalle(detallesPedido).subscribe(
-      //     //   (detalleResponse: any) => {
-
-      //     //       //aqui cambia el estado del productogit dd
-
-      //     //       this.detenerContador(producto);
-      //     //       console.log(detallesPedido);
-
-      //     //   },
-      //     //   (detalleError: any) => {
-      //     //     console.error(
-      //     //       'Error al agregar el detalle de pedido:',
-      //     //       detalleError
-      //     //     );
-      //     //   }
-      //     // );
-      //   },
-      //   (error) => {
-      //     console.error('Error al crear el pedido:', error);
-      //   }
-      // );
-
-      this.subastasCerradas[producto.id_producto] = true;
+      this.subastasCerradas[producto.idProducto] = true;
     }
   }
 
@@ -212,9 +171,8 @@ export class OfertarComponent implements OnInit {
     const userData = this.cookieService.get('user');
     if (userData) {
       const userObject = JSON.parse(userData);
-      return userObject.id_usuario || '';
+      return userObject.idUsuario || 1;
     }
-
     return 1;
   }
 }

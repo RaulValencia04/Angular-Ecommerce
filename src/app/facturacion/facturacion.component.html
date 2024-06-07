@@ -1,71 +1,60 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Factura</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <style>
-    @media print {
-        button.print-button {
-            display: none;
+    <style>
+        @media print {
+            button.print-button {
+                display: none;
+            }
         }
-    }
-</style>
+    </style>
     <div class="container mt-5">
-       <div class="row">
-        <div class="col-3"></div>
-        <div class="col-8">
-          <h1 class="text-center">Factura</h1>
-          <hr>
-
-
-          <button  class="btn btn-primary print-button" (click)="imprimirFactura()">Imprimir Factura</button>
-          <button  class="btn btn-success print-button m-5" (click)="deleteCompras()">Finalizar Compra</button>
-
-          <div class="mt-4" *ngFor="let item of factura">
-              <div class="mb-3">
-                  <h4>Pedido #{{ item.pedido.id_pedido }}</h4>
-                  <p>Fecha: {{ item.pedido.fecha_pedido }}</p>
-                  <p>Ubicación: {{ item.pedido.ubicacion }}</p>
-              </div>
-              <table class="table">
-                  <thead>
-                      <tr>
-                          <th>Producto Id</th>
-                          <th>Producto</th>
-
-                          <th>Cantidad</th>
-                          <th>Precio Unitario</th>
-                          <th>Total</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td>{{ item.detallesPedido.id_producto }}</td>
-                          <td>{{ item.producto.nombre }}</td>
-
-                          <td>{{ item.detallesPedido.cantidad }}</td>
-                          <td>{{ item.pedido.total_pagar }}</td>
-                          <td>{{ item.detallesPedido.cantidad * item.pedido.total_pagar }}</td>
-                      </tr>
-                  </tbody>
-              </table>
-
-              <p class="font-weight-bold">Total a pagar: {{ item.pedido.total_pagar }}</p>
-          </div>
-          <br>
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-8">
+                <h1 class="text-center">Factura</h1>
+                <hr>
+                <button class="btn btn-primary print-button" (click)="imprimirFactura()">Imprimir Factura</button>
+                <button class="btn btn-success print-button m-5" (click)="deleteCompras()">Finalizar Compra</button>
+                <div class="mt-4" *ngFor="let item of factura">
+                    <div class="mb-3">
+                        <h4>Pedido #{{ item.pedido.idPedido }}</h4>
+                        <p>Fecha: {{ item.pedido.fechaPedido }}</p>
+                        <p>Ubicación: {{ item.pedido.ubicacion }}</p>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Producto Id</th>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let detalle of item.detallesPedido">
+                                <td>{{ detalle.producto.idProducto }}</td>
+                                <td>{{ detalle.producto.nombre }}</td>
+                                <td>{{ detalle.cantidad }}</td>
+                                <td>{{ detalle.producto.precio }}</td>
+                                <td>{{ detalle.cantidad * detalle.producto.precio }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="font-weight-bold">Total a pagar: {{ item.pedido.totalPagar }}</p>
+                </div>
+                <br>
+            </div>
         </div>
-       </div>
     </div>
     <div class="col-2"></div>
-
-
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>

@@ -64,7 +64,7 @@ export class HistorialComponent implements OnInit{
     );
 
 
-    this.userService.ObtenerGanador(user).subscribe(
+    this.userService.obtenerGanador(user).subscribe(
       (data: any) => {
         // Assuming data.token exists in the response
         if (data) {
@@ -86,7 +86,7 @@ export class HistorialComponent implements OnInit{
     if (userData) {
       const userObject = JSON.parse(userData);
       // console.log(userObject.id_usuario+ ''+ typeof userObject.id_usuario)
-      return userObject.id_usuario || '';
+      return userObject.idUsuario || '';
     }
 
     return 1; // Ejemplo: reemplaza esto con la lógica real
@@ -128,53 +128,35 @@ export class HistorialComponent implements OnInit{
     
   }
 
-
-  
   agregarAlCarrito(producto: any) {
-    // Obtener el id_producto desde el botón
-
-
-
-
-
-    const id_producto = producto.id_producto;
-
-    // Obtener el id_usuario desde la cookie "user"
-    const userData = this.cookieService.get("user");
-
-    // if (!userData || userData.trim() === '') {
-    //   // Muestra el modal de inicio de sesión
-    //   this.showModal = true;
-    //   return; // No permite agregar al carrito si el usuario no ha iniciado sesión
-    // }
-
+    const idProducto = producto.idProducto;
+    const userData = this.cookieService.get('user');
+  
     const userObject = JSON.parse(userData);
-    const id_usuario = userObject.id_usuario;
-
-    // Definir la cantidad (puedes ajustarla según tus necesidades)
-    const cantidad = producto.cantidad || 1; // Por defecto, 1 si no se especifica cantidad
-
+    const idUsuario = userObject.idUsuario;
+  
+    const cantidad = producto.cantidad || 1;
+  
     const data = {
-      id_usuario: id_usuario,
-      id_producto: id_producto,
-      Cantidad: cantidad
+      usuario: {
+        idUsuario: idUsuario
+      },
+      producto: {
+        idProducto: idProducto
+      },
+      cantidad: cantidad,
+      fechaAgregado: new Date().toISOString() // Agrega la fecha actual
     };
-
-  //  this.userService.ActualizarEstadoSubasta(producto.idProducto);
-
+  
     this.userService.AgregarCarrito(data).subscribe(
       (response: any) => {
-   this.userService.ActualizarUsuario(producto.id_producto);
-       // La solicitud se ha completado con éxito
-
+        this.mostrarAlerta();
         console.log(`Producto "${producto.nombre}" agregado al carrito.`);
-        window.location.reload();
       },
       (error) => {
-        // Ha ocurrido un error durante la solicitud
         console.error('Error al agregar el producto al carrito:', error);
       }
     );
-   
   }
+
 }

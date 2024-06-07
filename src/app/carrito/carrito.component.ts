@@ -85,72 +85,67 @@ export class CarritoComponent implements OnInit {
       // Remove the backdrop
       modalBackdropElement.parentElement?.removeChild(modalBackdropElement);
     }
+  
     // Crear un objeto de pedido con los datos necesarios
     const pedido = {
-        total_pagar: this.total,
-        fecha_pedido: new Date().toISOString(),
-        id_estado_pedido: 1,
-        id_usuario: idUsuarioFromCookie,
-        ubicacion: dir,
+      totalPagar: this.total,
+      fechaPedido: new Date().toISOString(),
+      estadoPedido: {
+        idEstadoPedido: 1
+      },
+      usuario: { idUsuario: idUsuarioFromCookie },
+      ubicacion: dir,
     };
-
+  
     // Enviar la solicitud POST al endpoint de creación de pedido
     try {
-        this.userService.CrearPedido(pedido).subscribe(
-            (response: any) => {
-                console.log('Pedido creado con éxito:', response);
-
-                const idPedido = response.id_pedido;
-
-                // Crear un arreglo para almacenar los detalles de pedido
-                const detallesPedido = [];
-
-                // Recorrer los productos en el carrito y crear objetos de detalle de pedido
-                for (const producto of this.productos) {
-                    const detallePedido = {
-                        id_producto: producto.idProducto,
-                        id_pedido: idPedido, // Usar el id_pedido obtenido
-                        cantidad: producto.cantidad,
-                    };
-                    detallesPedido.push(detallePedido);
-                }
-                console.log(detallesPedido);
-
-
-
-
-                this.agregarDetalle(detallesPedido);
+      this.userService.CrearPedido(pedido).subscribe(
+        (response: any) => {
+          console.log('Pedido creado con éxito:', response);
+  
+          const idPedido = response.idPedido;
+  
+          // Crear un arreglo para almacenar los detalles de pedido
+          const detallesPedido = [];
+  
+          // Recorrer los productos en el carrito y crear objetos de detalle de pedido
+          for (const producto of this.productos) {
+            const detallePedido = {
+              producto: { idProducto: producto.idProducto },
+              pedido: { idPedido: idPedido }, // Usar el id_pedido obtenido
+              cantidad: producto.cantidad,
+            };
+            detallesPedido.push(detallePedido);
+          }
+          console.log(detallesPedido);
+  
+          // Enviar los detalles del pedido
+          this.userService.AgregarDetalle(detallesPedido).subscribe(
+            (response) => {
+              console.log('Detalles del pedido agregados con éxito:', response);
+              this.router.navigateByUrl("/factura");
             },
             (error) => {
-                console.error('Error al crear el pedido:', error);
+              console.error('Error al agregar los detalles del pedido:', error);
             }
-        );
+          );
+        },
+        (error) => {
+          console.error('Error al crear el pedido:', error);
+        }
+      );
     } catch (error) {
-        console.error('Error inesperado al crear el pedido:', error);
-    }finally{
-
+      console.error('Error inesperado al crear el pedido:', error);
+    } finally {
       const modalElement = this.el.nativeElement.querySelector('#myModal');
       this.renderer.removeClass(modalElement, 'show');
       this.renderer.setStyle(modalElement, 'display', 'none');
-
+      this.LimpiarCarrito();
       // Eliminar la clase 'modal-open' del elemento 'body'
       document.body.classList.remove('modal-open');
-
     }
-
-
-
-
-
-    this.LimpiarCarrito();
-
-
-     this.router.navigateByUrl("/factura");
-
-   // this.imprimirFactura();
-
-
-}
+  }
+  
 
 
 
@@ -170,7 +165,7 @@ getIdUsuarioFromCookie(): number {
   if (userData) {
     const userObject = JSON.parse(userData);
     // console.log(userObject.id_usuario+ ''+ typeof userObject.id_usuario)
-    return userObject.id_usuario || '';
+    return userObject.idUsuario || '';
   }
 
   return 1; // Ejemplo: reemplaza esto con la lógica real

@@ -35,13 +35,17 @@ export class LoginComponent {
 
     this.userService.login(user).subscribe(
       (data: any) => {
+        console.log(data+"hola");
+
         if (data) {
           this.cookieService.set("user", JSON.stringify(data));
           this.router.navigateByUrl("/");
         }
       },
       (error) => {
+        
         console.log("Error en la autenticación:", error);
+        console.log(user);
 
         if (error.status === 404) {
           this.showAlert('Usuario no encontrado en la base de datos.');

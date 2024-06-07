@@ -1,9 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { UsersService } from "../users/users.service";
-import { Router } from "@angular/router";
-import { HttpClient } from "@angular/common/http";
-import { CookieService } from "ngx-cookie-service";
-import Swal from "sweetalert2";
+import { Component, OnInit } from '@angular/core';
+import { UsersService } from '../users/users.service';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-facturacion',
@@ -13,6 +13,7 @@ import Swal from "sweetalert2";
 export class FacturacionComponent implements OnInit {
   factura: any[] = [];
   vali: boolean = true;
+  facturaCargada: boolean = false; // Variable de control para evitar recargas múltiples
 
   constructor(
     public userService: UsersService,
@@ -22,30 +23,23 @@ export class FacturacionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Verificar si se debe realizar la recarga
-    // if (this.vali) {
-    //   // Establecer vali a falso para evitar futuras recargas
-    //   this.vali = false;
+    if (!this.facturaCargada) { // Verifica si la factura ya fue cargada
+      const user = this.getIdUsuarioFromCookie();
 
-    //   // Recargar la página actual
-    //   window.location.reload();
-    // }
-
-    const user = this.getIdUsuarioFromCookie();
-
-    this.userService.factura(user).subscribe(
-      (data: any) => {
-        // Assuming data.token exists in the response
-        if (data) {
-          this.factura = data;
-        } else {
-          console.log("si llega aquí inserto datos");
+      this.userService.factura(user).subscribe(
+        (data: any) => {
+          if (data) {
+            this.factura = data;
+            this.facturaCargada = true; // Marca la factura como cargada
+          } else {
+            console.log("si llega aquí inserto datos");
+          }
+        },
+        (error) => {
+          console.log(error);
         }
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+      );
+    }
   }
 
   imprimirFactura() {
@@ -56,10 +50,9 @@ export class FacturacionComponent implements OnInit {
     const userData = this.cookieService.get("user");
     if (userData) {
       const userObject = JSON.parse(userData);
-      return userObject.id_usuario || 1;
+      return userObject.idUsuario || 1;
     }
-
-    return 1; // Ejemplo: reemplaza esto con la lógica real
+    return 1;
   }
 
   deleteCompras() {
@@ -68,14 +61,12 @@ export class FacturacionComponent implements OnInit {
     try {
       this.userService.EliminarPedido(user).subscribe(
         () => {
-          // const idUsuarioFromCookie = this.getIdUsuarioFromCookie();
-          // this.loadCarritoProductos(idUsuarioFromCookie);
+          this.router.navigateByUrl("/");
         },
         (error) => {
           console.error("Error al eliminar el carrito:", error);
         }
       );
-      this.router.navigateByUrl("/");
     } catch (error) {
       console.log("Algo anda mal. " + error);
     }

@@ -42,17 +42,17 @@
                   <tr *ngFor="let cat of SBabiertas">
                     <td>
                       <img
-                        [src]="cat.imagen_url"
+                        [src]="cat.imagenUrl"
                         alt="Imagen de Categoría"
                         width="70"
                       />
                     </td>
                     <td>{{ cat.nombre }}</td>
 
-                    <td>{{ cat.precio_subasta }}</td>
+                    <td>{{ cat.precioSubasta }}</td>
 
                     <td>
-                      <button class="btn btn-rojo btn-squarecancel" (click)="eliminarProducto(cat.id_producto)">Cancelar</button>
+                      <button class="btn btn-rojo btn-squarecancel" (click)="eliminarProducto(cat.idProducto)">Cancelar</button>
                     </td> 
                   </tr>
                   <!-- Puedes agregar más filas de datos aquí -->
@@ -91,17 +91,17 @@
                   <tr *ngFor="let cat of SBcerradas">
                     <td>
                       <img
-                        [src]="cat.imagen_url"
+                        [src]="cat.imagenUrl"
                         alt="Imagen de Categoría"
                         width="70"
                       />
                     </td>
                     <td>{{ cat.nombre }}</td>
 
-                    <td>{{ cat.precio_subasta }}</td>
+                    <td>${{ cat.precioSubasta }}</td>
 
                     <td>
-                      <button class="btn btn-rojo btn-squarecancel" (click)="eliminarProducto(cat.id_producto)">Eliminar</button>
+                      <button class="btn btn-rojo btn-squarecancel" (click)="eliminarProducto(cat.idProducto)">Eliminar</button>
                     </td>
                   </tr>
                   <!-- Puedes agregar más filas de datos aquí -->
@@ -139,14 +139,14 @@
                   <tr *ngFor="let cat of SBcerradasG">
                     <td>
                       <img
-                        [src]="cat.imagen_url"
+                        [src]="cat.imagenUrl"
                         alt="Imagen de Categoría"
                         width="70"
                       />
                     </td>
                     <td>{{ cat.nombre }}</td>
 
-                    <td>{{ cat.precio_subasta }}</td>
+                    <td>${{ cat.precioSubasta }}</td>
                     <td>
                       <div class="input-group-append">
                         <button class="btn btn-orange btn-square"  (click)="mostrarAlertaSucces()" (click)="agregarAlCarrito(cat)"  [attr.data-producto-id]="cat.id_producto">Agregar al carrito</button>
